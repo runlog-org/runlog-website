@@ -1,5 +1,7 @@
 # Runlog Website — Public-Facing Static Site
 
+> Part of the **[Runlog](https://github.com/runlog-org)** project — see the [project home](https://github.com/runlog-org) for the overview.
+
 **Repo:** [`runlog-org/runlog-website`](https://github.com/runlog-org/runlog-website) — public, MIT
 **Content:** Static HTML, CSS, and vanilla JS
 **Deploy target:** Cloudflare Pages serving `runlog.org` and `runlog.org/register`

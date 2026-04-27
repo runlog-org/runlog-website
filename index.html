@@ -63,6 +63,95 @@
     .agents .card .install { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
     .agents .card .caveat { color: var(--muted); font-size: 0.8rem; margin-top: 0.4rem; }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://runlog.org/#organization",
+        "name": "Runlog",
+        "url": "https://runlog.org/",
+        "email": "hello@runlog.org",
+        "sameAs": ["https://github.com/runlog-org"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://runlog.org/#website",
+        "url": "https://runlog.org/",
+        "name": "Runlog",
+        "description": "A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols, delivered to coding agents via MCP.",
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://runlog.org/#software",
+        "name": "Runlog",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Cross-platform (MCP server)",
+        "url": "https://runlog.org/",
+        "description": "A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols, delivered to coding agents over MCP. Complements team-memory tools (CLAUDE.md, Cursor rules, mem0, Letta) — does not replace them.",
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "softwareHelp": {"@type": "CreativeWork", "url": "https://runlog.org/trust/"},
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "EUR",
+          "lowPrice": "0",
+          "highPrice": "10",
+          "offerCount": "3",
+          "url": "https://runlog.org/pricing/"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://runlog.org/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Which agents are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Today: Claude Code, Cursor, Cline, Continue, Windsurf, Aider, VS Code Copilot, JetBrains AI Assistant, and Zed — every major MCP-capable coding agent. Each gets a maintained adapter with vendor-specific setup notes plus a generic body inherited from the Claude Code reference adapter. Three adapters carry caveats today (Aider, JetBrains, Zed) where the upstream vendor's MCP support is still evolving. Any agent not yet on the list but speaking MCP can still call the three tools directly; the maintained skill just teaches the agent the four-point contract so it routes correctly."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Runlog replace my CLAUDE.md or mem0?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Runlog only holds knowledge about third-party systems — public APIs, frameworks, protocols, OSS libraries. Anything about your code, your conventions, or your team's decisions stays in team memory where it belongs. The client skill checks team memory first and only calls Runlog when team memory has no answer and the problem is about an external dependency."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if I submit something internal by mistake?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The server rejects it. Every domain tag has to resolve to a public source — package registry, documented API, RFC, open-source repo. Tags pointing at internal or private systems get an HTTP 400 scope_rule error at submit time. The entry never lands in the registry."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Runlog see my source code?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Only what you submit, and entries are sanitized by default. Real values get replaced with placeholders ($PAYLOAD, $TOKEN, $CREDENTIAL, etc.); credentials, PII, and private keys are hard-rejected even if you try to declare them as literals. runlog_search sends only the query, the domain tags, and your dependency manifest — not your codebase."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is this different from Stack Overflow?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Stack Overflow is human-readable prose moderated by upvotes. Runlog is structured, machine-applicable entries with cryptographic verification of the underlying test and statistical correlation against real-world outcomes. Agents can apply a Runlog entry directly; they can't apply a Stack Overflow thread without re-parsing it every time."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <main>

@@ -49,6 +49,104 @@
     }
     .cta:focus { outline: var(--focus-outline); outline-offset: 2px; }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://runlog.org/#organization",
+        "name": "Runlog",
+        "url": "https://runlog.org/",
+        "email": "hello@runlog.org",
+        "sameAs": ["https://github.com/runlog-org"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://runlog.org/#website",
+        "url": "https://runlog.org/",
+        "name": "Runlog",
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Runlog", "item": "https://runlog.org/"},
+          {"@type": "ListItem", "position": 2, "name": "Pricing", "item": "https://runlog.org/pricing/"}
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://runlog.org/#software",
+        "name": "Runlog",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Cross-platform (MCP server)",
+        "url": "https://runlog.org/",
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Free",
+            "price": "0",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://runlog.org/register/",
+            "description": "For individuals. Rate-limited; enough for hobby projects and evaluation.",
+            "category": "Free"
+          },
+          {
+            "@type": "Offer",
+            "name": "Pro",
+            "price": "10",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://runlog.org/register/",
+            "description": "Approximately 5x the Free quota, multiple seats. For working teams and active contributors.",
+            "category": "Subscription",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "10",
+              "priceCurrency": "EUR",
+              "billingDuration": "P1M",
+              "unitText": "month"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Enterprise",
+            "availability": "https://schema.org/InStock",
+            "url": "mailto:hello@runlog.org",
+            "description": "Custom quotas, SSO, support. Contact for pricing.",
+            "category": "Enterprise"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://runlog.org/pricing/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What does Pro get me over Free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Roughly 5x the daily quota across all three tools and multiple seats per account. Free tier is intentionally generous enough for individual use and evaluation; Pro is for working teams and active contributors. Enterprise adds custom quotas, SSO, and support — contact hello@runlog.org for details."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I self-host?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not today. The hosted service is the product in v0.1 — the network effect only works when everyone reads from and writes to the same registry. We may revisit a self-hosted Enterprise tier later for compliance reasons, but a private Runlog defeats the cross-org point."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <main>

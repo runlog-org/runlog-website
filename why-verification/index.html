@@ -113,6 +113,47 @@
     .axes .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
 
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://runlog.org/#organization",
+        "name": "Runlog",
+        "url": "https://runlog.org/",
+        "email": "hello@runlog.org",
+        "sameAs": ["https://github.com/runlog-org"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://runlog.org/#website",
+        "url": "https://runlog.org/",
+        "name": "Runlog",
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Runlog", "item": "https://runlog.org/"},
+          {"@type": "ListItem", "position": 2, "name": "Why verification", "item": "https://runlog.org/why-verification/"}
+        ]
+      },
+      {
+        "@type": "TechArticle",
+        "@id": "https://runlog.org/why-verification/#article",
+        "headline": "Why local verification is the whole product",
+        "description": "Runlog's differentiator is cryptographic verification that runs on the submitter's machine, drives the submitter's own runtime, and is designed for agents to author — not humans. The why, the how, and what it costs.",
+        "url": "https://runlog.org/why-verification/",
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "isPartOf": {"@id": "https://runlog.org/#website"},
+        "inLanguage": "en",
+        "about": {"@id": "https://runlog.org/#software"}
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <main>

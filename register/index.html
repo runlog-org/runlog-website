@@ -5,6 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Register — Runlog</title>
   <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://runlog.org/#organization",
+        "name": "Runlog",
+        "url": "https://runlog.org/",
+        "email": "hello@runlog.org",
+        "sameAs": ["https://github.com/runlog-org"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://runlog.org/#website",
+        "url": "https://runlog.org/",
+        "name": "Runlog",
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Runlog", "item": "https://runlog.org/"},
+          {"@type": "ListItem", "position": 2, "name": "Register", "item": "https://runlog.org/register/"}
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://runlog.org/register/#webpage",
+        "name": "Get a Runlog API key",
+        "description": "Register an email address to receive a Runlog API key for use with MCP-capable coding agents.",
+        "url": "https://runlog.org/register/",
+        "isPartOf": {"@id": "https://runlog.org/#website"},
+        "inLanguage": "en"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <main>

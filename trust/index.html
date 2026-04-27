@@ -40,6 +40,69 @@
       margin: 1.25rem 0;
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://runlog.org/#organization",
+        "name": "Runlog",
+        "url": "https://runlog.org/",
+        "email": "hello@runlog.org",
+        "sameAs": ["https://github.com/runlog-org"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://runlog.org/#website",
+        "url": "https://runlog.org/",
+        "name": "Runlog",
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Runlog", "item": "https://runlog.org/"},
+          {"@type": "ListItem", "position": 2, "name": "How trust works", "item": "https://runlog.org/trust/"}
+        ]
+      },
+      {
+        "@type": "TechArticle",
+        "@id": "https://runlog.org/trust/#article",
+        "headline": "How trust works",
+        "description": "Runlog's trust score is computed, not voted. Three independent signals — signed verification, weighted usage telemetry, and dependency-manifest correlation — decide whether an entry earns the verified tier.",
+        "url": "https://runlog.org/trust/",
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "isPartOf": {"@id": "https://runlog.org/#website"},
+        "inLanguage": "en",
+        "about": {"@id": "https://runlog.org/#software"}
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://runlog.org/trust/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do you stop people gaming the trust score?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Three layers stack against it. Submission requires running a signed open-source verifier with differential execution and mutation testing — fake results don't pass. Field confirmations are weighted so identical clients on overlapping codebases count as roughly one — sybil farms don't compound. And every retrieval is tagged in a dependency manifest, so a bad entry leaves a trail when it correlates with downstream failures. We don't publish the exact weights; that would be the playbook."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the verifier open source?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — Apache 2.0, Go, reproducible builds. The verifier, the schema, and the vocabularies are all public so anyone can audit what's signed and what gets rejected. The hosted server is currently closed source while the commercial model settles."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <main>

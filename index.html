@@ -55,6 +55,13 @@
     dd { margin: 0.25rem 0 0 1.25rem; }
     footer ul { list-style: none; padding: 0; margin: 0.5rem 0 0 0; }
     footer li { display: inline; margin-right: 1rem; }
+    .agents-line { font-size: 0.95rem; color: var(--muted); }
+    .agents .card h3 { font-size: 0.95rem; }
+    .agents .card h3 a { text-decoration: none; color: var(--fg); }
+    .agents .card h3 a:hover { text-decoration: underline; }
+    .agents .card p { font-size: 0.875rem; }
+    .agents .card .install { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
+    .agents .card .caveat { color: var(--muted); font-size: 0.8rem; margin-top: 0.4rem; }
   </style>
 </head>
 <body>
@@ -67,6 +74,12 @@
         <em>your team</em> learned: internal conventions, codebase patterns, decisions you've made together.
         They have a structural blind spot on third-party systems your team hasn't touched yet.
         Runlog fills that blind spot. Your agent consults Runlog <em>alongside</em> its team memory, never as a replacement.
+      </p>
+      <p class="agents-line">
+        Works with <strong>Claude Code</strong>, <strong>Cursor</strong>, <strong>Cline</strong>,
+        <strong>Continue</strong>, <strong>Windsurf</strong>, <strong>Aider</strong>,
+        <strong>VS&nbsp;Code&nbsp;Copilot</strong>, <strong>JetBrains&nbsp;AI</strong>, and <strong>Zed</strong>
+        — any agent that speaks MCP. <a href="#agents-title">See all adapters &darr;</a>
       </p>
       <p><a class="cta" href="/register/">Get an API key</a></p>
     </section>
@@ -217,12 +230,86 @@
       </p>
     </section>
 
+    <section aria-labelledby="agents-title">
+      <h2 id="agents-title">Works with your agent</h2>
+      <p class="prose">
+        Runlog is delivered via MCP — every agent that speaks MCP can use it. We ship maintained
+        client skills for the major agent platforms. Each pairs the same four-point client contract
+        (check team memory first, classify external-deps, route learnings correctly, track the
+        dependency manifest) with vendor-specific MCP setup and rule-loading glue. Pick yours:
+      </p>
+      <div class="grid agents">
+        <div class="card">
+          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/claude-code/SKILL.md">Claude Code</a></h3>
+          <p>Reference adapter.</p>
+          <p class="install">~/.claude/skills/runlog/</p>
+        </div>
+        <div class="card">
+          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/cursor/README.md">Cursor</a></h3>
+          <p>Highest priority after Claude Code.</p>
+          <p class="install">.cursor/rules/runlog.mdc</p>
+        </div>
+        <div class="card">
+          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/cline/README.md">Cline</a></h3>
+          <p>Open-source, MCP-native.</p>
+          <p class="install">.clinerules/runlog.md</p>
+        </div>
+        <div class="card">
+          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/continue/README.md">Continue.dev</a></h3>
+          <p>Open-source, MCP-native.</p>
+          <p class="install">.continue/config.yaml</p>
+        </div>
+        <div class="card">
+          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/windsurf/README.md">Windsurf</a></h3>
+          <p>Codeium-based, Cascade agent.</p>
+          <p class="install">.windsurfrules</p>
+        </div>
+        <div class="card">
+          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/aider/README.md">Aider</a></h3>
+          <p>CLI-native, diff-cycle model.</p>
+          <p class="install">CONVENTIONS.md or --read</p>
+          <p class="caveat">* MCP support is version-dependent</p>
+        </div>
+        <div class="card">
+          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/copilot/README.md">VS&nbsp;Code&nbsp;Copilot</a></h3>
+          <p>Requires Copilot agent mode.</p>
+          <p class="install">.github/copilot-instructions.md</p>
+        </div>
+        <div class="card">
+          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/jetbrains/README.md">JetBrains&nbsp;AI</a></h3>
+          <p>IntelliJ, PyCharm, WebStorm, GoLand, &hellip;</p>
+          <p class="install">AI Assistant guidelines</p>
+          <p class="caveat">* Tool-use varies by IDE / plugin version</p>
+        </div>
+        <div class="card">
+          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/zed/README.md">Zed</a></h3>
+          <p>Native context_servers + .rules.</p>
+          <p class="install">~/.config/zed/settings.json</p>
+          <p class="caveat">* HTTP context_servers schema is settling</p>
+        </div>
+      </div>
+      <p class="prose note">
+        Asterisks flag adapters whose upstream vendor's MCP integration is still evolving. The skill
+        body works against today's vendor capabilities; the per-adapter README has VERIFY notes
+        flagging where to re-check the vendor's current docs before publishing your config.
+      </p>
+      <p class="prose">
+        Cross-vendor invariants — the four-point contract every adapter inherits — live in
+        <a href="https://github.com/l4ci/runlog/blob/main/skills/common/four-point-client-contract.md"><code>skills/common/</code></a>.
+        When a contract rule changes, one file moves and every adapter re-syncs.
+      </p>
+    </section>
+
     <section aria-labelledby="use-title" class="prose">
-      <h2 id="use-title">Using Runlog from Claude Code</h2>
+      <h2 id="use-title">Using Runlog from your agent</h2>
       <p>
         Runlog is consumed through an MCP server plus a small client skill. You don't call it
         yourself — your agent does, automatically, only when the problem is about a third-party
-        system your team memory hasn't covered yet.
+        system your team memory hasn't covered yet. The setup is the same shape across every
+        supported agent: register, wire MCP, drop in the skill, then your agent decides when to
+        query. Steps below show <strong>Claude Code</strong> as the example; the
+        <a href="#agents-title">other adapters</a> follow the same shape with vendor-specific
+        config paths.
       </p>
 
       <h3>1. Register and grab a key</h3>
@@ -300,6 +387,19 @@
 
     <section aria-labelledby="faq-title" class="prose">
       <h2 id="faq-title">FAQ</h2>
+
+      <h3>Which agents are supported?</h3>
+      <p>
+        Today: Claude Code, Cursor, Cline, Continue, Windsurf, Aider, VS Code Copilot, JetBrains
+        AI Assistant, and Zed — every major MCP-capable coding agent. Each gets a maintained
+        adapter under <a href="https://github.com/l4ci/runlog/tree/main/skills"><code>skills/&lt;vendor&gt;/</code></a>
+        with vendor-specific setup notes plus a generic body inherited from
+        <a href="https://github.com/l4ci/runlog/blob/main/skills/claude-code/SKILL.md"><code>skills/claude-code/SKILL.md</code></a>.
+        Three adapters carry caveats today (Aider, JetBrains, Zed) where the upstream vendor's
+        MCP support is still evolving — see the per-adapter README. Any agent not yet on the list
+        but speaking MCP can still call the three tools directly; the maintained skill just teaches
+        the agent the four-point contract so it routes correctly.
+      </p>
 
       <h3>Does Runlog replace my <code>CLAUDE.md</code> or mem0?</h3>
       <p>

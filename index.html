@@ -62,10 +62,35 @@
     .agents .card p { font-size: 0.875rem; }
     .agents .card .install { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
     .agents .card .caveat { color: var(--muted); font-size: 0.8rem; margin-top: 0.4rem; }
+
+    .site-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.85rem;
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+    .site-badges img { vertical-align: middle; height: 20px; }
+    .site-badges a { color: var(--muted); text-decoration: none; }
+    .site-badges a:hover { color: var(--fg); }
+    .site-badges .sep { color: var(--border); }
   </style>
 </head>
 <body>
   <main>
+    <header class="site-badges" aria-label="Project status and links">
+      <a href="https://api.runlog.org/health" title="Production health"><img src="https://healthchecks.io/badge/f264a1fd-8117-4abc-9414-c0d1e3/-BOd40ba-2.svg" alt="Production status" /></a>
+      <span class="sep">·</span>
+      <a href="https://github.com/runlog-org">github.com/runlog-org</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/runlog-org/runlog-docs">Docs</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/runlog-org/runlog-skills">MCP skills</a>
+    </header>
+
     <section aria-labelledby="hero-title" class="prose">
       <h1 id="hero-title">The external-dependency layer for agent memory.</h1>
       <p class="lede">A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols — delivered to coding agents over MCP.</p>
@@ -240,49 +265,49 @@
       </p>
       <div class="grid agents">
         <div class="card">
-          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/claude-code/SKILL.md">Claude Code</a></h3>
+          <h3><a href="https://github.com/runlog-org/runlog-skills/blob/main/claude-code/SKILL.md">Claude Code</a></h3>
           <p>Reference adapter.</p>
           <p class="install">~/.claude/skills/runlog/</p>
         </div>
         <div class="card">
-          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/cursor/README.md">Cursor</a></h3>
+          <h3><a href="https://github.com/runlog-org/runlog-skills/blob/main/cursor/README.md">Cursor</a></h3>
           <p>Highest priority after Claude Code.</p>
           <p class="install">.cursor/rules/runlog.mdc</p>
         </div>
         <div class="card">
-          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/cline/README.md">Cline</a></h3>
+          <h3><a href="https://github.com/runlog-org/runlog-skills/blob/main/cline/README.md">Cline</a></h3>
           <p>Open-source, MCP-native.</p>
           <p class="install">.clinerules/runlog.md</p>
         </div>
         <div class="card">
-          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/continue/README.md">Continue.dev</a></h3>
+          <h3><a href="https://github.com/runlog-org/runlog-skills/blob/main/continue/README.md">Continue.dev</a></h3>
           <p>Open-source, MCP-native.</p>
           <p class="install">.continue/config.yaml</p>
         </div>
         <div class="card">
-          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/windsurf/README.md">Windsurf</a></h3>
+          <h3><a href="https://github.com/runlog-org/runlog-skills/blob/main/windsurf/README.md">Windsurf</a></h3>
           <p>Codeium-based, Cascade agent.</p>
           <p class="install">.windsurfrules</p>
         </div>
         <div class="card">
-          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/aider/README.md">Aider</a></h3>
+          <h3><a href="https://github.com/runlog-org/runlog-skills/blob/main/aider/README.md">Aider</a></h3>
           <p>CLI-native, diff-cycle model.</p>
           <p class="install">CONVENTIONS.md or --read</p>
           <p class="caveat">* MCP support is version-dependent</p>
         </div>
         <div class="card">
-          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/copilot/README.md">VS&nbsp;Code&nbsp;Copilot</a></h3>
+          <h3><a href="https://github.com/runlog-org/runlog-skills/blob/main/copilot/README.md">VS&nbsp;Code&nbsp;Copilot</a></h3>
           <p>Requires Copilot agent mode.</p>
           <p class="install">.github/copilot-instructions.md</p>
         </div>
         <div class="card">
-          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/jetbrains/README.md">JetBrains&nbsp;AI</a></h3>
+          <h3><a href="https://github.com/runlog-org/runlog-skills/blob/main/jetbrains/README.md">JetBrains&nbsp;AI</a></h3>
           <p>IntelliJ, PyCharm, WebStorm, GoLand, &hellip;</p>
           <p class="install">AI Assistant guidelines</p>
           <p class="caveat">* Tool-use varies by IDE / plugin version</p>
         </div>
         <div class="card">
-          <h3><a href="https://github.com/l4ci/runlog/blob/main/skills/zed/README.md">Zed</a></h3>
+          <h3><a href="https://github.com/runlog-org/runlog-skills/blob/main/zed/README.md">Zed</a></h3>
           <p>Native context_servers + .rules.</p>
           <p class="install">~/.config/zed/settings.json</p>
           <p class="caveat">* HTTP context_servers schema is settling</p>
@@ -295,7 +320,7 @@
       </p>
       <p class="prose">
         Cross-vendor invariants — the four-point contract every adapter inherits — live in
-        <a href="https://github.com/l4ci/runlog/blob/main/skills/common/four-point-client-contract.md"><code>skills/common/</code></a>.
+        <a href="https://github.com/runlog-org/runlog-skills/blob/main/common/four-point-client-contract.md"><code>skills/common/</code></a>.
         When a contract rule changes, one file moves and every adapter re-syncs.
       </p>
     </section>
@@ -334,7 +359,7 @@
 
       <h3>3. Drop in the client skill</h3>
       <p>
-        Copy <a href="https://github.com/l4ci/runlog/blob/main/skills/claude-code/SKILL.md"><code>skills/claude-code/SKILL.md</code></a>
+        Copy <a href="https://github.com/runlog-org/runlog-skills/blob/main/claude-code/SKILL.md"><code>skills/claude-code/SKILL.md</code></a>
         into <code>~/.claude/skills/runlog/SKILL.md</code>. The skill teaches Claude four rules:
       </p>
       <ol>
@@ -392,9 +417,9 @@
       <p>
         Today: Claude Code, Cursor, Cline, Continue, Windsurf, Aider, VS Code Copilot, JetBrains
         AI Assistant, and Zed — every major MCP-capable coding agent. Each gets a maintained
-        adapter under <a href="https://github.com/l4ci/runlog/tree/main/skills"><code>skills/&lt;vendor&gt;/</code></a>
+        adapter under <a href="https://github.com/runlog-org/runlog-skills"><code>skills/&lt;vendor&gt;/</code></a>
         with vendor-specific setup notes plus a generic body inherited from
-        <a href="https://github.com/l4ci/runlog/blob/main/skills/claude-code/SKILL.md"><code>skills/claude-code/SKILL.md</code></a>.
+        <a href="https://github.com/runlog-org/runlog-skills/blob/main/claude-code/SKILL.md"><code>skills/claude-code/SKILL.md</code></a>.
         Three adapters carry caveats today (Aider, JetBrains, Zed) where the upstream vendor's
         MCP support is still evolving — see the per-adapter README. Any agent not yet on the list
         but speaking MCP can still call the three tools directly; the maintained skill just teaches
@@ -471,13 +496,20 @@
 
     <footer>
       <p>
-        Runlog is staged as a monorepo today. <code>runlog-verifier</code>, <code>runlog-schema</code>,
-        <code>runlog-vocabularies</code>, and <code>runlog-skills</code> will split into public repositories
-        at first release.
+        Runlog is open source. The
+        <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>,
+        <a href="https://github.com/runlog-org/runlog-schema">schema</a>,
+        <a href="https://github.com/runlog-org/runlog-vocabularies">vocabularies</a>,
+        <a href="https://github.com/runlog-org/runlog-skills">skills</a>,
+        <a href="https://github.com/runlog-org/runlog-docs">docs</a>, and this
+        <a href="https://github.com/runlog-org/runlog-website">website</a> each live in their
+        own repo under <a href="https://github.com/runlog-org">runlog-org</a>; the MCP server
+        is private commercial. <a href="https://github.com/runlog-org">See the project home</a>
+        for the full picture.
       </p>
       <ul>
         <li><a href="/why-verification/">Why verification</a></li>
-        <li><a href="https://github.com/l4ci/runlog">GitHub</a></li>
+        <li><a href="https://github.com/runlog-org">GitHub</a></li>
         <li><a href="/register/">Register</a></li>
         <li><a href="mailto:hello@runlog.org">hello@runlog.org</a></li>
       </ul>

@@ -169,3 +169,40 @@ footer .copyright {
 .site-badges .sep {
   color: var(--border);
 }
+
+.site-badges .brand {
+  font-weight: 700;
+  color: var(--fg);
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  margin-right: auto;
+}
+
+.site-badges .brand:hover {
+  color: var(--accent);
+}
+
+.status-line {
+  margin: 0.75rem 0 0 0;
+  font-size: 0.875rem;
+  line-height: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.status-line a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.status-line img {
+  vertical-align: middle;
+  height: 20px;
+}
+
+footer .status-line {
+  margin: 1rem 0 0.5rem 0;
+}

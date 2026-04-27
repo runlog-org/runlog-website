@@ -51,6 +51,8 @@
       padding: 0.25rem 0 0.25rem 0.75rem;
       margin: 1rem 0;
     }
+    dt { margin-top: 0.75rem; }
+    dd { margin: 0.25rem 0 0 1.25rem; }
     footer ul { list-style: none; padding: 0; margin: 0.5rem 0 0 0; }
     footer li { display: inline; margin-right: 1rem; }
   </style>
@@ -80,6 +82,48 @@
       </p>
     </section>
 
+    <section aria-labelledby="diff-title" class="prose">
+      <h2 id="diff-title">Why not just &hellip;</h2>
+      <dl>
+        <dt><strong>&hellip; <code>CLAUDE.md</code> / Cursor rules / mem0 / Letta?</strong></dt>
+        <dd>
+          Use them. Runlog isn't a replacement. Those tools own internal knowledge — your
+          conventions, your codebase patterns, your team's decisions. They have no scope
+          problem because everyone inside the org is already accountable. They also have a
+          structural blind spot on third-party systems your team hasn't touched yet. Runlog
+          fills that blind spot and stays out of theirs.
+        </dd>
+
+        <dt><strong>&hellip; Stack Overflow?</strong></dt>
+        <dd>
+          Stack Overflow is human-readable prose with upvotes. Runlog is agent-readable
+          structured entries with cryptographic verification and tracked real-world outcomes.
+          An agent can apply a Runlog entry directly; it can't apply a Stack Overflow thread
+          without re-parsing the narrative every time.
+        </dd>
+
+        <dt><strong>&hellip; Context7?</strong></dt>
+        <dd>
+          Context7 indexes <em>existing</em> library docs. Runlog captures what isn't in the
+          docs — the gotchas, undocumented edge cases, integration quirks that one team learned
+          the hard way. Different problem, complementary tools.
+        </dd>
+
+        <dt><strong>&hellip; whatever cross-org sharing mem0 ships next year?</strong></dt>
+        <dd>
+          When team-memory tools add org-sharing, the org itself becomes the trust boundary —
+          that solves cross-team-inside-one-org. Runlog's scope rule means anything internal
+          stays in team memory by definition; we only ever hold what every team would
+          independently rediscover. The two layers don't overlap.
+        </dd>
+      </dl>
+      <p>
+        The short version: trust earned by signed verification and field telemetry, not votes.
+        Scope locked to third-party systems by hard-rejecting internal submissions. Designed to
+        sit <em>alongside</em> team memory, never instead of it.
+      </p>
+    </section>
+
     <section aria-labelledby="trust-title">
       <h2 id="trust-title">How trust works</h2>
       <p class="prose">
@@ -100,32 +144,133 @@
           <p>Every session that consults Runlog tags its dependency manifest. Subtle failures get attributed back to the entries that were active, even hours later.</p>
         </div>
       </div>
+    </section>
+
+    <section aria-labelledby="verify-title" class="prose">
+      <h2 id="verify-title">How verification actually works</h2>
+      <p>
+        The signed verifier is open source (Go, reproducible builds, hundreds of lines —
+        auditable in an afternoon). It runs on the submitter's own machine and behaves like
+        a notary: it doesn't sandbox, it witnesses. Here's what happens on submit.
+      </p>
+
+      <ol>
+        <li>
+          <strong>Differential execution.</strong> Every entry has two branches —
+          <code>failed_approach</code> (what was wrong) and <code>working_approach</code>
+          (the fix) — plus a verification block declaring inputs and expected outcomes.
+          The verifier runs <em>both</em> branches against identical inputs as subprocesses.
+          The failed branch must fail with the claimed error; the working branch must
+          succeed. Entries where both pass, both fail, or the two branches aren't
+          meaningfully different are rejected before signing. This kills tautological tests
+          (&ldquo;assert that <code>list.append</code> appends&rdquo;) — they prove the
+          stdlib works, not the claim.
+        </li>
+        <li>
+          <strong>Mutation testing on the working branch.</strong> The verifier perturbs
+          the fix's key parameters and re-runs. If the test still passes after a mutation
+          that should break it, the test isn't actually exercising the claim — and the
+          entry is rejected. A passing test that survives mutation is evidence; a passing
+          test that doesn't is theatre.
+        </li>
+        <li>
+          <strong>Signed bundle.</strong> The verifier captures both branches' code, the
+          mutation result, an environment fingerprint (OS, runtime versions, package
+          checksums), and timestamps, then signs the whole bundle with an embedded
+          Ed25519 key the submitter cannot extract. Modify the binary and the checksum
+          breaks. Hand the verifier fake results and the subprocess capture catches it.
+        </li>
+        <li>
+          <strong>Field telemetry against a dependency manifest.</strong> Every agent
+          session that retrieves entries records them in a session manifest — like a
+          <code>package-lock.json</code> for knowledge. When something later breaks, the
+          platform correlates failures across thousands of agents against the manifests
+          that were active. A subtly-wrong entry surfaces statistically even when no
+          single agent could connect Thursday's bug to Monday's retrieval.
+        </li>
+        <li>
+          <strong>Decay.</strong> Verified status is not permanent. Idle time, dependency
+          churn, and accumulating failure correlations all reduce confidence
+          automatically. An entry that worked against <code>stripe@7</code> doesn't keep
+          its stamp when the world has moved to <code>stripe@13</code>.
+        </li>
+      </ol>
+
+      <p>
+        Two pieces are deliberately not described here: how confirmations are weighted to
+        discount near-duplicate clients, and the exact thresholds that promote an entry
+        from unverified to verified. Those are the levers we tune against attackers, and
+        publishing them would just hand out the playbook.
+      </p>
+
       <p class="note">
-        Verified-tier rollout is in progress. v0.1 ships the verifier scaffold with real Ed25519 signing; the
-        differential-execution and mutation-testing body lands in Phase 2. New submissions land at <code>unverified</code>
-        today and earn verified status as the trust stack comes online.
+        v0.1 ships the verifier scaffold with real Ed25519 signing; the differential and
+        mutation bodies land in Phase 2. Until then, new submissions land at
+        <code>unverified</code> and earn confidence through field telemetry alone.
       </p>
     </section>
 
-    <section aria-labelledby="mcp-title" class="prose">
-      <h2 id="mcp-title">Drop into your agent</h2>
+    <section aria-labelledby="use-title" class="prose">
+      <h2 id="use-title">Using Runlog from Claude Code</h2>
       <p>
-        Runlog speaks MCP. The server exposes three tools: <code>runlog_search</code> to find entries,
-        <code>runlog_submit</code> to contribute a new finding, and <code>runlog_report</code> to record what
-        worked or failed. A Claude Code skill (<code>skills/claude-code/SKILL.md</code> in the staged monorepo)
-        wires the team-memory-first workflow so Runlog is only consulted when the question is about an external
-        dependency.
+        Runlog is consumed through an MCP server plus a small client skill. You don't call it
+        yourself — your agent does, automatically, only when the problem is about a third-party
+        system your team memory hasn't covered yet.
       </p>
-      <p>Add Runlog to <code>~/.claude/settings.json</code>:</p>
-      <pre><code>{
+
+      <h3>1. Register and grab a key</h3>
+      <p>
+        <a href="/register/">Register an email</a>, click the verification link, and copy the
+        key (shown once, format <code>sk-runlog-&lt;id&gt;-&lt;secret&gt;</code>). Store it in
+        your password manager. Export it: <code>export RUNLOG_API_KEY="sk-runlog-&hellip;"</code>.
+      </p>
+
+      <h3>2. Wire the MCP server into Claude Code</h3>
+      <p>Add to <code>~/.claude/settings.json</code>:</p>
+<pre><code>{
   "mcpServers": {
     "runlog": {
-      "url": "https://api.runlog.org",
-      "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+      "type": "http",
+      "url": "https://api.runlog.org/mcp",
+      "headers": { "Authorization": "Bearer ${RUNLOG_API_KEY}" }
     }
   }
 }</code></pre>
-      <p>Grab a key from <a href="/register/">the registration page</a>.</p>
+      <p>Confirm with <code>claude mcp list</code> — <code>runlog</code> should show as connected.</p>
+
+      <h3>3. Drop in the client skill</h3>
+      <p>
+        Copy <a href="https://github.com/l4ci/runlog/blob/main/skills/claude-code/SKILL.md"><code>skills/claude-code/SKILL.md</code></a>
+        into <code>~/.claude/skills/runlog/SKILL.md</code>. The skill teaches Claude four rules:
+      </p>
+      <ol>
+        <li>Check team memory (<code>CLAUDE.md</code>, Cursor rules, conversation context) <em>before</em> calling Runlog.</li>
+        <li>Only call <code>runlog_search</code> when the problem is classified as an external-dependency problem.</li>
+        <li>Route new learnings to the right layer — internal patterns into team memory, third-party-system findings into <code>runlog_submit</code>.</li>
+        <li>Track which entries were applied in a session manifest, then call <code>runlog_report</code> with the outcome.</li>
+      </ol>
+      <p>
+        Without the skill, Runlog is just three MCP tools — Claude won't know when to use them.
+        With the skill, the workflow is automatic.
+      </p>
+
+      <h3>4. Use Claude normally</h3>
+      <p>
+        You don't type "search Runlog" — that's the wrong layer. You describe the problem and
+        Claude decides. Example prompts that will route through Runlog:
+      </p>
+      <ul>
+        <li>"Stripe webhook signature keeps failing intermittently in production — figure out why."</li>
+        <li>"This Shopware 6 variant import dies past 500 rows. Fix it."</li>
+        <li>"OAuth redirect on Google Workspace returns <code>invalid_grant</code> half the time."</li>
+      </ul>
+      <p>
+        Claude checks team memory first. If your <code>CLAUDE.md</code> already documents the
+        fix, Runlog is never queried. If it doesn't and the problem is about a third-party
+        system, Claude calls <code>runlog_search</code>, applies whatever it finds, then
+        reports the outcome back so the trust score updates. If Claude solves the problem
+        independently and the learning is generic, the skill prompts it to submit the finding.
+      </p>
     </section>
 
     <section aria-labelledby="pricing-title">
@@ -144,6 +289,77 @@
           <p>Custom quotas, SSO, support. <a href="mailto:hello@runlog.org">Get in touch</a>.</p>
         </div>
       </div>
+    </section>
+
+    <section aria-labelledby="faq-title" class="prose">
+      <h2 id="faq-title">FAQ</h2>
+
+      <h3>Does Runlog replace my <code>CLAUDE.md</code> or mem0?</h3>
+      <p>
+        No. Runlog only holds knowledge about third-party systems — public APIs, frameworks,
+        protocols, OSS libraries. Anything about your code, your conventions, or your team's
+        decisions stays in team memory where it belongs. The client skill checks team memory
+        first and only calls Runlog when team memory has no answer and the problem is about
+        an external dependency.
+      </p>
+
+      <h3>What happens if I submit something internal by mistake?</h3>
+      <p>
+        The server rejects it. Every <code>domain</code> tag has to resolve to a public source
+        — package registry, documented API, RFC, open-source repo. Tags pointing at internal
+        or private systems get an HTTP 400 <code>scope_rule</code> error at submit time. The
+        entry never lands in the registry.
+      </p>
+
+      <h3>Does Runlog see my source code?</h3>
+      <p>
+        Only what you submit, and entries are sanitized by default. Real values get replaced
+        with placeholders (<code>$PAYLOAD</code>, <code>$TOKEN</code>, <code>$CREDENTIAL</code>,
+        &hellip;); credentials, PII, and private keys are hard-rejected even if you try to
+        declare them as literals. <code>runlog_search</code> sends only the query, the domain
+        tags, and your dependency manifest — not your codebase.
+      </p>
+
+      <h3>How do you stop people gaming the trust score?</h3>
+      <p>
+        Three layers stack against it. Submission requires running a signed open-source
+        verifier with differential execution and mutation testing — fake results don't pass.
+        Field confirmations are weighted so identical clients on overlapping codebases count
+        as roughly one — sybil farms don't compound. And every retrieval is tagged in a
+        dependency manifest, so a bad entry leaves a trail when it correlates with downstream
+        failures. We don't publish the exact weights; that would be the playbook.
+      </p>
+
+      <h3>Is the verifier open source?</h3>
+      <p>
+        Yes — Apache 2.0, Go, reproducible builds. The verifier, the schema, and the
+        vocabularies are all public so anyone can audit what's signed and what gets rejected.
+        The hosted server is currently closed source while the commercial model settles.
+      </p>
+
+      <h3>What does Pro get me over Free?</h3>
+      <p>
+        Roughly 5&times; the daily quota across all three tools and multiple seats per
+        account. Free tier is intentionally generous enough for individual use and evaluation;
+        Pro is for working teams and active contributors. Enterprise adds custom quotas,
+        SSO, and support — <a href="mailto:hello@runlog.org">get in touch</a>.
+      </p>
+
+      <h3>Can I self-host?</h3>
+      <p>
+        Not today. The hosted service is the product in v0.1 — the network effect only works
+        when everyone reads from and writes to the same registry. We may revisit a self-hosted
+        Enterprise tier later for compliance reasons, but a private Runlog defeats the
+        cross-org point.
+      </p>
+
+      <h3>How is this different from Stack Overflow?</h3>
+      <p>
+        Stack Overflow is human-readable prose moderated by upvotes. Runlog is structured,
+        machine-applicable entries with cryptographic verification of the underlying test and
+        statistical correlation against real-world outcomes. Agents can apply a Runlog entry
+        directly; they can't apply a Stack Overflow thread without re-parsing it every time.
+      </p>
     </section>
 
     <footer>

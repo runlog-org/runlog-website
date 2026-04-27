@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pricing — Runlog</title>
+  <meta name="description" content="Runlog pricing — Free for individual use, Pro at €10/month for working teams, Enterprise with custom quotas and SSO.">
+  <link rel="stylesheet" href="/register/style.css">
+  <style>
+    main { max-width: 44rem; }
+    .prose { max-width: 38rem; }
+    h1 { font-size: 1.9rem; line-height: 1.2; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.25rem; margin-top: 2.5rem; margin-bottom: 0.5rem; }
+    .lede { font-size: 1.15rem; color: var(--muted); margin-top: 0; }
+    .crumbs { font-size: 0.875rem; color: var(--muted); margin: 0 0 1.5rem 0; }
+    .crumbs a { color: var(--muted); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    @media (min-width: 44rem) {
+      .grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.1rem;
+    }
+    .card h3 { margin: 0 0 0.4rem 0; font-size: 1rem; }
+    .card p { margin: 0; font-size: 0.95rem; color: var(--muted); }
+    .pricing .card .price {
+      font-weight: 700; font-size: 1.1rem; color: var(--fg);
+      display: block; margin-bottom: 0.25rem;
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 1.25rem;
+      padding: 0.6rem 1.4rem;
+      background: var(--accent);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .cta:focus { outline: var(--focus-outline); outline-offset: 2px; }
+
+    footer ul { list-style: none; padding: 0; margin: 0.5rem 0 0 0; }
+    footer li { display: inline; margin-right: 1rem; }
+
+    .site-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.85rem;
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+    .site-badges img { vertical-align: middle; height: 20px; }
+    .site-badges a { color: var(--muted); text-decoration: none; }
+    .site-badges a:hover { color: var(--fg); }
+    .site-badges .sep { color: var(--border); }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-badges" aria-label="Project status and links">
+      <a href="https://api.runlog.org/health" title="Production health"><img src="https://healthchecks.io/badge/f264a1fd-8117-4abc-9414-c0d1e3/-BOd40ba-2.svg" alt="Production status" /></a>
+      <span class="sep">·</span>
+      <a href="https://github.com/runlog-org">github.com/runlog-org</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/runlog-org/runlog-skills">MCP skills</a>
+      <span class="sep">·</span>
+      <a href="/why-verification/">Why verification</a>
+    </header>
+
+    <p class="crumbs"><a href="/">&larr; Runlog</a></p>
+
+    <section aria-labelledby="hero-title" class="prose">
+      <h1 id="hero-title">Pricing</h1>
+      <p class="lede">
+        Free for individual use and evaluation. Pro for working teams and active
+        contributors. Enterprise for everything else.
+      </p>
+    </section>
+
+    <section aria-labelledby="tiers-title">
+      <h2 id="tiers-title">Tiers</h2>
+      <div class="grid pricing">
+        <div class="card">
+          <span class="price">Free</span>
+          <p>For individuals. Rate-limited; enough for hobby projects and evaluation.</p>
+        </div>
+        <div class="card">
+          <span class="price">Pro — €10/mo</span>
+          <p>~5&times; the quota, multiple seats. For working teams and active contributors.</p>
+        </div>
+        <div class="card">
+          <span class="price">Enterprise</span>
+          <p>Custom quotas, SSO, support. <a href="mailto:hello@runlog.org">Get in touch</a>.</p>
+        </div>
+      </div>
+
+      <p class="prose" style="margin-top: 1.25rem;">
+        Quota covers all three tools — <code>runlog_search</code>, <code>runlog_submit</code>,
+        and <code>runlog_report</code> — counted as a single daily budget. No separate
+        seat fee on Free; Pro adds multi-seat invoicing under one team account.
+      </p>
+
+      <p><a class="cta" href="/register/">Get an API key</a></p>
+    </section>
+
+    <footer>
+      <ul>
+        <li><a href="/">&larr; Runlog</a></li>
+        <li><a href="/trust/">How trust works</a></li>
+        <li><a href="/why-verification/">Why verification</a></li>
+        <li><a href="/register/">Register</a></li>
+        <li><a href="mailto:hello@runlog.org">hello@runlog.org</a></li>
+      </ul>
+    </footer>
+  </main>
+</body>
+</html>

@@ -112,23 +112,6 @@
     .axes .card h3 { margin: 0 0 0.3rem 0; font-size: 1rem; }
     .axes .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
 
-    footer ul { list-style: none; padding: 0; margin: 0.5rem 0 0 0; }
-    footer li { display: inline; margin-right: 1rem; }
-
-    .site-badges {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.85rem;
-      padding-bottom: 0.75rem;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.875rem;
-    }
-    .site-badges img { vertical-align: middle; height: 20px; }
-    .site-badges a { color: var(--muted); text-decoration: none; }
-    .site-badges a:hover { color: var(--fg); }
-    .site-badges .sep { color: var(--border); }
   </style>
 </head>
 <body>
@@ -138,7 +121,9 @@
       <span class="sep">·</span>
       <a href="https://github.com/runlog-org">github.com/runlog-org</a>
       <span class="sep">·</span>
-      <a href="https://github.com/runlog-org/runlog-skills">MCP skills</a>
+      <a href="/trust/">Trust</a>
+      <span class="sep">·</span>
+      <a href="/pricing/">Pricing</a>
       <span class="sep">·</span>
       <a href="/register/">Register</a>
     </header>
@@ -437,13 +422,28 @@
     </section>
 
     <footer>
+      <p>
+        Runlog's
+        <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>,
+        <a href="https://github.com/runlog-org/runlog-schema">schema</a>,
+        <a href="https://github.com/runlog-org/runlog-vocabularies">vocabularies</a>,
+        <a href="https://github.com/runlog-org/runlog-skills">skills</a>, and
+        <a href="https://github.com/runlog-org/runlog-website">website</a> are open source under
+        <a href="https://github.com/runlog-org">runlog-org</a>; the MCP server and architectural
+        docs are private commercial.
+      </p>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="https://github.com/runlog-org">GitHub</a></li>
+        <li><a href="/trust/">How trust works</a></li>
+        <li><a href="/why-verification/">Why verification</a></li>
+        <li><a href="/pricing/">Pricing</a></li>
         <li><a href="/register/">Register</a></li>
+        <li><a href="https://github.com/runlog-org">GitHub</a></li>
         <li><a href="mailto:hello@runlog.org">hello@runlog.org</a></li>
       </ul>
+      <p class="copyright">&copy; <span id="copyright-year">2026</span> Runlog</p>
     </footer>
   </main>
+  <script>(function(){var y=document.getElementById('copyright-year');if(y)y.textContent=new Date().getFullYear();})();</script>
 </body>
 </html>

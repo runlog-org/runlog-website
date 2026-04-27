@@ -1,0 +1,11 @@
+# ── OS / editor ──
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Cloudflare Wrangler ──
+.wrangler/
+node_modules/

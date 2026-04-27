@@ -1,6 +1,6 @@
-# website/ — Public-Facing Static Site
+# Runlog Website — Public-Facing Static Site
 
-**Future repo:** `runlog-website` — public, MIT (planned)
+**Repo:** [`runlog-org/runlog-website`](https://github.com/runlog-org/runlog-website) — public, MIT
 **Content:** Static HTML, CSS, and vanilla JS
 **Deploy target:** Cloudflare Pages serving `runlog.org` and `runlog.org/register`
 
@@ -23,12 +23,12 @@ python -m http.server 8080 --directory website
 
 Then open `http://localhost:8080/register/`.
 
-The `POST /register` and `GET /register/verify` endpoints are served by the runlog MCP server (see `../server/`). In production these live at `api.runlog.org`; in local dev point at `http://localhost:8000` by setting `window.RUNLOG_API_BASE` in an inline `<script>` before `app.js` loads, or by editing the `data-api-base` attribute on `#register-form` in `index.html`.
+The `POST /register` and `GET /register/verify` endpoints are served by the runlog MCP server (private repo: [`runlog-org/runlog`](https://github.com/runlog-org/runlog)). In production these live at `api.runlog.org`; in local dev point at `http://localhost:8000` by setting `window.RUNLOG_API_BASE` in an inline `<script>` before `app.js` loads, or by editing the `data-api-base` attribute on `#register-form` in `index.html`.
 
 ## Depends on
 
-- `../server/` — `POST /register` and `GET /register/verify` endpoints at runtime (no build-time dep)
+- [`runlog-org/runlog`](https://github.com/runlog-org/runlog) (private) — `POST /register` and `GET /register/verify` endpoints at runtime (no build-time dep)
 
 ## LICENSE
 
-MIT (to be confirmed at extraction; matches `../skills/`).
+MIT — see [`LICENSE`](./LICENSE).

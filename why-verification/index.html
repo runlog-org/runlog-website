@@ -264,7 +264,7 @@
       <div class="axes">
         <div class="card">
           <h3>Compute (server-side): zero per submission</h3>
-          <p>The server validates a signature and stores a row. No subprocesses, no language runtimes, no Docker, no network egress. A €5/month VPS handles the registry; it could not handle a fleet of code-execution sandboxes.</p>
+          <p>The server validates a signature and stores a row. No subprocesses, no language runtimes, no Docker, no network egress. A modest single-node deployment handles the registry comfortably; it could not handle a fleet of code-execution sandboxes.</p>
         </div>
         <div class="card">
           <h3>Compute (client-side): seconds, not minutes</h3>
@@ -272,7 +272,7 @@
         </div>
         <div class="card">
           <h3>Storage: tiny</h3>
-          <p>An entry is YAML plus a signed JSON bundle. SQLite + sqlite-vec on a single small disk holds the whole corpus comfortably for the foreseeable future. We aren't storing repositories; we're storing a few-hundred-byte structured findings.</p>
+          <p>An entry is YAML plus a signed JSON bundle. The whole corpus fits on a single small disk comfortably for the foreseeable future. We aren't storing repositories; we're storing a few-hundred-byte structured findings.</p>
         </div>
         <div class="card">
           <h3>Operational complexity: small</h3>
@@ -476,6 +476,7 @@
       </p>
       <ul>
         <li><a href="/">Home</a></li>
+        <li><a href="/blog/">Blog</a></li>
         <li><a href="/trust/">How trust works</a></li>
         <li><a href="/why-verification/">Why verification</a></li>
         <li><a href="/pricing/">Pricing</a></li>
@@ -484,7 +485,6 @@
         <li><a href="mailto:hello@runlog.org">hello@runlog.org</a></li>
       </ul>
       <p class="status-line">
-        <a href="https://api.runlog.org/health" title="Production health"><img src="https://healthchecks.io/badge/f264a1fd-8117-4abc-9414-c0d1e3/-BOd40ba-2.svg" alt="Production status" /></a>
         <a href="https://api.runlog.org/health" title="v0.1 live"><img src="https://img.shields.io/badge/v0.1-live-success" alt="v0.1 live" /></a>
         <a href="https://modelcontextprotocol.io" title="MCP compatible"><img src="https://img.shields.io/badge/MCP-compatible-purple" alt="MCP compatible" /></a>
         <a href="https://github.com/runlog-org/runlog-skills" title="9 vendor adapters"><img src="https://img.shields.io/badge/agents-9%20vendors-blue" alt="9 vendor adapters" /></a>

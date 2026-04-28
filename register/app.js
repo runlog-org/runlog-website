@@ -139,7 +139,7 @@
     const docsNote = document.createElement('p');
     docsNote.innerHTML =
       'Next: add this key to your MCP client config. See the ' +
-      '<a href="https://runlog.org/docs/mcp-client">MCP client setup guide</a>.';
+      '<a href="/#use-title">MCP client setup guide</a>.';
 
     result.innerHTML = '';
     result.append(warning, pre, copyBtn, docsNote);

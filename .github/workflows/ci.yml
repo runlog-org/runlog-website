@@ -1,0 +1,83 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  wrangler-validate:
+    runs-on: ubuntu-latest
+    env:
+      # Wrangler will refuse to run some commands without an account
+      # context. --dry-run does not actually contact the API, but the
+      # CLI may still gate on this var being non-empty. A dummy value
+      # is sufficient: nothing leaves the runner.
+      CLOUDFLARE_API_TOKEN: dummy
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # wrangler deploy --dry-run parses wrangler.jsonc, resolves the
+      # assets directory, and writes the bundled output to --outdir
+      # without touching Cloudflare. Catches JSONC syntax errors,
+      # missing required fields, invalid bindings, bad asset paths.
+      - name: wrangler deploy --dry-run
+        run: |
+          npx --yes wrangler@latest deploy \
+            --dry-run \
+            --outdir=/tmp/wrangler-out
+
+  html-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # htmlhint with the rules in .htmlhintrc — default ruleset minus
+      # href-abs-or-rel (we link to GitHub a lot) and inline-style /
+      # inline-script (used deliberately on a static marketing site
+      # with no build step). Catches unclosed tags, duplicate ids,
+      # missing alt attrs, malformed entities, mixed indentation.
+      - name: htmlhint
+        run: npx --yes htmlhint@latest --config .htmlhintrc './**/*.html'
+
+  js-syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Site JS is one ~150-line vanilla ES2020 file with no build
+      # step. A full ESLint stack is overkill; node --check parses
+      # every .js file and catches syntax errors, unterminated
+      # strings, unbalanced braces. That's the gate that matters.
+      - name: node --check on every site .js
+        run: |
+          set -eu
+          # Find tracked .js files, excluding any node_modules that
+          # might leak in during local dev. Fails fast on the first
+          # syntax error.
+          while IFS= read -r f; do
+            echo "checking $f"
+            node --check "$f"
+          done < <(find . \
+            -path ./node_modules -prune -o \
+            -path ./.git -prune -o \
+            -name '*.js' -type f -print)

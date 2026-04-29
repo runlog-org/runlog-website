@@ -4,9 +4,9 @@
 
 **Repo:** [`runlog-org/runlog-website`](https://github.com/runlog-org/runlog-website) — public, MIT
 **Content:** Static HTML, CSS, and vanilla JS
-**Deploy target:** Cloudflare Pages serving `runlog.org` and `runlog.org/register`
+**Deploy target:** edge runtime (static assets + secrets binding) serving `runlog.org` and `runlog.org/register`
 
-Marketing and registration surface for Runlog. Extracted into its own public repo at first release because the static site has a different deploy path (Cloudflare Pages) and release cadence than the MCP server — a CSS tweak to the landing page should never require a server deploy, and vice versa.
+Marketing and registration surface for Runlog. Extracted into its own public repo at first release because the static site has a different deploy path (edge runtime, static assets) and release cadence than the MCP server — a CSS tweak to the landing page should never require a server deploy, and vice versa.
 
 ## Layout
 

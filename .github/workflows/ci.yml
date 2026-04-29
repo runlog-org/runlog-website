@@ -13,13 +13,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  wrangler-validate:
+  deploy-config-validate:
     runs-on: ubuntu-latest
     env:
-      # Wrangler will refuse to run some commands without an account
-      # context. --dry-run does not actually contact the API, but the
-      # CLI may still gate on this var being non-empty. A dummy value
-      # is sufficient: nothing leaves the runner.
+      # Deploy CLI may gate on an account-context env var being
+      # non-empty even on offline dry-runs. A dummy value is enough:
+      # nothing leaves the runner. Var name is fixed by the deploy
+      # toolchain.
       CLOUDFLARE_API_TOKEN: dummy
     steps:
       - uses: actions/checkout@v4
@@ -28,11 +28,11 @@ jobs:
         with:
           node-version: 20
 
-      # wrangler deploy --dry-run parses wrangler.jsonc, resolves the
-      # assets directory, and writes the bundled output to --outdir
-      # without touching Cloudflare. Catches JSONC syntax errors,
+      # Offline dry-run parses the deploy config, resolves the assets
+      # directory, and writes the bundled output to --outdir without
+      # contacting any remote service. Catches JSONC syntax errors,
       # missing required fields, invalid bindings, bad asset paths.
-      - name: wrangler deploy --dry-run
+      - name: deploy config dry-run
         run: |
           npx --yes wrangler@latest deploy \
             --dry-run \

@@ -233,7 +233,7 @@
       <div class="axes">
         <div class="card">
           <h3>Compute (server-side): zero per submission</h3>
-          <p>The server validates a signature and stores a row. No subprocesses, no language runtimes, no Docker, no network egress. A modest single-node deployment handles the registry comfortably; it could not handle a fleet of code-execution sandboxes.</p>
+          <p>The server validates a signature and stores a row. No subprocesses, no language runtimes, no Docker, no network egress. The registry's serving cost stays bounded as the corpus grows; a fleet of code-execution sandboxes wouldn't.</p>
         </div>
         <div class="card">
           <h3>Compute (client-side): seconds, not minutes</h3>
@@ -241,7 +241,7 @@
         </div>
         <div class="card">
           <h3>Storage: tiny</h3>
-          <p>An entry is YAML plus a signed JSON bundle. The whole corpus fits on a single small disk comfortably for the foreseeable future. We aren't storing repositories; we're storing a few-hundred-byte structured findings.</p>
+          <p>An entry is YAML plus a signed JSON bundle. We aren't storing repositories; we're storing a few-hundred-byte structured findings.</p>
         </div>
         <div class="card">
           <h3>Operational complexity: small</h3>

@@ -7,11 +7,12 @@
   <meta name="description" content="Runlog is a cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols, delivered to coding agents via MCP. It complements team-memory tools — it doesn't replace them.">
   <link rel="stylesheet" href="/register/style.css">
   <style>
-    /* Landing-page extensions to the shared register/style.css */
-    main { max-width: 44rem; }
+    /* Landing-page-specific overrides on top of /register/style.css.
+       The shared file provides main, .prose, h1, h2, .lede, .grid, .card,
+       .note, .cta. The landing page wants a tighter prose column and a
+       larger / tighter h1, plus its own tagline + agents-grid styling. */
     .prose { max-width: 36rem; }
     h1 { font-size: 2.25rem; line-height: 1.1; margin-bottom: 0.25rem; }
-    h2 { font-size: 1.25rem; margin-top: 2.5rem; margin-bottom: 0.5rem; }
     .tagline {
       font-size: 1.4rem;
       line-height: 1.25;
@@ -19,40 +20,10 @@
       color: var(--fg);
       margin: 0.25rem 0 0.75rem 0;
     }
-    .lede { font-size: 1.1rem; color: var(--muted); margin-top: 0; }
-    .cta {
-      display: inline-block;
-      margin-top: 1.25rem;
-      padding: 0.6rem 1.4rem;
-      background: var(--accent);
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: 600;
-    }
-    .cta:focus { outline: var(--focus-outline); outline-offset: 2px; }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    @media (min-width: 44rem) {
-      .grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1rem 1.1rem;
-    }
-    .card h3 { margin: 0 0 0.4rem 0; font-size: 1rem; }
-    .card p { margin: 0; font-size: 0.95rem; color: var(--muted); }
-    .note {
-      font-size: 0.875rem; color: var(--muted);
-      border-left: 3px solid var(--border);
-      padding: 0.25rem 0 0.25rem 0.75rem;
-      margin: 1rem 0;
-    }
+    .lede { font-size: 1.1rem; }
+    /* Landing card grid sits closer to the surrounding margin than the
+       shared .note default (which uses 1.25rem). */
+    .note { margin: 1rem 0; }
     dt { margin-top: 0.75rem; }
     dd { margin: 0.25rem 0 0 1.25rem; }
     .agents-line { font-size: 0.95rem; color: var(--muted); }
@@ -245,10 +216,10 @@
         (check team memory first, classify external-deps, route learnings correctly, track the
         dependency manifest) with vendor-specific MCP setup and rule-loading glue. Pick yours:
       </p>
-      <aside class="prose" style="margin: 1.25rem 0; padding: 0.85rem 1rem; border-left: 3px solid var(--accent); background: var(--code-bg, transparent); font-size: 0.95rem;">
+      <aside class="prose aside-install">
         <strong>Claude Code users</strong> — install in one line via the plugin marketplace
         (auto-registers the Runlog MCP server, no config edits):
-        <pre style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; background: var(--code-bg); border-radius: 4px; overflow-x: auto; font-size: 0.875rem;"><code>/plugin marketplace add runlog-org/runlog-skills
+        <pre><code>/plugin marketplace add runlog-org/runlog-skills
 /plugin install runlog</code></pre>
         For every other vendor, the per-card link below points at the per-adapter
         <code>Quickstart</code> with the file to drop and the MCP snippet to add.

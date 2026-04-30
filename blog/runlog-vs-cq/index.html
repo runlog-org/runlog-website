@@ -7,54 +7,18 @@
   <meta name="description" content="Runlog and Mozilla.ai's cq are both pitched as shared agent memory. They diverge on scope, trust, sanitization, verification, and the public-commons question. A side-by-side comparison and a verdict on which one fits which job.">
   <link rel="stylesheet" href="/register/style.css">
   <style>
-    main { max-width: 44rem; }
-    .prose { max-width: 38rem; }
-    h1 { font-size: 1.9rem; line-height: 1.2; margin-bottom: 0.5rem; }
-    h2 { font-size: 1.25rem; margin-top: 2.5rem; margin-bottom: 0.5rem; }
-    h3 { font-size: 1.05rem; margin-top: 1.5rem; margin-bottom: 0.4rem; }
-    .lede { font-size: 1.15rem; color: var(--muted); margin-top: 0; }
+    /* Shared layout primitives (main, .prose, h1–h3, .lede, .crumbs,
+       .compare, .pull, .note) live in /register/style.css. Below: post
+       byline, narrower comparison-table first column, mobile-shrink
+       override for the table, and the two-column verdict grid. */
     .meta { font-size: 0.85rem; color: var(--muted); margin: 0.25rem 0 1.5rem 0; }
-    .crumbs { font-size: 0.875rem; color: var(--muted); margin: 0 0 1.5rem 0; }
-    .crumbs a { color: var(--muted); }
 
-    .compare {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1rem 0;
-      font-size: 0.95rem;
-    }
-    .compare th, .compare td {
-      text-align: left;
-      padding: 0.5rem 0.6rem;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-    }
-    .compare th {
-      font-weight: 600;
-      background: var(--code-bg);
-    }
-    .compare td:first-child {
-      font-weight: 600;
-      width: 26%;
-    }
+    /* Tighter first column for this post's wider comparison table. */
+    .compare td:first-child { width: 26%; }
+
     @media (max-width: 32rem) {
       .compare { font-size: 0.85rem; }
       .compare th, .compare td { padding: 0.4rem 0.4rem; }
-    }
-
-    .pull {
-      border-left: 4px solid var(--accent);
-      padding: 0.4rem 0 0.4rem 1rem;
-      margin: 1.25rem 0;
-      font-size: 1.05rem;
-      color: var(--fg);
-    }
-
-    .note {
-      font-size: 0.875rem; color: var(--muted);
-      border-left: 3px solid var(--border);
-      padding: 0.25rem 0 0.25rem 0.75rem;
-      margin: 1.25rem 0;
     }
 
     .verdict {

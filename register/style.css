@@ -206,3 +206,178 @@ footer .copyright {
 footer .status-line {
   margin: 1rem 0 0.5rem 0;
 }
+
+/* ── Shared site-wide layout primitives ─────────────────────────────────
+   These were previously duplicated as inline <style> blocks at the top of
+   every content page. Pages with different needs (e.g. the landing page's
+   wider hero) override them via their own per-page <style> block, which
+   is loaded after this stylesheet and therefore wins on specificity-tie.
+*/
+
+main {
+  max-width: 44rem;
+}
+
+.prose {
+  max-width: 38rem;
+}
+
+h1 {
+  font-size: 1.9rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.lede {
+  font-size: 1.15rem;
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.crumbs {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin: 0 0 1.5rem 0;
+}
+
+.crumbs a {
+  color: var(--muted);
+}
+
+/* Card grid — used on landing, pricing, trust */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 44rem) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.1rem;
+}
+
+.card h3 {
+  margin: 0 0 0.4rem 0;
+  font-size: 1rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* Inline note / aside — bordered left rail, used on trust, why-verification,
+   landing, and inside the runlog-vs-cq post. */
+.note {
+  font-size: 0.875rem;
+  color: var(--muted);
+  border-left: 3px solid var(--border);
+  padding: 0.25rem 0 0.25rem 0.75rem;
+  margin: 1.25rem 0;
+}
+
+/* Pull-quote — accent left-rail, used on why-verification + runlog-vs-cq */
+.pull {
+  border-left: 4px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1rem;
+  margin: 1.25rem 0;
+  font-size: 1.05rem;
+  color: var(--fg);
+}
+
+/* Comparison table — why-verification + runlog-vs-cq.
+   Per-post td:first-child width tweaks live in the page's own <style>. */
+.compare {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+
+.compare th, .compare td {
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.compare th {
+  font-weight: 600;
+  background: var(--code-bg);
+}
+
+.compare td:first-child {
+  font-weight: 600;
+  width: 30%;
+}
+
+/* Primary call-to-action button (anchor styled as button).
+   Used on the landing page and pricing page. */
+.cta {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.6rem 1.4rem;
+  background: var(--accent);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.cta:focus {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+/* Beta/policy banner — bordered left-rail with normal-weight body, used
+   for the v0.1 pricing notice and similar callouts. */
+.banner {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border-left: 3px solid var(--border);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Plugin-install callout used on the landing page's "Works with your
+   agent" section — accent left-rail with embedded code block. */
+.aside-install {
+  margin: 1.25rem 0;
+  padding: 0.85rem 1rem;
+  border-left: 3px solid var(--accent);
+  background: var(--code-bg);
+  font-size: 0.95rem;
+}
+
+.aside-install pre {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
+  background: var(--code-bg);
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.875rem;
+}
+
+/* Small spacing helper used after card grids on the pricing page. */
+.section-followup {
+  margin-top: 1.25rem;
+}

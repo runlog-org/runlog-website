@@ -7,47 +7,13 @@
   <meta name="description" content="Runlog pricing — Free for individual use, Pro at €10/month for working teams, Enterprise with custom quotas and SSO.">
   <link rel="stylesheet" href="/register/style.css">
   <style>
-    main { max-width: 44rem; }
-    .prose { max-width: 38rem; }
-    h1 { font-size: 1.9rem; line-height: 1.2; margin-bottom: 0.5rem; }
-    h2 { font-size: 1.25rem; margin-top: 2.5rem; margin-bottom: 0.5rem; }
-    h3 { font-size: 1.05rem; margin-top: 1.5rem; margin-bottom: 0.4rem; }
-    .lede { font-size: 1.15rem; color: var(--muted); margin-top: 0; }
-    .crumbs { font-size: 0.875rem; color: var(--muted); margin: 0 0 1.5rem 0; }
-    .crumbs a { color: var(--muted); }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    @media (min-width: 44rem) {
-      .grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1rem 1.1rem;
-    }
-    .card h3 { margin: 0 0 0.4rem 0; font-size: 1rem; }
-    .card p { margin: 0; font-size: 0.95rem; color: var(--muted); }
+    /* Shared layout primitives (main, .prose, h1, h2, h3, .lede, .crumbs,
+       .grid, .card, .cta, .banner) live in /register/style.css. Only
+       pricing-card-specific rules below. */
     .pricing .card .price {
       font-weight: 700; font-size: 1.1rem; color: var(--fg);
       display: block; margin-bottom: 0.25rem;
     }
-
-    .cta {
-      display: inline-block;
-      margin-top: 1.25rem;
-      padding: 0.6rem 1.4rem;
-      background: var(--accent);
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: 600;
-    }
-    .cta:focus { outline: var(--focus-outline); outline-offset: 2px; }
   </style>
   <script type="application/ld+json">
   {
@@ -171,7 +137,7 @@
         Free for individual use and evaluation. Pro for working teams and active
         contributors. Enterprise for everything else.
       </p>
-      <p class="prose" style="margin-top: 0.75rem; padding: 0.6rem 0.9rem; border-left: 3px solid var(--border); color: var(--muted); font-size: 0.95rem;">
+      <p class="prose banner">
         <strong>v0.1 is public beta.</strong> Billing isn't enforced yet — tiers, prices,
         and quotas may change before it goes live.
       </p>
@@ -194,7 +160,7 @@
         </div>
       </div>
 
-      <p class="prose" style="margin-top: 1.25rem;">
+      <p class="prose section-followup">
         Quota covers all three tools — <code>runlog_search</code>, <code>runlog_submit</code>,
         and <code>runlog_report</code> — counted as a single daily budget. No separate
         seat fee on Free; Pro adds multi-seat invoicing under one team account.

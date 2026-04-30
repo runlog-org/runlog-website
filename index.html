@@ -227,12 +227,24 @@
         dependency manifest) with vendor-specific MCP setup and rule-loading glue. Pick yours:
       </p>
       <aside class="prose aside-install">
-        <strong>Claude Code users</strong> — install in one line via the plugin marketplace
-        (auto-registers the Runlog MCP server, no config edits):
+        <strong>Claude Code, Cursor, Cline</strong> — one-line install via Neon's
+        <a href="https://github.com/neondatabase/add-mcp"><code>add-mcp</code></a>
+        (reads Runlog's <a href="https://registry.modelcontextprotocol.io/">Official MCP Registry</a> entry,
+        auto-detects every supported agent on the machine, writes the correct config):
+        <pre><code>npx add-mcp https://api.runlog.org/mcp</code></pre>
+        Pass <code>-a claude-code</code>, <code>-a cursor</code>, or <code>-a cline</code> to target one host;
+        omit it to install across every detected agent. <code>add-mcp</code> only configures the MCP server —
+        pair it with the per-vendor <code>SKILL.md</code> below so the agent learns the four-point contract.
+        <br><br>
+        <strong>Claude Code users</strong> can take an even shorter path that bundles MCP config
+        <em>and</em> skill bodies in one command:
         <pre><code>/plugin marketplace add runlog-org/runlog-skills
 /plugin install runlog</code></pre>
-        For every other vendor, the per-card link below points at the per-adapter
-        <code>Quickstart</code> with the file to drop and the MCP snippet to add.
+        For Continue, Windsurf, Aider, VS Code Copilot, and JetBrains (which
+        <code>add-mcp</code> doesn't cover today), the per-card link below points at the per-adapter
+        <code>Quickstart</code> with the file to drop and the MCP snippet to add. Zed is in
+        <code>add-mcp</code>'s supported set but isn't validated for Runlog yet — use the per-card
+        <code>Quickstart</code> for now.
       </aside>
       <div class="grid agents">
         <div class="card">
@@ -316,7 +328,16 @@
       </p>
 
       <h3>2. Wire the MCP server into Claude Code</h3>
-      <p>Add to <code>~/.claude/settings.json</code>:</p>
+      <p>
+        Fastest path — Neon's
+        <a href="https://github.com/neondatabase/add-mcp"><code>add-mcp</code></a>
+        reads Runlog's <a href="https://registry.modelcontextprotocol.io/">Official MCP Registry</a>
+        entry and writes the right config for you:
+      </p>
+<pre><code>npx add-mcp https://api.runlog.org/mcp -a claude-code</code></pre>
+      <p>
+        Or, if you'd rather edit by hand, add to <code>~/.claude/settings.json</code>:
+      </p>
 <pre><code>{
   "mcpServers": {
     "runlog": {
@@ -326,7 +347,9 @@
     }
   }
 }</code></pre>
-      <p>Confirm with <code>claude mcp list</code> — <code>runlog</code> should show as connected.</p>
+      <p>Confirm with <code>claude mcp list</code> — <code>runlog</code> should show as connected.
+      <code>add-mcp</code> also covers Cursor and Cline; for Continue, Windsurf, and other
+      vendors see the <a href="#agents-title">per-adapter cards</a> above.</p>
 
       <h3>3. Drop in the client skill</h3>
       <p>

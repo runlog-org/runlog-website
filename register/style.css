@@ -182,6 +182,12 @@ footer .copyright {
   color: var(--accent);
 }
 
+/* Current-page nav link — also flagged via aria-current for screen readers. */
+.site-badges a[aria-current] {
+  color: var(--fg);
+  font-weight: 600;
+}
+
 .status-line {
   margin: 0.75rem 0 0 0;
   font-size: 0.875rem;

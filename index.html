@@ -224,7 +224,12 @@
         Runlog is delivered via MCP — every agent that speaks MCP can use it. We ship maintained
         client skills for the major agent platforms. Each pairs the same four-point client contract
         (check team memory first, classify external-deps, route learnings correctly, track the
-        dependency manifest) with vendor-specific MCP setup and rule-loading glue. Pick yours:
+        dependency manifest) with vendor-specific MCP setup and rule-loading glue. Three skill
+        types ship per vendor: a <strong>read</strong> skill that consults the registry, an
+        <strong>author</strong> skill that submits a verified entry mid-flow right after a
+        third-party gotcha is solved, and a <strong>harvest</strong> skill that scans the
+        just-finished session at the end and routes any missed external-dependency findings
+        through the same submission flow. Pick yours:
       </p>
       <aside class="prose aside-install">
         <p>Pick the path for your editor:</p>
@@ -301,7 +306,8 @@
         flagging where to re-check the vendor's current docs before publishing your config.
       </p>
       <p class="prose">
-        Cross-vendor invariants — the four-point contract every adapter inherits — live in
+        Cross-vendor invariants — the four-point client contract plus the author and harvest
+        contracts every adapter inherits — live in
         <a href="https://github.com/runlog-org/runlog-skills/tree/main/common"><code>skills/common/</code></a>.
         When a contract rule changes, one file moves and every adapter re-syncs.
       </p>

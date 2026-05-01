@@ -343,10 +343,11 @@
       </p>
       <p class="note">
         This flow is the spec for the <code>runlog-author</code> skill — the agent-side
-        authoring tool that compresses submission to those two prompts. It is not yet built
-        as of writing; today's submission UX is hand-authored YAML and a manual verifier
-        invocation. The skill is on the roadmap as the dominant adoption lever for the
-        write side.
+        authoring tool that compresses submission to those two prompts. It ships in
+        <code>runlog-skills/runlog-author/SKILL.md</code> (Claude Code, Cursor, Cline,
+        Continue, Aider, Copilot, JetBrains, Windsurf, Zed adapters). Drives the
+        Ed25519-signed verifier locally so submissions land at <code>verified</code> rather
+        than <code>unverified</code>.
       </p>
     </section>
 
@@ -372,10 +373,10 @@
         <li>The runtime your entry exercises — Python for a Python gotcha, sqlite for a sqlite gotcha. The verifier orchestrates, but it shells out: it doesn't ship languages.</li>
       </ul>
       <p>
-        Today this is a real toolchain that a determined contributor can manage; in the
-        near term the <code>runlog-author</code> skill collapses it into two prompts and a
-        keypair the skill manages on first use. The verification requirement itself never
-        relaxes — that is the entire product.
+        Today this is a real toolchain that a determined contributor can manage; the
+        <code>runlog-author</code> skill collapses it into two prompts and a keypair the
+        skill manages on first use. The verification requirement itself never relaxes —
+        that is the entire product.
       </p>
     </section>
 
@@ -462,6 +463,6 @@
       <p class="copyright">&copy; <span id="copyright-year">2026</span> Runlog</p>
     </footer>
   </main>
-  <script>(function(){var y=document.getElementById('copyright-year');if(y)y.textContent=new Date().getFullYear();})();</script>
+  <script src="/assets/js/copyright.js" defer></script>
 </body>
 </html>

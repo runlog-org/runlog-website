@@ -227,32 +227,23 @@
         dependency manifest) with vendor-specific MCP setup and rule-loading glue. Pick yours:
       </p>
       <aside class="prose aside-install">
-        <strong>Claude Code, Cursor, Cline</strong> — one-line install via Neon's
-        <a href="https://github.com/neondatabase/add-mcp"><code>add-mcp</code></a>
-        (reads Runlog's <a href="https://registry.modelcontextprotocol.io/">Official MCP Registry</a> entry,
-        auto-detects every supported agent on the machine, writes the correct config):
-        <pre><code>npx add-mcp https://api.runlog.org/mcp</code></pre>
-        Pass <code>-a claude-code</code>, <code>-a cursor</code>, or <code>-a cline</code> to target one host;
-        omit it to install across every detected agent. <code>add-mcp</code> only configures the MCP server —
-        pair it with the per-vendor <code>SKILL.md</code> below so the agent learns the four-point contract.
-        <br><br>
-        <strong>Claude Code users</strong> can take an even shorter path that bundles MCP config
-        <em>and</em> skill bodies in one command:
+        <p>Pick the path for your editor:</p>
+        <ul>
+          <li><strong>Claude Code, Cursor, Cline, Zed:</strong> <code>npx add-mcp https://api.runlog.org/mcp</code> &mdash; auto-detects + writes the right MCP config.
+            <br>
+            <small>Pass <code>-a claude-code</code>, <code>-a cursor</code>, <code>-a cline</code>, or <code>-a zed</code> to target one host; omit it to install across every detected agent. Pair with the per-vendor <code>SKILL.md</code> below so the agent learns the four-point contract.</small>
+            <br>
+            <small><strong>Note:</strong> <code>add-mcp</code> uses <code>claude-code</code> as the host key; the runlog-installer uses <code>claude</code> (matches <code>runlog install --target claude</code>). The two tools target the same host with different naming conventions — pick whichever installer suits your workflow.</small>
+          </li>
+          <li><strong>Aider, Continue, Copilot, Windsurf:</strong> <code>pip install runlog-installer</code> then <code>runlog install --target {aider|continue|copilot|windsurf} --api-key $RUNLOG_API_KEY</code> &mdash; writes SKILL + MCP block directly.
+            <br>
+            <small>Same package handles registration: <code>runlog register --email you@example.com</code> (shells out to <code>runlog-verifier</code>, which the prompt walks you through installing).</small>
+          </li>
+          <li><strong>JetBrains AI Assistant:</strong> manual config &mdash; see the per-vendor Quickstart below (config format is XML / IDE-specific; not yet supported by the installer).</li>
+        </ul>
+        <p><strong>Claude Code users</strong> can take an even shorter path that bundles MCP config <em>and</em> skill bodies in one command:</p>
         <pre><code>/plugin marketplace add runlog-org/runlog-skills
 /plugin install runlog</code></pre>
-        <strong>Windsurf and VS&nbsp;Code Copilot</strong> &mdash;
-        <code>add-mcp</code> doesn't cover them, so use the Python installer:
-        <pre><code>pip install runlog-installer
-runlog install --target windsurf --api-key $RUNLOG_API_KEY
-runlog install --target copilot  --api-key $RUNLOG_API_KEY</code></pre>
-        Same package handles registration: <code>runlog register --email you@example.com</code>
-        (shells out to <code>runlog-verifier</code>, which the prompt walks you through installing).
-        Zed is also covered by both <code>add-mcp</code> and the Python installer (delegated mode &mdash;
-        skill placement only): <code>runlog install --target zed</code>.
-        <br><br>
-        <strong>Continue, Aider, and JetBrains&nbsp;AI</strong> &mdash; per-card link below points at the per-adapter
-        <code>Quickstart</code> with the file to drop and the MCP snippet to add (their config formats
-        need a writer the installer hasn't grown yet).
       </aside>
       <div class="grid agents">
         <div class="card">
@@ -343,6 +334,7 @@ runlog install --target copilot  --api-key $RUNLOG_API_KEY</code></pre>
         entry and writes the right config for you:
       </p>
 <pre><code>npx add-mcp https://api.runlog.org/mcp -a claude-code</code></pre>
+      <p class="note"><small><strong>Host-key note:</strong> <code>add-mcp</code> uses <code>claude-code</code> as the host key; the runlog-installer uses <code>claude</code> (matches <code>runlog install --target claude</code>). Both target the same host with different naming conventions — pick whichever installer suits your workflow.</small></p>
       <p>
         Or, if you'd rather edit by hand, add to <code>~/.claude/settings.json</code>:
       </p>
@@ -480,6 +472,6 @@ runlog install --target copilot  --api-key $RUNLOG_API_KEY</code></pre>
       <p class="copyright">&copy; <span id="copyright-year">2026</span> Runlog</p>
     </footer>
   </main>
-  <script>(function(){var y=document.getElementById('copyright-year');if(y)y.textContent=new Date().getFullYear();})();</script>
+  <script src="/assets/js/copyright.js" defer></script>
 </body>
 </html>

@@ -63,4 +63,5 @@ There is no `VERSION` file at the repo root: the git tag is the
 authoritative version. If a script needs the current version,
 `git describe --tags --match 'website/v*' --abbrev=0` reads it.
 
-<!-- TODO link runlog-docs/13-release-trains.md once T4 lands -->
+See [`runlog-docs/13-release-trains.md`](https://github.com/runlog-org/runlog-docs/blob/main/13-release-trains.md)
+for the path-scoped tag convention and the full list of components.

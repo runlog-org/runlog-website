@@ -43,6 +43,32 @@
     .agents .card p { font-size: 0.875rem; }
     .agents .card .install { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
     .agents .card .caveat { color: var(--muted); font-size: 0.8rem; margin-top: 0.4rem; }
+    .agents .card .contract { font-size: 0.8rem; color: var(--muted); }
+    .install-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 0.75rem 0;
+    }
+    @media (max-width: 36rem) {
+      .install-pair { grid-template-columns: 1fr; }
+    }
+    .install-pair .col {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+    }
+    .install-pair .col strong { font-size: 0.85rem; display: block; margin-bottom: 0.35rem; }
+    .install-pair .col .targets { font-size: 0.8rem; color: var(--muted); margin: 0 0 0.4rem 0; }
+    .install-pair .col pre { margin: 0; }
+    .install-pair .col pre code { font-size: 0.85rem; }
+    .harvest-example {
+      border-left: 2px solid var(--border);
+      padding: 0.75rem 1rem;
+      margin: 1.25rem 0;
+    }
+    .harvest-example pre code { font-size: 0.85rem; }
   </style>
   <script type="application/ld+json">
   {
@@ -232,20 +258,25 @@
         through the same submission flow. Pick yours:
       </p>
       <aside class="prose aside-install">
-        <p>Pick the path for your editor:</p>
-        <ul>
-          <li><strong>Claude Code, Cursor, Cline, Zed:</strong> <code>npx add-mcp https://api.runlog.org/mcp</code> &mdash; auto-detects + writes the right MCP config.
-            <br>
-            <small>Pass <code>-a claude-code</code>, <code>-a cursor</code>, <code>-a cline</code>, or <code>-a zed</code> to target one host; omit it to install across every detected agent. Pair with the per-vendor <code>SKILL.md</code> below so the agent learns the four-point contract.</small>
-            <br>
-            <small><strong>Note:</strong> <code>add-mcp</code> uses <code>claude-code</code> as the host key; the runlog-installer uses <code>claude</code> (matches <code>runlog install --target claude</code>). The two tools target the same host with different naming conventions — pick whichever installer suits your workflow.</small>
-          </li>
-          <li><strong>Aider, Continue, Copilot, Windsurf:</strong> <code>pip install runlog-installer</code> then <code>runlog install --target {aider|continue|copilot|windsurf} --api-key $RUNLOG_API_KEY</code> &mdash; writes SKILL + MCP block directly.
-            <br>
-            <small>Same package handles registration: <code>runlog register --email you@example.com</code> (shells out to <code>runlog-verifier</code>, which the prompt walks you through installing).</small>
-          </li>
-          <li><strong>JetBrains AI Assistant:</strong> manual config &mdash; see the per-vendor Quickstart below (config format is XML / IDE-specific; not yet supported by the installer).</li>
-        </ul>
+        <p>Both forms are ephemeral &mdash; nothing installed globally:</p>
+        <div class="install-pair">
+          <div class="col">
+            <strong>npx (Node)</strong>
+            <p class="targets">Claude Code, Cursor, Cline, Zed</p>
+            <pre><code>npx add-mcp https://api.runlog.org/mcp</code></pre>
+            <p><small>Pass <code>-a claude-code</code>, <code>-a cursor</code>, <code>-a cline</code>, or <code>-a zed</code> to target one host; omit to install across every detected agent.</small></p>
+            <p><small><strong>Note:</strong> <code>add-mcp</code> uses <code>claude-code</code> as the host key; the runlog-installer uses <code>claude</code> (matches <code>runlog install --target claude</code>). Both target the same host with different naming conventions &mdash; pick whichever suits your workflow.</small></p>
+          </div>
+          <div class="col">
+            <strong>pipx run (Python)</strong>
+            <p class="targets">Aider, Continue, Copilot, Windsurf</p>
+            <pre><code>pipx run --spec runlog-installer runlog install \
+  --target &lt;host&gt; --api-key $RUNLOG_API_KEY</code></pre>
+            <p><small>The <code>--spec</code> flag tells pipx the package name; the <code>runlog</code> after it is the script.</small></p>
+          </div>
+        </div>
+        <p><small>Prefer a persistent install? <code>pipx install runlog-installer</code> then <code>runlog install --target &lt;host&gt; --api-key $RUNLOG_API_KEY</code> &mdash; same flags, leaves the binary on <code>$PATH</code>.</small></p>
+        <p><strong>JetBrains AI Assistant:</strong> manual config &mdash; see the per-vendor Quickstart below (config format is XML / IDE-specific; not yet supported by the installer).</p>
         <p><strong>Claude Code users</strong> can take an even shorter path that bundles MCP config <em>and</em> skill bodies in one command:</p>
         <pre><code>/plugin marketplace add runlog-org/runlog-skills
 /plugin install runlog</code></pre>
@@ -254,52 +285,70 @@
         <div class="card">
           <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/claude-code">Claude Code</a></h3>
           <p>Reference adapter.</p>
+          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
           <p class="install">~/.claude/skills/runlog/</p>
         </div>
         <div class="card">
           <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/cursor">Cursor</a></h3>
           <p>Highest priority after Claude Code.</p>
+          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
           <p class="install">.cursor/rules/runlog.mdc</p>
         </div>
         <div class="card">
           <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/cline">Cline</a></h3>
           <p>Open-source, MCP-native.</p>
+          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
           <p class="install">.clinerules/runlog.md</p>
         </div>
         <div class="card">
           <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/continue">Continue.dev</a></h3>
           <p>Open-source, MCP-native.</p>
+          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
           <p class="install">.continue/config.yaml</p>
         </div>
         <div class="card">
           <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/windsurf">Windsurf</a></h3>
           <p>Codeium-based, Cascade agent.</p>
+          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
           <p class="install">.windsurfrules</p>
         </div>
         <div class="card">
           <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/aider">Aider</a></h3>
           <p>CLI-native, diff-cycle model.</p>
+          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
           <p class="install">CONVENTIONS.md or --read</p>
           <p class="caveat">* MCP support is version-dependent</p>
         </div>
         <div class="card">
           <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/copilot">VS&nbsp;Code&nbsp;Copilot</a></h3>
           <p>Requires Copilot agent mode.</p>
+          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
           <p class="install">.github/copilot-instructions.md</p>
         </div>
         <div class="card">
           <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/jetbrains">JetBrains&nbsp;AI</a></h3>
           <p>IntelliJ, PyCharm, WebStorm, GoLand, &hellip;</p>
+          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
           <p class="install">AI Assistant guidelines</p>
           <p class="caveat">* Tool-use varies by IDE / plugin version</p>
         </div>
         <div class="card">
           <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/zed">Zed</a></h3>
           <p>Native context_servers + .rules.</p>
+          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
           <p class="install">~/.config/zed/settings.json</p>
           <p class="caveat">* HTTP context_servers schema is settling</p>
         </div>
       </div>
+      <aside class="prose harvest-example">
+        <p>At the end of a debugging session that touched a third-party system, your agent surfaces a one-line nudge &mdash; <code>Harvest 2 candidate findings? (y/N)</code> &mdash; and on yes routes each candidate through local Ed25519 verification before drafting a <code>runlog_submit</code> call.</p>
+        <pre><code>/runlog:harvest
+Scanned this session + last 3 commits. Candidates:
+  1. Stripe webhook signature: replay-window default is 5 min, not 30s [score 0.86]
+  2. Postgres lock_timeout=0 means "wait forever," not "fail immediately" [score 0.78]
+Pick (e.g. 1,2 or all): _</code></pre>
+        <p>Each pick re-runs locally against the verifier, signs the result, and submits a draft entry &mdash; the registry never sees an unverified claim.</p>
+      </aside>
       <p class="prose note">
         Asterisks flag adapters whose upstream vendor's MCP integration is still evolving. The skill
         body works against today's vendor capabilities; the per-adapter folder has VERIFY notes

@@ -25,7 +25,7 @@ python -m http.server 8080 --directory website
 
 Then open `http://localhost:8080/register/`.
 
-The `POST /register` and `GET /register/verify` endpoints are served by the runlog MCP server (private repo: [`runlog-org/runlog`](https://github.com/runlog-org/runlog)). In production these live at `api.runlog.org`; in local dev point at `http://localhost:8000` by setting `window.RUNLOG_API_BASE` in an inline `<script>` before `app.js` loads, or by editing the `data-api-base` attribute on `#register-form` in `index.html`.
+The `POST /register` and `GET /register/verify` endpoints are served by the runlog MCP server (private repo: [`runlog-org/runlog`](https://github.com/runlog-org/runlog)). In production these live at `api.runlog.org`; in local dev point at `http://localhost:8000` by editing the `data-api-base` attribute on `#register-form` in `register/index.html` and on `<main>` in `register/verify.html`.
 
 ## Depends on
 

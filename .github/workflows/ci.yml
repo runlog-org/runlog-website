@@ -26,7 +26,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
 
       # Offline dry-run parses the deploy config, resolves the assets
       # directory, and writes the bundled output to --outdir without
@@ -45,7 +45,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
 
       # htmlhint with the rules in .htmlhintrc — default ruleset minus
       # href-abs-or-rel (we link to GitHub a lot) and inline-style /
@@ -62,7 +62,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
 
       # Site JS is one ~150-line vanilla ES2020 file with no build
       # step. A full ESLint stack is overkill; node --check parses

@@ -1,4 +1,4 @@
-Contact: mailto:hello@runlog.org
+Contact: mailto:runlog@volkerotto.net
 Expires: 2027-04-29T00:00:00.000Z
 Preferred-Languages: en
 Canonical: https://runlog.org/.well-known/security.txt

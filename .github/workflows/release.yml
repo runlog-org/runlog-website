@@ -1,0 +1,134 @@
+name: release
+
+# Tag-based release workflow for the runlog-website repo.
+#
+# Production deploys are not driven from here: Cloudflare auto-deploys
+# on push-to-main from `runlog-org/runlog-website` (see RELEASING.md).
+# This workflow exists to mark release points — a tag a future
+# maintainer can pin to or audit ("what was on prod when we shipped
+# X?") — and to re-run the same gates ci.yml uses, on the tag commit,
+# before publishing the GitHub Release.
+#
+# A maintainer cuts a release by pushing `website/vX.Y.Z`.
+# `workflow_dispatch` is wired up too as a manual smoke-run path that
+# exercises the pre-flight without creating a Release (the `release`
+# job's `if:` guard skips the gh-release step when the trigger isn't a
+# tag push).
+#
+# Security note: this workflow takes no untrusted user-supplied input
+# (no issue/PR/comment bodies are interpolated into run: blocks).
+# `GITHUB_REF` on a tag-push event is the tag the maintainer pushed,
+# and is used only for prerelease-suffix detection via a shell `case`
+# on `${GITHUB_REF##*/}`.
+
+on:
+  push:
+    tags: ["website/v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+# Action versions for third-party actions are pinned to full commit
+# SHAs (not floating major tags) so a compromised tag on a third-party
+# action repo can't ship malicious release logic into this repo.
+# Update by bumping the SHA and the trailing comment together. SHAs
+# below resolve to:
+#   actions/checkout@v4              -> 34e114876b0b11c390a56381ad16ebd13914f8d5
+#   softprops/action-gh-release@v2   -> 3bb12739c298aeb8a4eeaf626c5b8d85266b0e65
+#
+# `actions/setup-node` is pinned to the `@v4` major tag here to match
+# the existing ci.yml's level of pinning; tightening that across both
+# workflows is a separate sweep.
+
+jobs:
+  pre-flight:
+    # Re-run the same gates ci.yml uses on push/PR. Catching a broken
+    # wrangler config or malformed HTML here, on the tag commit, before
+    # the Release is created, is much cheaper than publishing a tag,
+    # discovering breakage, and yanking it. The actual Cloudflare
+    # deploy is independent (push-to-main); this is just the
+    # belt-and-braces re-validation on the exact commit being tagged.
+    runs-on: ubuntu-latest
+    env:
+      # Deploy CLI may gate on an account-context env var being
+      # non-empty even on offline dry-runs. A dummy value is enough:
+      # nothing leaves the runner. Same as ci.yml.
+      CLOUDFLARE_API_TOKEN: dummy
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Offline dry-run parses the deploy config, resolves the assets
+      # directory, and writes the bundled output to --outdir without
+      # contacting any remote service.
+      - name: deploy config dry-run
+        run: |
+          npx --yes wrangler@latest deploy \
+            --dry-run \
+            --outdir=/tmp/wrangler-out
+
+      # htmlhint with the rules in .htmlhintrc.
+      - name: htmlhint
+        run: npx --yes htmlhint@latest --config .htmlhintrc './**/*.html'
+
+      # node --check on every tracked .js. Cheap, catches syntax errors
+      # in the vanilla ES2020 site script with no build step.
+      - name: node --check on every site .js
+        run: |
+          set -eu
+          while IFS= read -r f; do
+            echo "checking $f"
+            node --check "$f"
+          done < <(find . \
+            -path ./node_modules -prune -o \
+            -path ./.git -prune -o \
+            -name '*.js' -type f -print)
+
+  release:
+    needs: pre-flight
+    # Only create the Release on an actual tag push. A workflow_dispatch
+    # run gets the pre-flight pass above but stops short of publishing —
+    # useful for verifying the workflow itself is healthy without
+    # burning a version number.
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # required for softprops/action-gh-release
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+        with:
+          # Full history so generate_release_notes can compute the
+          # commit/PR delta from the previous tag.
+          fetch-depth: 0
+
+      - name: Resolve prerelease flag
+        id: meta
+        run: |
+          ref="${GITHUB_REF##*/}"
+          # Tags like website/v0.1.0-rc1, website/v0.1.0-beta2,
+          # website/v0.1.0-alpha1 publish as prereleases (visible but
+          # flagged); plain semver tags publish as full releases.
+          case "$ref" in
+            *-rc*|*-beta*|*-alpha*) echo "prerelease=true"  >> "$GITHUB_OUTPUT" ;;
+            *)                      echo "prerelease=false" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65  # v2
+        with:
+          # `name` defaults to the tag, `tag_name` defaults to the
+          # pushed ref — both implicit. No `files:` block: the website
+          # ships no built artefacts beyond the source archive GitHub
+          # auto-attaches. The actual deploy is a separate
+          # Cloudflare-side flow (push-to-main).
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ steps.meta.outputs.prerelease == 'true' }}

@@ -32,7 +32,7 @@
   </script>
 </head>
 <body>
-  <main>
+  <main data-api-base="https://api.runlog.org">
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/">Runlog</a>
       <a href="https://github.com/runlog-org">GitHub</a>
@@ -74,8 +74,7 @@
     </footer>
   </main>
   <!--
-    Local dev: set the API base before app.js loads.
-    <script>window.RUNLOG_API_BASE = 'http://localhost:8000';</script>
+    Local dev: set data-api-base="http://localhost:8000" on <main> above.
   -->
   <script src="app.js"></script>
   <script src="/assets/js/copyright.js" defer></script>

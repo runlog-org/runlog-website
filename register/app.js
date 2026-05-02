@@ -5,6 +5,10 @@
 (function () {
   'use strict';
 
+  // ── Constants ──────────────────────────────────────────────────────────
+  // How long the copy button stays in the "Copied" state after a click.
+  const COPY_FEEDBACK_MS = 1500;
+
   const path = location.pathname.replace(/\/$/, '');
 
   if (path.endsWith('/register')) {
@@ -54,6 +58,7 @@
 
       submitBtn.disabled = true;
 
+      let fetchFailed = false;
       if (apiBase) {
         try {
           await fetch(`${apiBase}/register`, {
@@ -64,12 +69,21 @@
         } catch (err) {
           // Network error — swallow; user sees the same message regardless.
           console.warn('runlog register fetch error:', err);
+          fetchFailed = true;
         }
       }
 
       // Always show the same message to prevent email enumeration.
       status.textContent =
         'If that address is valid, a verification link is on its way. It expires in 1 hour.';
+
+      // Re-enable the button on network failure so the user can retry.
+      // On success the same anti-enumeration message is shown either way,
+      // but a frozen form on a real network blip is worse than letting them
+      // press send again.
+      if (fetchFailed) {
+        submitBtn.disabled = false;
+      }
     });
   }
 
@@ -78,7 +92,8 @@
   async function initVerify() {
     const headline = document.getElementById('headline');
     const result = document.getElementById('result');
-    const apiBase = resolveApiBase(window.RUNLOG_API_BASE);
+    const host = document.querySelector('[data-api-base]');
+    const apiBase = resolveApiBase(host && host.dataset.apiBase);
 
     const params = new URLSearchParams(location.search);
     const token = params.get('token');
@@ -182,10 +197,21 @@
     const copyBtn = document.createElement('button');
     copyBtn.type = 'button';
     copyBtn.textContent = 'Copy';
+    copyBtn.setAttribute('aria-label', 'Copy API key to clipboard');
+    // aria-live on the button itself so screen readers announce the
+    // "Copy" → "Copied" transition without needing a separate live region.
+    copyBtn.setAttribute('aria-live', 'polite');
+    let copyResetTimer = null;
     copyBtn.addEventListener('click', () => {
       navigator.clipboard.writeText(code.textContent).then(() => {
         copyBtn.textContent = 'Copied';
-        setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1500);
+        // Cancel any pending reset from a prior click so rapid clicks
+        // don't race the label back to "Copy" mid-feedback.
+        if (copyResetTimer !== null) clearTimeout(copyResetTimer);
+        copyResetTimer = setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+          copyResetTimer = null;
+        }, COPY_FEEDBACK_MS);
       });
     });
 

@@ -373,3 +373,63 @@
   }
   .harvest-example pre code { font-size: 0.85rem; }
 }
+
+@layer components {
+  .flow {
+    counter-reset: flow;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+  .flow li {
+    @apply border-t border-border;
+    counter-increment: flow;
+    position: relative;
+    padding: 0.6rem 0 0.6rem 2.5rem;
+  }
+  .flow li:first-child { border-top: none; }
+  .flow li::before {
+    content: counter(flow);
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--color-brand);
+    color: var(--color-on-brand);
+    text-align: center;
+    line-height: 1.75rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .flow .who {
+    @apply bg-code-bg text-muted;
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.45rem;
+    border-radius: 3px;
+    margin-right: 0.4rem;
+    vertical-align: 0.15em;
+  }
+  .flow .who.agent {
+    background: var(--color-brand);
+    color: var(--color-on-brand);
+  }
+
+  .axes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  @media (min-width: 44rem) {
+    .axes { grid-template-columns: repeat(2, 1fr); }
+  }
+  .axes .card { padding: 0.85rem 1rem; }
+  .axes .card h3 { margin: 0 0 0.3rem 0; font-size: 1rem; }
+  .axes .card p { @apply text-muted; margin: 0; font-size: 0.95rem; }
+}

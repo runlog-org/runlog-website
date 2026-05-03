@@ -230,6 +230,17 @@ Confirm each or reject submission.</code></pre>
           allow-list catches the content violations the scope rule cannot see. The contamination
           classifier catches semantic problems the allow-list cannot see.
         </p>
+        <p class="note">
+          v0.1 status: layers 1 (<code>schema_validation</code>) and 2 (<code>scope_rule</code>)
+          are operational against the 227-tag registry. Layer 3 (<code>allowlist_violation</code>)
+          ships in <code>warn</code> mode &mdash; violations are logged with structured counts
+          but submissions still land &mdash; pending coverage observation before flipping the
+          gate to <code>reject</code> via the existing env-var toggle. Layer 4
+          (<code>contamination</code>) is the V1 target: the coarse credential / PII / private-key
+          patterns described in the next section are enforced today; the prompt-injection and
+          prose-contamination classifiers are scoped for V1. The architecture is the four layers;
+          the enforcement is staged.
+        </p>
       </section>
 
       <section aria-labelledby="hard-reject-title" class="prose">

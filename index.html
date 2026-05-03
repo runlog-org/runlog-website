@@ -15,56 +15,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Runlog — the external-dependency layer for agent memory">
   <meta name="twitter:description" content="A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols, delivered to coding agents over MCP.">
-  <link rel="stylesheet" href="/register/style.css">
-  <style>
-    /* Landing-page-specific overrides on top of /register/style.css.
-       The shared file provides main, .prose, h1, h2, .lede, .grid, .card,
-       .note, .cta. The landing page wants a tighter prose column and a
-       larger / tighter h1, plus its own tagline + tease-grid styling. */
-    .prose { max-width: 36rem; }
-    h1 { font-size: 2.25rem; line-height: 1.1; margin-bottom: 0.25rem; }
-    .tagline {
-      font-size: 1.4rem;
-      line-height: 1.25;
-      font-weight: 500;
-      color: var(--fg);
-      margin: 0.25rem 0 0.75rem 0;
-    }
-    .lede { font-size: 1.1rem; }
-    /* Landing card grid sits closer to the surrounding margin than the
-       shared .note default (which uses 1.25rem). */
-    .note { margin: 1rem 0; }
-    dt { margin-top: 0.75rem; }
-    dd { margin: 0.25rem 0 0 1.25rem; }
-    .agents-line { font-size: 0.95rem; color: var(--muted); }
-    .grid.tease {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-      gap: 0.5rem;
-      margin: 1rem 0;
-    }
-    .grid.tease .tile {
-      display: block;
-      padding: 0.6rem 0.8rem;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      text-decoration: none;
-      color: var(--fg);
-      background: var(--code-bg);
-      font-size: 0.9rem;
-      transition: border-color 0.1s;
-    }
-    .grid.tease .tile:hover {
-      border-color: var(--accent);
-    }
-    .grid.tease.setup-grid .tile {
-      font-size: 0.85rem;
-      line-height: 1.35;
-    }
-    .grid.tease.setup-grid .tile small {
-      color: var(--muted);
-    }
-  </style>
+  <link rel="stylesheet" href="/dist/style.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -159,27 +110,22 @@
   <main>
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/" aria-current="page">Runlog</a>
-      <details class="nav-toggle">
-        <summary aria-label="Toggle navigation"><span class="burger-icon" aria-hidden="true"></span></summary>
-        <div class="nav-links">
-          <a href="https://github.com/runlog-org">GitHub</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/trust/">Trust</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/agents/">Agents</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/pricing/">Pricing</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/blog/">Blog</a>
-        </div>
-      </details>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="https://github.com/runlog-org">GitHub</a>
+        <a href="/trust/">Trust</a>
+        <a href="/agents/">Agents</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+
       <a class="cta-register" href="/register/">Get&nbsp;API&nbsp;key</a>
     </header>
 
-    <section aria-labelledby="hero-title" class="prose">
-      <h1 id="hero-title">Runlog</h1>
+    <section aria-labelledby="hero-title" class="prose" style="max-width:36rem">
+      <h1 id="hero-title" class="text-[2.25rem] leading-[1.1] mb-1">Runlog</h1>
       <p class="tagline">The external-dependency layer for agent memory.</p>
-      <p class="lede">A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols &mdash; delivered to coding agents over MCP.</p>
+      <p class="lede text-[1.1rem]">A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols &mdash; delivered to coding agents over MCP.</p>
       <p class="status-line">
         <a href="https://api.runlog.org/health" title="v0.1 live"><img src="https://img.shields.io/badge/v0.1-live-success" alt="v0.1 live" /></a>
         <a href="https://modelcontextprotocol.io" title="MCP compatible"><img src="https://img.shields.io/badge/MCP-compatible-purple" alt="MCP compatible" /></a>
@@ -192,7 +138,7 @@
         They have a structural blind spot on third-party systems your team hasn't touched yet.
         Runlog fills that blind spot. Your agent consults Runlog <em>alongside</em> its team memory, never as a replacement.
       </p>
-      <p class="agents-line">
+      <p class="agents-line text-[0.95rem] text-muted">
         Works with <strong>Claude Code</strong>, <strong>Cursor</strong>, <strong>Cline</strong>,
         <strong>Continue</strong>, <strong>Windsurf</strong>, <strong>Aider</strong>,
         <strong>VS&nbsp;Code&nbsp;Copilot</strong>, <strong>JetBrains&nbsp;AI</strong>, and <strong>Zed</strong>
@@ -203,7 +149,7 @@
 
     <section aria-labelledby="diff-title" class="prose">
       <h2 id="diff-title">Why not just &hellip;</h2>
-      <dl>
+      <dl class="diff-list">
         <dt><strong>&hellip; <code>CLAUDE.md</code> / Cursor rules / mem0 / Letta?</strong></dt>
         <dd>
           Use them. Runlog isn't a replacement. Those tools own internal knowledge &mdash; your
@@ -253,7 +199,7 @@
         client contract via read + author + harvest skills.
         <a href="/agents/">See all 9 adapters &rarr;</a>
       </p>
-      <div class="grid tease agents-grid">
+      <div class="grid-tease agents-grid">
         <a class="tile" href="/agents/#claude-code">Claude Code</a>
         <a class="tile" href="/agents/#cursor">Cursor</a>
         <a class="tile" href="/agents/#cline">Cline</a>
@@ -278,7 +224,7 @@
         then your agent decides when to query.
         <a href="/quickstart/">Full quickstart &rarr;</a>
       </p>
-      <div class="grid tease setup-grid">
+      <div class="grid-tease setup-grid">
         <a class="tile" href="/quickstart/#step-1"><strong>1. Register</strong><br><small>Email + verification link, copy the API key.</small></a>
         <a class="tile" href="/quickstart/#step-2"><strong>2. Wire MCP</strong><br><small><code>npx add-mcp</code> or hand-edit the config.</small></a>
         <a class="tile" href="/quickstart/#step-3"><strong>3. Drop in the skill</strong><br><small>Vendor-specific path; teaches the four-point contract.</small></a>
@@ -336,13 +282,13 @@
         directly; they can't apply a Stack Overflow thread without re-parsing it every time.
       </p>
 
-      <p class="note">
+      <p class="note" style="margin:1rem 0">
         More questions? <a href="/trust/#faq-title">Trust &amp; verification FAQ</a> &middot;
         <a href="/pricing/#faq-title">Pricing &amp; deployment FAQ</a>
       </p>
     </section>
 
-    <footer>
+    <footer class="site-footer">
       <p>
         Runlog's
         <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>,

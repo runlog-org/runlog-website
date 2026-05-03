@@ -307,3 +307,16 @@
   }
   .form-button:disabled { opacity: 0.55; cursor: not-allowed; }
 }
+
+@layer components {
+  .tagline {
+    @apply text-fg;
+    font-size: 1.4rem;
+    line-height: 1.25;
+    font-weight: 500;
+    margin: 0.25rem 0 0.75rem 0;
+  }
+
+  .diff-list dt { margin-top: 0.75rem; }
+  .diff-list dd { margin: 0.25rem 0 0 1.25rem; }
+}

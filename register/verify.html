@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Verifying — Runlog</title>
   <meta name="theme-color" content="#0060df">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/dist/style.css">
   <meta name="robots" content="noindex">
   <script type="application/ld+json">
   {
@@ -35,27 +35,20 @@
   <main data-api-base="https://api.runlog.org">
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/">Runlog</a>
-      <details class="nav-toggle">
-        <summary aria-label="Toggle navigation"><span class="burger-icon" aria-hidden="true"></span></summary>
-        <div class="nav-links">
-          <a href="https://github.com/runlog-org">GitHub</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/trust/">Trust</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/agents/">Agents</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/pricing/">Pricing</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/blog/">Blog</a>
-        </div>
-      </details>
-      <a class="cta-register" href="/register/" aria-current="page">Get&nbsp;API&nbsp;key</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="https://github.com/runlog-org">GitHub</a>
+        <a href="/trust/">Trust</a>
+        <a href="/agents/">Agents</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+      <a class="cta-register" href="/register/">Get&nbsp;API&nbsp;key</a>
     </header>
 
     <h1 id="headline">Verifying your email…</h1>
     <div id="result" aria-live="polite"></div>
 
-    <footer>
+    <footer class="site-footer">
       <p>
         Runlog's
         <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>,

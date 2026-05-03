@@ -16,41 +16,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Runlog vs. cq: two takes on shared agent memory">
   <meta name="twitter:description" content="A side-by-side comparison of Runlog and Mozilla.ai's cq across scope, trust, sanitization, verification, and the public-commons question.">
-  <link rel="stylesheet" href="/register/style.css">
-  <style>
-    /* Shared layout primitives (main, .prose, h1–h3, .lede, .crumbs,
-       .compare, .pull, .note) live in /register/style.css. Below: post
-       byline, narrower comparison-table first column, mobile-shrink
-       override for the table, and the two-column verdict grid. */
-    .meta { font-size: 0.85rem; color: var(--muted); margin: 0.25rem 0 1.5rem 0; }
-
-    /* Tighter first column for this post's wider comparison table. */
-    .compare td:first-child { width: 26%; }
-
-    @media (max-width: 32rem) {
-      .compare { font-size: 0.85rem; }
-      .compare th, .compare td { padding: 0.4rem 0.4rem; }
-    }
-
-    .verdict {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-      margin: 1rem 0;
-    }
-    @media (min-width: 44rem) {
-      .verdict { grid-template-columns: repeat(2, 1fr); }
-    }
-    .verdict .card {
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.85rem 1rem;
-    }
-    .verdict .card h3 { margin: 0 0 0.4rem 0; font-size: 1rem; }
-    .verdict .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
-    .verdict .card ul { margin: 0.4rem 0 0 1.1rem; padding: 0; color: var(--muted); font-size: 0.92rem; }
-    .verdict .card li { margin: 0.2rem 0; }
-  </style>
+  <link rel="stylesheet" href="/dist/style.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -99,20 +65,13 @@
   <main>
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/">Runlog</a>
-      <details class="nav-toggle">
-        <summary aria-label="Toggle navigation"><span class="burger-icon" aria-hidden="true"></span></summary>
-        <div class="nav-links">
-          <a href="https://github.com/runlog-org">GitHub</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/trust/">Trust</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/agents/">Agents</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/pricing/">Pricing</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/blog/" aria-current="page">Blog</a>
-        </div>
-      </details>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="https://github.com/runlog-org">GitHub</a>
+        <a href="/trust/">Trust</a>
+        <a href="/agents/">Agents</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+      </nav>
       <a class="cta-register" href="/register/">Get&nbsp;API&nbsp;key</a>
     </header>
 
@@ -144,7 +103,7 @@
         <p>
           Six axes that turn out to do most of the work in distinguishing the two:
         </p>
-        <table class="compare">
+        <table class="compare compare-narrow">
           <thead>
             <tr><th>Axis</th><th>Runlog</th><th>cq</th></tr>
           </thead>
@@ -426,7 +385,7 @@
       </section>
     </article>
 
-    <footer>
+    <footer class="site-footer">
       <p>
         Runlog's
         <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>,

@@ -9,3 +9,6 @@ Thumbs.db
 # ── Cloudflare Wrangler ──
 .wrangler/
 node_modules/
+
+# ── Worktrees (superpowers:using-git-worktrees) ──
+.worktrees/

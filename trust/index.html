@@ -233,6 +233,30 @@
       </p>
     </section>
 
+    <section aria-labelledby="contribute-title" class="prose">
+      <h2 id="contribute-title">Contribute</h2>
+      <p>
+        Two surfaces are open to PRs:
+      </p>
+      <ul>
+        <li><strong>Schema</strong> &mdash; the entry contract lives at
+          <a href="https://github.com/runlog-org/runlog-schema/blob/main/entry.schema.yaml"><code>runlog-schema/entry.schema.yaml</code></a>.
+          Schema changes ship via <a href="/blog/">release trains</a> with semver gates so consumers
+          (server, verifier, skills) pin and migrate on their own cadence.
+        </li>
+        <li><strong>Vocabularies</strong> &mdash; the 227-tag scope registry plus per-domain and
+          per-protocol token lists live at
+          <a href="https://github.com/runlog-org/runlog-vocabularies"><code>runlog-vocabularies</code></a>.
+          Adding a new third-party system is a one-file PR that goes through five producer-side
+          validators (yaml-parse, registry-consistency, vocabulary-shape, token-hygiene, ordering)
+          before it can land.
+        </li>
+      </ul>
+      <p>
+        Both repos are Apache 2.0 / MIT and don't require a CLA.
+      </p>
+    </section>
+
     <footer>
       <p>
         Runlog's
@@ -262,7 +286,10 @@
         <a href="https://github.com/runlog-org/runlog-skills" title="9 vendor adapters"><img src="https://img.shields.io/badge/agents-9%20vendors-blue" alt="9 vendor adapters" /></a>
         <a href="https://github.com/runlog-org#licenses" title="Code license"><img src="https://img.shields.io/badge/code-Apache%202.0%20%2F%20MIT-blue" alt="Apache 2.0 / MIT license" /></a>
       </p>
-      <p class="copyright">&copy; <span id="copyright-year">2026</span> Runlog</p>
+      <p class="copyright">
+        &copy; <span id="copyright-year">2026</span> Runlog
+        &middot; Built by <a href="https://volkerotto.net">Volker Otto</a>
+      </p>
     </footer>
   </main>
   <script src="/assets/js/copyright.js" defer></script>

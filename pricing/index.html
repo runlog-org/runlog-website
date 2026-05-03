@@ -185,6 +185,24 @@
       <p><a class="cta" href="/register/">Get an API key</a></p>
     </section>
 
+    <section aria-labelledby="versioning-title" class="prose">
+      <h2 id="versioning-title">Versioning &amp; stability</h2>
+      <p>
+        v0.1 is the public-beta baseline. The schema, verifier, and skills repos each cut their
+        own releases on independent trains &mdash; semver-tagged, prerelease-gated, with PyPI and
+        Go-module publishing for the components that have downstream consumers. Breaking schema
+        changes accumulate locally on the schema repo's <code>main</code> until a coordinated
+        major bump moves the server's pinned ceiling, which decouples schema evolution from
+        consumer migration.
+      </p>
+      <p>
+        Practically: an entry written today against the current schema stays valid for the
+        lifetime of the current major; consumers pin
+        <code>&gt;=X,&lt;X+1</code> and bump on their own cadence. The release-train discipline is
+        documented in each component's <code>RELEASING.md</code>.
+      </p>
+    </section>
+
     <section aria-labelledby="faq-title" class="prose">
       <h2 id="faq-title">FAQ</h2>
 
@@ -234,7 +252,10 @@
         <a href="https://github.com/runlog-org/runlog-skills" title="9 vendor adapters"><img src="https://img.shields.io/badge/agents-9%20vendors-blue" alt="9 vendor adapters" /></a>
         <a href="https://github.com/runlog-org#licenses" title="Code license"><img src="https://img.shields.io/badge/code-Apache%202.0%20%2F%20MIT-blue" alt="Apache 2.0 / MIT license" /></a>
       </p>
-      <p class="copyright">&copy; <span id="copyright-year">2026</span> Runlog</p>
+      <p class="copyright">
+        &copy; <span id="copyright-year">2026</span> Runlog
+        &middot; Built by <a href="https://volkerotto.net">Volker Otto</a>
+      </p>
     </footer>
   </main>
   <script src="/assets/js/copyright.js" defer></script>

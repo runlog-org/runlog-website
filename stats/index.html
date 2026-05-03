@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stats — Runlog</title>
+  <meta name="description" content="How many entries Runlog covers, broken down by vocabulary category, plus the registered-user count. Refreshed daily.">
+  <link rel="canonical" href="https://runlog.org/stats/">
+  <meta name="theme-color" content="#0060df">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Runlog">
+  <meta property="og:url" content="https://runlog.org/stats/">
+  <meta property="og:title" content="Stats — Runlog">
+  <meta property="og:description" content="How many entries Runlog covers, broken down by vocabulary category, plus the registered-user count. Refreshed daily.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Stats — Runlog">
+  <meta name="twitter:description" content="How many entries Runlog covers, broken down by vocabulary category, plus the registered-user count. Refreshed daily.">
+  <link rel="stylesheet" href="/dist/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://runlog.org/#organization",
+        "name": "Runlog",
+        "url": "https://runlog.org/",
+        "email": "runlog@volkerotto.net",
+        "sameAs": ["https://github.com/runlog-org"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://runlog.org/#website",
+        "url": "https://runlog.org/",
+        "name": "Runlog",
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Runlog", "item": "https://runlog.org/"},
+          {"@type": "ListItem", "position": 2, "name": "Stats", "item": "https://runlog.org/stats/"}
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://runlog.org/stats/#page",
+        "name": "Stats",
+        "url": "https://runlog.org/stats/",
+        "isPartOf": {"@id": "https://runlog.org/#website"},
+        "inLanguage": "en"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="prose">
+    <header class="site-badges" aria-label="Site navigation">
+      <a class="brand" href="/">Runlog</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="https://github.com/runlog-org">GitHub</a>
+        <a href="/trust/">Trust</a>
+        <a href="/agents/">Agents</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+      <a class="cta-register" href="/register/">Get&nbsp;API&nbsp;key</a>
+    </header>
+
+    <article id="stats-page-body">
+      <h1>Stats</h1>
+
+      <p class="lede">
+        A daily snapshot of what Runlog covers and who's signed up.
+        Counts come from the production database; the tag→category
+        mapping comes from
+        <a href="https://github.com/runlog-org/runlog-vocabularies/blob/main/scope-registry.yaml">scope-registry.yaml</a>.
+      </p>
+
+      <section class="stats-headline" aria-label="Headline numbers">
+        <dl>
+          <div><dt>Entries</dt><dd><span id="stat-entries-total">—</span></dd></div>
+          <div><dt>Verified</dt><dd><span id="stat-entries-verified">—</span></dd></div>
+          <div><dt>Tags covered</dt><dd><span id="stat-tags-covered">—</span> of <span id="stat-tags-total">—</span></dd></div>
+          <div><dt>Registered users</dt><dd><span id="stat-users-registered">—</span></dd></div>
+        </dl>
+      </section>
+
+      <h2>Coverage by category</h2>
+      <div id="stat-by-category">
+        <p class="note">Loading…</p>
+      </div>
+
+      <h2>Methodology</h2>
+      <p>
+        The numbers above come from a snapshot of the production database
+        regenerated daily. Tags are bucketed by category using
+        <a href="https://github.com/runlog-org/runlog-vocabularies/blob/main/scope-registry.yaml">scope-registry.yaml</a>.
+        The raw JSON behind this page is
+        <a href="/stats.json">stats.json</a>.
+      </p>
+      <p class="generated-at">
+        Generated: <span id="stat-generated-at">—</span>
+      </p>
+    </article>
+
+    <footer class="site-footer">
+      <p>
+        Runlog's
+        <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>,
+        <a href="https://github.com/runlog-org/runlog-schema">schema</a>,
+        <a href="https://github.com/runlog-org/runlog-vocabularies">vocabularies</a>,
+        <a href="https://github.com/runlog-org/runlog-skills">skills</a>, and
+        <a href="https://github.com/runlog-org/runlog-website">website</a> are open source under
+        <a href="https://github.com/runlog-org">runlog-org</a>; the MCP server and architectural
+        docs are not public for now.
+      </p>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/agents/">Agents</a></li>
+        <li><a href="/quickstart/">Quickstart</a></li>
+        <li><a href="/trust/">How trust works</a></li>
+        <li><a href="/why-verification/">Why verification</a></li>
+        <li><a href="/register/">Register</a></li>
+        <li><a href="https://github.com/runlog-org">GitHub</a></li>
+        <li><a href="mailto:runlog@volkerotto.net">runlog@volkerotto.net</a></li>
+      </ul>
+      <p class="status-line">
+        <a href="https://api.runlog.org/health" title="v0.1 live"><img src="/assets/img/badges/v0.1-live.svg" alt="v0.1 live" /></a>
+        <a href="https://modelcontextprotocol.io" title="MCP compatible"><img src="/assets/img/badges/mcp-compatible.svg" alt="MCP compatible" /></a>
+        <a href="https://github.com/runlog-org/runlog-skills" title="9 vendor adapters"><img src="/assets/img/badges/agents-9-vendors.svg" alt="9 vendor adapters" /></a>
+        <a href="https://github.com/runlog-org#licenses" title="Code license"><img src="/assets/img/badges/code-license.svg" alt="Apache 2.0 / MIT license" /></a>
+      </p>
+      <p class="copyright">
+        &copy; <span id="copyright-year">2026</span> Runlog
+        &middot; Built by <a href="https://volkerotto.net">Volker Otto</a>
+      </p>
+    </footer>
+  </main>
+  <script src="/assets/js/copyright.js" defer></script>
+  <script src="/assets/js/stats.js" defer></script>
+</body>
+</html>

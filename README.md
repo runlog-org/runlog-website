@@ -6,6 +6,8 @@
 **Content:** Static HTML, CSS, and vanilla JS
 **Deploy target:** edge runtime (static assets + secrets binding) serving `runlog.org` and `runlog.org/register`
 
+> **About this project:** Runlog is a hobby side project by [Volker Otto](https://volkerotto.net) — not a commercial product today. A paid model is not ruled out for a later stage. See [About this project](https://runlog.org/#about) for the canonical framing.
+
 Marketing and registration surface for Runlog. Extracted into its own public repo at first release because the static site has a different deploy path (edge runtime, static assets) and release cadence than the MCP server — a CSS tweak to the landing page should never require a server deploy, and vice versa.
 
 ## Layout

@@ -433,3 +433,27 @@
   .axes .card h3 { margin: 0 0 0.3rem 0; font-size: 1rem; }
   .axes .card p { @apply text-muted; margin: 0; font-size: 0.95rem; }
 }
+
+@layer components {
+  .post-list { list-style: none; padding: 0; margin: 1.5rem 0 0 0; }
+  .post-list > li {
+    @apply border-t border-border;
+    padding: 1.25rem 0;
+  }
+  .post-list > li:first-child { border-top: none; }
+  .post-list h3 {
+    margin: 0 0 0.3rem 0;
+    font-size: 1.15rem;
+  }
+  .post-list h3 a { @apply text-fg; text-decoration: none; }
+  .post-list h3 a:hover { text-decoration: underline; }
+  .post-list .meta { @apply text-muted; font-size: 0.85rem; margin: 0 0 0.5rem 0; }
+  .post-list .summary { @apply text-muted; margin: 0; font-size: 0.95rem; }
+
+  .empty {
+    @apply text-muted border-l-[3px] border-border;
+    font-size: 0.95rem;
+    padding: 0.4rem 0 0.4rem 0.85rem;
+    margin: 1.5rem 0;
+  }
+}

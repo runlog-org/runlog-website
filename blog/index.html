@@ -15,42 +15,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Blog — Runlog">
   <meta name="twitter:description" content="Notes on shared agent memory, verification, and the design decisions behind Runlog.">
-  <link rel="stylesheet" href="/register/style.css">
-  <style>
-    /* Shared layout primitives (main, .prose, h1, h2, .lede, .crumbs)
-       live in /register/style.css. Only blog-list-specific rules below. */
-
-    .post-list { list-style: none; padding: 0; margin: 1.5rem 0 0 0; }
-    .post-list > li {
-      padding: 1.25rem 0;
-      border-top: 1px solid var(--border);
-    }
-    .post-list > li:first-child { border-top: none; }
-    .post-list h3 {
-      margin: 0 0 0.3rem 0;
-      font-size: 1.15rem;
-    }
-    .post-list h3 a { text-decoration: none; color: var(--fg); }
-    .post-list h3 a:hover { text-decoration: underline; }
-    .post-list .meta {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin: 0 0 0.5rem 0;
-    }
-    .post-list .summary {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .empty {
-      font-size: 0.95rem;
-      color: var(--muted);
-      border-left: 3px solid var(--border);
-      padding: 0.4rem 0 0.4rem 0.85rem;
-      margin: 1.5rem 0;
-    }
-  </style>
+  <link rel="stylesheet" href="/dist/style.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -151,20 +116,13 @@
   <main>
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/">Runlog</a>
-      <details class="nav-toggle">
-        <summary aria-label="Toggle navigation"><span class="burger-icon" aria-hidden="true"></span></summary>
-        <div class="nav-links">
-          <a href="https://github.com/runlog-org">GitHub</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/trust/">Trust</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/agents/">Agents</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/pricing/">Pricing</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/blog/" aria-current="page">Blog</a>
-        </div>
-      </details>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="https://github.com/runlog-org">GitHub</a>
+        <a href="/trust/">Trust</a>
+        <a href="/agents/">Agents</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+      </nav>
       <a class="cta-register" href="/register/">Get&nbsp;API&nbsp;key</a>
     </header>
 
@@ -239,7 +197,7 @@
       </ul>
     </section>
 
-    <footer>
+    <footer class="site-footer">
       <p>
         Runlog's
         <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>,

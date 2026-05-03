@@ -320,3 +320,46 @@
   .diff-list dt { margin-top: 0.75rem; }
   .diff-list dd { margin: 0.25rem 0 0 1.25rem; }
 }
+
+@layer components {
+  .agents-card h3 { font-size: 0.95rem; }
+  .agents-card h3 a { @apply text-fg; text-decoration: none; }
+  .agents-card h3 a:hover { text-decoration: underline; }
+  .agents-card p { font-size: 0.875rem; }
+  .agents-card .install {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .agents-card .caveat { @apply text-muted; font-size: 0.8rem; margin-top: 0.4rem; }
+  .agents-card .contract { @apply text-muted; font-size: 0.8rem; }
+
+  .install-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 0.75rem 0;
+  }
+  @media (max-width: 36rem) {
+    .install-pair { grid-template-columns: 1fr; }
+  }
+  .install-pair .col {
+    @apply bg-code-bg border border-border;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+  }
+  .install-pair .col strong {
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+  .install-pair .col .targets { @apply text-muted; font-size: 0.8rem; margin: 0 0 0.4rem 0; }
+  .install-pair .col pre { margin: 0; }
+  .install-pair .col pre code { font-size: 0.85rem; }
+
+  .harvest-example {
+    @apply border-l-2 border-border;
+    padding: 0.75rem 1rem;
+    margin: 1.25rem 0;
+  }
+  .harvest-example pre code { font-size: 0.85rem; }
+}

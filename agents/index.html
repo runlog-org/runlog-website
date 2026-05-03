@@ -15,42 +15,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Agents that work with Runlog — Runlog">
   <meta name="twitter:description" content="Maintained client skills for 9 coding agents that speak MCP — Claude Code, Cursor, Cline, Continue, Windsurf, Aider, VS Code Copilot, JetBrains AI, Zed. Each adapter ships read + author + harvest skills implementing the four-point client contract.">
-  <link rel="stylesheet" href="/register/style.css">
-  <style>
-    /* Agents-page-specific rules on top of /register/style.css. */
-    .agents .card h3 { font-size: 0.95rem; }
-    .agents .card h3 a { text-decoration: none; color: var(--fg); }
-    .agents .card h3 a:hover { text-decoration: underline; }
-    .agents .card p { font-size: 0.875rem; }
-    .agents .card .install { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
-    .agents .card .caveat { color: var(--muted); font-size: 0.8rem; margin-top: 0.4rem; }
-    .agents .card .contract { font-size: 0.8rem; color: var(--muted); }
-    .install-pair {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin: 0.75rem 0;
-    }
-    @media (max-width: 36rem) {
-      .install-pair { grid-template-columns: 1fr; }
-    }
-    .install-pair .col {
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 0.75rem 1rem;
-    }
-    .install-pair .col strong { font-size: 0.85rem; display: block; margin-bottom: 0.35rem; }
-    .install-pair .col .targets { font-size: 0.8rem; color: var(--muted); margin: 0 0 0.4rem 0; }
-    .install-pair .col pre { margin: 0; }
-    .install-pair .col pre code { font-size: 0.85rem; }
-    .harvest-example {
-      border-left: 2px solid var(--border);
-      padding: 0.75rem 1rem;
-      margin: 1.25rem 0;
-    }
-    .harvest-example pre code { font-size: 0.85rem; }
-  </style>
+  <link rel="stylesheet" href="/dist/style.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -99,20 +64,13 @@
   <main>
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/">Runlog</a>
-      <details class="nav-toggle">
-        <summary aria-label="Toggle navigation"><span class="burger-icon" aria-hidden="true"></span></summary>
-        <div class="nav-links">
-          <a href="https://github.com/runlog-org">GitHub</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/trust/">Trust</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/agents/" aria-current="page">Agents</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/pricing/">Pricing</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/blog/">Blog</a>
-        </div>
-      </details>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="https://github.com/runlog-org">GitHub</a>
+        <a href="/trust/">Trust</a>
+        <a href="/agents/" aria-current="page">Agents</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/">Blog</a>
+      </nav>
       <a class="cta-register" href="/register/">Get&nbsp;API&nbsp;key</a>
     </header>
 
@@ -166,58 +124,58 @@
         above when you'd rather discover by name.
       </p>
 
-    <div class="grid agents">
-      <div class="card" id="claude-code">
+    <div class="grid-cards">
+      <div class="card agents-card" id="claude-code">
         <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/claude-code">Claude Code</a></h3>
         <p>Reference adapter.</p>
         <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
         <p class="install">~/.claude/skills/runlog/</p>
       </div>
-      <div class="card" id="cursor">
+      <div class="card agents-card" id="cursor">
         <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/cursor">Cursor</a></h3>
         <p>Highest priority after Claude Code.</p>
         <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
         <p class="install">.cursor/rules/runlog.mdc</p>
       </div>
-      <div class="card" id="cline">
+      <div class="card agents-card" id="cline">
         <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/cline">Cline</a></h3>
         <p>Open-source, MCP-native.</p>
         <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
         <p class="install">.clinerules/runlog.md</p>
       </div>
-      <div class="card" id="continue">
+      <div class="card agents-card" id="continue">
         <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/continue">Continue.dev</a></h3>
         <p>Open-source, MCP-native.</p>
         <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
         <p class="install">.continue/config.yaml</p>
       </div>
-      <div class="card" id="windsurf">
+      <div class="card agents-card" id="windsurf">
         <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/windsurf">Windsurf</a></h3>
         <p>Codeium-based, Cascade agent.</p>
         <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
         <p class="install">.windsurfrules</p>
       </div>
-      <div class="card" id="aider">
+      <div class="card agents-card" id="aider">
         <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/aider">Aider</a></h3>
         <p>CLI-native, diff-cycle model.</p>
         <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
         <p class="install">CONVENTIONS.md or --read</p>
         <p class="caveat">* MCP support is version-dependent</p>
       </div>
-      <div class="card" id="copilot">
+      <div class="card agents-card" id="copilot">
         <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/copilot">VS&nbsp;Code&nbsp;Copilot</a></h3>
         <p>Requires Copilot agent mode.</p>
         <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
         <p class="install">.github/copilot-instructions.md</p>
       </div>
-      <div class="card" id="jetbrains">
+      <div class="card agents-card" id="jetbrains">
         <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/jetbrains">JetBrains&nbsp;AI</a></h3>
         <p>IntelliJ, PyCharm, WebStorm, GoLand, &hellip;</p>
         <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
         <p class="install">AI Assistant guidelines</p>
         <p class="caveat">* Tool-use varies by IDE / plugin version</p>
       </div>
-      <div class="card" id="zed">
+      <div class="card agents-card" id="zed">
         <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/zed">Zed</a></h3>
         <p>Native context_servers + .rules.</p>
         <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
@@ -248,7 +206,7 @@ Pick (e.g. 1,2 or all): _</code></pre>
       <p>Each pick re-runs locally against the verifier, signs the result, and submits a draft entry &mdash; the registry never sees an unverified claim.</p>
     </aside>
 
-    <footer>
+    <footer class="site-footer">
       <p>
         Runlog's
         <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>,

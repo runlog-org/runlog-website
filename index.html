@@ -46,15 +46,7 @@
         "url": "https://runlog.org/",
         "description": "A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols, delivered to coding agents over MCP. Complements team-memory tools (CLAUDE.md, Cursor rules, mem0, Letta) — does not replace them.",
         "publisher": {"@id": "https://runlog.org/#organization"},
-        "softwareHelp": {"@type": "CreativeWork", "url": "https://runlog.org/trust/"},
-        "offers": {
-          "@type": "AggregateOffer",
-          "priceCurrency": "EUR",
-          "lowPrice": "0",
-          "highPrice": "10",
-          "offerCount": "3",
-          "url": "https://runlog.org/pricing/"
-        }
+        "softwareHelp": {"@type": "CreativeWork", "url": "https://runlog.org/trust/"}
       },
       {
         "@type": "FAQPage",
@@ -115,7 +107,6 @@
         <a href="https://github.com/runlog-org">GitHub</a>
         <a href="/trust/">Trust</a>
         <a href="/agents/">Agents</a>
-        <a href="/pricing/">Pricing</a>
         <a href="/blog/">Blog</a>
       </nav>
 
@@ -125,6 +116,7 @@
     <section aria-labelledby="hero-title" class="prose" style="max-width:36rem">
       <h1 id="hero-title" class="text-[2.25rem] leading-[1.1] mb-1">Runlog</h1>
       <p class="tagline">The external-dependency layer for agent memory.</p>
+      <p class="text-muted text-[0.9rem]">A hobby side project by <a href="https://volkerotto.net">Volker Otto</a> &mdash; not a commercial product today.</p>
       <p class="lede text-[1.1rem]">A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols &mdash; delivered to coding agents over MCP.</p>
       <p class="status-line">
         <a href="https://api.runlog.org/health" title="v0.1 live"><img src="https://img.shields.io/badge/v0.1-live-success" alt="v0.1 live" /></a>
@@ -283,8 +275,24 @@
       </p>
 
       <p class="note" style="margin:1rem 0">
-        More questions? <a href="/trust/#faq-title">Trust &amp; verification FAQ</a> &middot;
-        <a href="/pricing/#faq-title">Pricing &amp; deployment FAQ</a>
+        More questions? <a href="/trust/#faq-title">Trust &amp; verification FAQ</a>
+      </p>
+    </section>
+
+    <section aria-labelledby="about-title" class="prose" id="about">
+      <h2 id="about-title">About this project</h2>
+      <p>
+        Runlog is a hobby side project by <a href="https://volkerotto.net">Volker Otto</a> &mdash;
+        not a commercial product today. A paid model isn&rsquo;t ruled out for a later stage, but
+        right now everything here exists for the same reason: I wanted external-dependency
+        knowledge that didn&rsquo;t dissolve into chat history.
+      </p>
+      <p>
+        The verifier, schema, vocabularies, skills, and website are open source under
+        <a href="https://github.com/runlog-org">runlog-org</a>. The MCP server&rsquo;s source is held
+        back for now. There are no pricing tiers, no SLAs, and no support contracts. If something
+        is broken or missing, open an issue or email
+        <a href="mailto:runlog@volkerotto.net">runlog@volkerotto.net</a>.
       </p>
     </section>
 
@@ -297,7 +305,7 @@
         <a href="https://github.com/runlog-org/runlog-skills">skills</a>, and
         <a href="https://github.com/runlog-org/runlog-website">website</a> are open source under
         <a href="https://github.com/runlog-org">runlog-org</a>; the MCP server and architectural
-        docs are private commercial.
+        docs are not public for now.
       </p>
       <ul>
         <li><a href="/">Home</a></li>
@@ -306,7 +314,6 @@
         <li><a href="/quickstart/">Quickstart</a></li>
         <li><a href="/trust/">How trust works</a></li>
         <li><a href="/why-verification/">Why verification</a></li>
-        <li><a href="/pricing/">Pricing</a></li>
         <li><a href="/register/">Register</a></li>
         <li><a href="https://github.com/runlog-org">GitHub</a></li>
         <li><a href="mailto:runlog@volkerotto.net">runlog@volkerotto.net</a></li>

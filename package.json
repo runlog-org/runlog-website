@@ -1,0 +1,12 @@
+{
+  "name": "runlog-website",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build": "node node_modules/@tailwindcss/cli/dist/index.mjs -i src/input.css -o dist/style.css --minify",
+    "dev": "node node_modules/@tailwindcss/cli/dist/index.mjs -i src/input.css -o dist/style.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0"
+  }
+}

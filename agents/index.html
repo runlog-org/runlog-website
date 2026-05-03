@@ -201,7 +201,7 @@
       <pre><code>/runlog:harvest
 Scanned this session + last 3 commits. Candidates:
   1. Stripe webhook signature: replay-window default is 5 min, not 30s [score 0.86]
-  2. Postgres lock_timeout=0 means "wait forever," not "fail immediately" [score 0.78]
+  2. Notion API: Retry-After header on 429 responses is bounded; bursts beyond ~1000 req/hr block silently [score 0.74]
 Pick (e.g. 1,2 or all): _</code></pre>
       <p>Each pick re-runs locally against the verifier, signs the result, and submits a draft entry &mdash; the registry never sees an unverified claim.</p>
     </aside>

@@ -16,10 +16,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Inside Runlog: what we built and why">
   <meta name="twitter:description" content="Runlog is a cross-org registry of verified knowledge about third-party systems. This post explains what that means, what it complements, and what it deliberately doesn't replace.">
-  <link rel="stylesheet" href="/register/style.css">
-  <style>
-    .meta { font-size: 0.85rem; color: var(--muted); margin: 0.25rem 0 1.5rem 0; }
-  </style>
+  <link rel="stylesheet" href="/dist/style.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -68,20 +65,13 @@
   <main>
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/">Runlog</a>
-      <details class="nav-toggle">
-        <summary aria-label="Toggle navigation"><span class="burger-icon" aria-hidden="true"></span></summary>
-        <div class="nav-links">
-          <a href="https://github.com/runlog-org">GitHub</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/trust/">Trust</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/agents/">Agents</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/pricing/">Pricing</a>
-          <span class="sep" aria-hidden="true">&middot;</span>
-          <a href="/blog/" aria-current="page">Blog</a>
-        </div>
-      </details>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="https://github.com/runlog-org">GitHub</a>
+        <a href="/trust/">Trust</a>
+        <a href="/agents/">Agents</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+      </nav>
       <a class="cta-register" href="/register/">Get&nbsp;API&nbsp;key</a>
     </header>
 
@@ -286,7 +276,7 @@
       </section>
     </article>
 
-    <footer>
+    <footer class="site-footer">
       <p>
         Runlog&rsquo;s
         <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>,

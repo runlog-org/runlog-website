@@ -2,6 +2,7 @@
 
 @source "../*.html";
 @source "../**/*.html";
+@source not "../docs/**";
 
 @theme {
   --color-bg: #ffffff;

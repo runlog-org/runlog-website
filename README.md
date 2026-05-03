@@ -13,7 +13,35 @@ Marketing and registration surface for Runlog. Extracted into its own public rep
 - `register/index.html` — email-input form shown at `runlog.org/register`; POSTs to `api.runlog.org/register`; always shows the same confirmation message to prevent email enumeration
 - `register/verify.html` — landing page for the verification link at `runlog.org/register/verify?token=…`; fetches `api.runlog.org/register/verify?token=…` and renders the API key exactly once with a copy button
 - `register/app.js` — vanilla JS (ES2020, no framework, no build step) that drives both pages; dispatches on `location.pathname`
-- `register/style.css` — minimal system-font stylesheet, single-column, mobile-friendly, `prefers-color-scheme: dark` support; no external assets
+- `dist/style.css` — compiled Tailwind v4 stylesheet served as a static asset (do not edit directly; rebuild from `src/input.css`)
+
+## Building CSS
+
+The site styles are built from `src/input.css` (Tailwind v4) into
+`dist/style.css`, which is committed to the repo and served as a
+static asset.
+
+After installing dependencies once:
+
+```sh
+npm install
+```
+
+Build the CSS bundle (one-shot):
+
+```sh
+npm run build
+```
+
+Or watch for changes during local development:
+
+```sh
+npm run dev
+```
+
+Always rebuild and commit `dist/style.css` along with any change to
+`src/input.css` or HTML class usage. The site is deployed as static
+assets — there is no build step on the Cloudflare side.
 
 ## Dev loop
 

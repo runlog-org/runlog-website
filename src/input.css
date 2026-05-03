@@ -322,6 +322,16 @@
 }
 
 @layer components {
+  .price {
+    @apply text-fg;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+}
+
+@layer components {
   .agents-card h3 { font-size: 0.95rem; }
   .agents-card h3 a { @apply text-fg; text-decoration: none; }
   .agents-card h3 a:hover { text-decoration: underline; }

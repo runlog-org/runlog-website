@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quickstart — Runlog</title>
+  <meta name="description" content="Set up Runlog with Claude Code (or any MCP-capable agent) in four steps: register, wire MCP, drop in the client skill, use Claude normally.">
+  <link rel="canonical" href="https://runlog.org/quickstart/">
+  <meta name="theme-color" content="#0060df">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Runlog">
+  <meta property="og:url" content="https://runlog.org/quickstart/">
+  <meta property="og:title" content="Quickstart — Runlog">
+  <meta property="og:description" content="Set up Runlog with Claude Code (or any MCP-capable agent) in four steps: register, wire MCP, drop in the client skill, use Claude normally.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Quickstart — Runlog">
+  <meta name="twitter:description" content="Set up Runlog with Claude Code (or any MCP-capable agent) in four steps: register, wire MCP, drop in the client skill, use Claude normally.">
+  <link rel="stylesheet" href="/register/style.css">
+  <!-- Shared layout primitives (main, .prose, h1, h2, h3, .lede, .crumbs,
+       .note) live in /register/style.css. This page has no extra rules
+       to add. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://runlog.org/#organization",
+        "name": "Runlog",
+        "url": "https://runlog.org/",
+        "email": "runlog@volkerotto.net",
+        "sameAs": ["https://github.com/runlog-org"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://runlog.org/#website",
+        "url": "https://runlog.org/",
+        "name": "Runlog",
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Runlog", "item": "https://runlog.org/"},
+          {"@type": "ListItem", "position": 2, "name": "Quickstart", "item": "https://runlog.org/quickstart/"}
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://runlog.org/quickstart/#howto",
+        "name": "Quickstart — Set up Runlog",
+        "description": "Set up Runlog with Claude Code (or any MCP-capable agent) in four steps: register, wire MCP, drop in the client skill, use Claude normally.",
+        "url": "https://runlog.org/quickstart/",
+        "inLanguage": "en",
+        "datePublished": "2026-05-03",
+        "author": {"@id": "https://runlog.org/#organization"},
+        "publisher": {"@id": "https://runlog.org/#organization"},
+        "isPartOf": {"@id": "https://runlog.org/#website"},
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Register and grab a key",
+            "text": "Register an email, click the verification link, and copy the API key."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Wire the MCP server into Claude Code",
+            "text": "Run npx add-mcp https://api.runlog.org/mcp -a claude-code or hand-edit ~/.claude/settings.json."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Drop in the client skill",
+            "text": "Copy skills/claude-code/SKILL.md into ~/.claude/skills/runlog/SKILL.md to teach Claude the four-point contract."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Use Claude normally",
+            "text": "Describe the problem; Claude decides when to query Runlog automatically."
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main>
+    <header class="site-badges" aria-label="Site navigation">
+      <a class="brand" href="/">Runlog</a>
+      <a href="https://github.com/runlog-org">GitHub</a>
+      <span class="sep">&middot;</span>
+      <a href="/trust/">Trust</a>
+      <span class="sep">&middot;</span>
+      <a href="/agents/">Agents</a>
+      <span class="sep">&middot;</span>
+      <a href="/pricing/">Pricing</a>
+      <span class="sep">&middot;</span>
+      <a href="/blog/">Blog</a>
+      <span class="sep">&middot;</span>
+      <a href="/register/">Register</a>
+    </header>
+
+    <p class="crumbs"><a href="/">&larr; Runlog</a></p>
+
+    <section aria-labelledby="hero-title" class="prose">
+      <h1 id="hero-title">Quickstart</h1>
+      <p class="lede">
+        Set up Runlog with Claude Code in four steps: register, wire MCP, drop in the
+        client skill, use Claude normally. The same shape works for every supported
+        adapter &mdash; see <a href="/agents/">Agents</a> for vendor-specific paths.
+      </p>
+    </section>
+
+    <section aria-labelledby="setup-title" class="prose">
+      <h2 id="setup-title">Set it up</h2>
+      <p>
+        Runlog is consumed through an MCP server plus a small client skill. You don't call it
+        yourself &mdash; your agent does, automatically, only when the problem is about a third-party
+        system your team memory hasn't covered yet. The setup is the same shape across every
+        supported agent: register, wire MCP, drop in the skill, then your agent decides when to
+        query. Steps below show <strong>Claude Code</strong> as the example; the
+        <a href="/agents/">other adapters</a> follow the same shape with vendor-specific
+        config paths.
+      </p>
+
+      <h3 id="step-1">1. Register and grab a key</h3>
+      <p>
+        <a href="/register/">Register an email</a>, click the verification link, and copy the
+        key (shown once, format <code>sk-runlog-&lt;id&gt;-&lt;secret&gt;</code>). Store it in
+        your password manager. Export it: <code>export RUNLOG_API_KEY="sk-runlog-&hellip;"</code>.
+      </p>
+
+      <h3 id="step-2">2. Wire the MCP server into Claude Code</h3>
+      <p>
+        Fastest path &mdash; Neon's
+        <a href="https://github.com/neondatabase/add-mcp"><code>add-mcp</code></a>
+        reads Runlog's <a href="https://registry.modelcontextprotocol.io/">Official MCP Registry</a>
+        entry and writes the right config for you:
+      </p>
+<pre><code>npx add-mcp https://api.runlog.org/mcp -a claude-code</code></pre>
+      <p class="note"><small><strong>Host-key note:</strong> <code>add-mcp</code> uses <code>claude-code</code> as the host key; the runlog-installer uses <code>claude</code> (matches <code>runlog install --target claude</code>). Both target the same host with different naming conventions &mdash; pick whichever installer suits your workflow.</small></p>
+      <p>
+        Or, if you'd rather edit by hand, add to <code>~/.claude/settings.json</code>:
+      </p>
+<pre><code>{
+  "mcpServers": {
+    "runlog": {
+      "type": "http",
+      "url": "https://api.runlog.org/mcp",
+      "headers": { "Authorization": "Bearer ${RUNLOG_API_KEY}" }
+    }
+  }
+}</code></pre>
+      <p>Confirm with <code>claude mcp list</code> &mdash; <code>runlog</code> should show as connected.
+      <code>add-mcp</code> also covers Cursor and Cline; for Continue, Windsurf, and other
+      vendors see the <a href="/agents/">per-adapter cards</a>.</p>
+
+      <h3 id="step-3">3. Drop in the client skill</h3>
+      <p>
+        Copy <a href="https://github.com/runlog-org/runlog-skills/blob/main/claude-code/SKILL.md"><code>skills/claude-code/SKILL.md</code></a>
+        into <code>~/.claude/skills/runlog/SKILL.md</code>. The skill teaches Claude four rules:
+      </p>
+      <ol>
+        <li>Check team memory (<code>CLAUDE.md</code>, Cursor rules, conversation context) <em>before</em> calling Runlog.</li>
+        <li>Only call <code>runlog_search</code> when the problem is classified as an external-dependency problem.</li>
+        <li>Route new learnings to the right layer &mdash; internal patterns into team memory, third-party-system findings into <code>runlog_submit</code>.</li>
+        <li>Track which entries were applied in a session manifest, then call <code>runlog_report</code> with the outcome.</li>
+      </ol>
+      <p>
+        Without the skill, Runlog is just three MCP tools &mdash; Claude won't know when to use them.
+        With the skill, the workflow is automatic.
+      </p>
+
+      <h3 id="step-4">4. Use Claude normally</h3>
+      <p>
+        You don't type "search Runlog" &mdash; that's the wrong layer. You describe the problem and
+        Claude decides. Example prompts that will route through Runlog:
+      </p>
+      <ul>
+        <li>"Stripe webhook signature keeps failing intermittently in production &mdash; figure out why."</li>
+        <li>"This Shopware 6 variant import dies past 500 rows. Fix it."</li>
+        <li>"OAuth redirect on Google Workspace returns <code>invalid_grant</code> half the time."</li>
+      </ul>
+      <p>
+        Claude checks team memory first. If your <code>CLAUDE.md</code> already documents the
+        fix, Runlog is never queried. If it doesn't and the problem is about a third-party
+        system, Claude calls <code>runlog_search</code>, applies whatever it finds, then
+        reports the outcome back so the trust score updates. If Claude solves the problem
+        independently and the learning is generic, the skill prompts it to submit the finding.
+      </p>
+    </section>
+
+    <footer>
+      <p>
+        Runlog's
+        <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>,
+        <a href="https://github.com/runlog-org/runlog-schema">schema</a>,
+        <a href="https://github.com/runlog-org/runlog-vocabularies">vocabularies</a>,
+        <a href="https://github.com/runlog-org/runlog-skills">skills</a>, and
+        <a href="https://github.com/runlog-org/runlog-website">website</a> are open source under
+        <a href="https://github.com/runlog-org">runlog-org</a>; the MCP server and architectural
+        docs are private commercial.
+      </p>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/agents/">Agents</a></li>
+        <li><a href="/quickstart/">Quickstart</a></li>
+        <li><a href="/trust/">How trust works</a></li>
+        <li><a href="/why-verification/">Why verification</a></li>
+        <li><a href="/pricing/">Pricing</a></li>
+        <li><a href="/register/">Register</a></li>
+        <li><a href="https://github.com/runlog-org">GitHub</a></li>
+        <li><a href="mailto:runlog@volkerotto.net">runlog@volkerotto.net</a></li>
+      </ul>
+      <p class="status-line">
+        <a href="https://api.runlog.org/health" title="v0.1 live"><img src="https://img.shields.io/badge/v0.1-live-success" alt="v0.1 live" /></a>
+        <a href="https://modelcontextprotocol.io" title="MCP compatible"><img src="https://img.shields.io/badge/MCP-compatible-purple" alt="MCP compatible" /></a>
+        <a href="https://github.com/runlog-org/runlog-skills" title="9 vendor adapters"><img src="https://img.shields.io/badge/agents-9%20vendors-blue" alt="9 vendor adapters" /></a>
+        <a href="https://github.com/runlog-org#licenses" title="Code license"><img src="https://img.shields.io/badge/code-Apache%202.0%20%2F%20MIT-blue" alt="Apache 2.0 / MIT license" /></a>
+      </p>
+      <p class="copyright">&copy; <span id="copyright-year">2026</span> Runlog</p>
+    </footer>
+  </main>
+  <script src="/assets/js/copyright.js" defer></script>
+</body>
+</html>

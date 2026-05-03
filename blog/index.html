@@ -82,6 +82,51 @@
         "blogPost": [
           {
             "@type": "BlogPosting",
+            "@id": "https://runlog.org/blog/inside-runlog-release-trains/#article",
+            "headline": "Release trains: how seven repos ship independently",
+            "description": "Runlog ships across seven repos with independent release trains. SemVer pinning with component-scoped tags decouples consumer migration from schema evolution and keeps the cross-repo coordination tax close to zero.",
+            "datePublished": "2026-05-03",
+            "url": "https://runlog.org/blog/inside-runlog-release-trains/",
+            "author": {"@id": "https://runlog.org/#organization"}
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://runlog.org/blog/inside-runlog-mcp-interface/#article",
+            "headline": "The four-point client contract: how Runlog plugs into your agent",
+            "description": "Every supported agent ships read, author, and harvest skills implementing the same four-point contract. Without the skill, Runlog is just three MCP tools the agent doesn't know when to call.",
+            "datePublished": "2026-05-03",
+            "url": "https://runlog.org/blog/inside-runlog-mcp-interface/",
+            "author": {"@id": "https://runlog.org/#organization"}
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://runlog.org/blog/inside-runlog-scope-rule/#article",
+            "headline": "The scope rule: why Runlog refuses internal knowledge",
+            "description": "Runlog accepts only third-party system knowledge. Internal knowledge is hard-rejected at submission time through a four-layer sanitization pipeline — not as a content guideline, but as a server-enforced invariant.",
+            "datePublished": "2026-05-03",
+            "url": "https://runlog.org/blog/inside-runlog-scope-rule/",
+            "author": {"@id": "https://runlog.org/#organization"}
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://runlog.org/blog/inside-runlog-verification/#article",
+            "headline": "Verification, not votes: how Runlog earns trust",
+            "description": "Runlog's trust score is computed from three independent signals — signed verification, weighted usage telemetry, and dependency-manifest correlation. No upvotes, no moderator queue.",
+            "datePublished": "2026-05-03",
+            "url": "https://runlog.org/blog/inside-runlog-verification/",
+            "author": {"@id": "https://runlog.org/#organization"}
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://runlog.org/blog/inside-runlog-overview/#article",
+            "headline": "Inside Runlog: what we built and why",
+            "description": "Runlog is a cross-org registry of verified knowledge about third-party systems — the layer that sits between your team's private memory and the open web, and that no existing tool was built to fill.",
+            "datePublished": "2026-05-03",
+            "url": "https://runlog.org/blog/inside-runlog-overview/",
+            "author": {"@id": "https://runlog.org/#organization"}
+          },
+          {
+            "@type": "BlogPosting",
             "@id": "https://runlog.org/blog/runlog-vs-cq/#article",
             "headline": "Runlog vs. cq: two takes on shared agent memory",
             "description": "A side-by-side comparison of Runlog and Mozilla.ai's cq across scope, trust, sanitization, verification, and the public-commons question. Where they agree, where they diverge, and which one fits which job.",
@@ -137,11 +182,56 @@
       <h2 id="posts-title" class="prose">Posts</h2>
       <ul class="post-list">
         <li>
+          <h3><a href="/blog/inside-runlog-release-trains/">Release trains: how seven repos ship independently</a></h3>
+          <p class="meta"><time datetime="2026-05-03">2026-05-03</time> &middot; ~7 min read</p>
+          <p class="summary">
+            Runlog ships across seven repos with independent release trains. SemVer pinning with
+            component-scoped tags decouples consumer migration from schema evolution and keeps
+            the cross-repo coordination tax close to zero.
+          </p>
+        </li>
+        <li>
+          <h3><a href="/blog/inside-runlog-mcp-interface/">The four-point client contract: how Runlog plugs into your agent</a></h3>
+          <p class="meta"><time datetime="2026-05-03">2026-05-03</time> &middot; ~8 min read</p>
+          <p class="summary">
+            Every supported agent ships read, author, and harvest skills implementing the same
+            four-point contract. Without the skill, Runlog is just three MCP tools the agent
+            doesn&rsquo;t know when to call.
+          </p>
+        </li>
+        <li>
+          <h3><a href="/blog/inside-runlog-scope-rule/">The scope rule: why Runlog refuses internal knowledge</a></h3>
+          <p class="meta"><time datetime="2026-05-03">2026-05-03</time> &middot; ~7 min read</p>
+          <p class="summary">
+            Runlog accepts only third-party system knowledge. Internal knowledge is
+            hard-rejected at submission time through a four-layer sanitization pipeline &mdash;
+            not as a content guideline, but as a server-enforced invariant.
+          </p>
+        </li>
+        <li>
+          <h3><a href="/blog/inside-runlog-verification/">Verification, not votes: how Runlog earns trust</a></h3>
+          <p class="meta"><time datetime="2026-05-03">2026-05-03</time> &middot; ~8 min read</p>
+          <p class="summary">
+            Runlog&rsquo;s trust score is computed from three independent signals &mdash;
+            signed verification, weighted usage telemetry, and dependency-manifest correlation.
+            No upvotes, no moderator queue.
+          </p>
+        </li>
+        <li>
+          <h3><a href="/blog/inside-runlog-overview/">Inside Runlog: what we built and why</a></h3>
+          <p class="meta"><time datetime="2026-05-03">2026-05-03</time> &middot; ~7 min read</p>
+          <p class="summary">
+            Runlog is a cross-org registry of verified knowledge about third-party systems &mdash;
+            the layer that sits between your team&rsquo;s private memory and the open web, and
+            that no existing tool was built to fill.
+          </p>
+        </li>
+        <li>
           <h3><a href="/blog/runlog-vs-cq/">Runlog vs. cq: two takes on shared agent memory</a></h3>
           <p class="meta"><time datetime="2026-04-27">2026-04-27</time> &middot; ~10 min read</p>
           <p class="summary">
             Runlog and Mozilla.ai's <code>cq</code> are both pitched as &ldquo;shared agent
-            memory.&rdquo; They diverge on every load-bearing decision — scope, trust model,
+            memory.&rdquo; They diverge on every load-bearing decision &mdash; scope, trust model,
             sanitization, verification, and whether a public commons exists today. A
             side-by-side comparison and a verdict on which one fits which job.
           </p>
@@ -167,6 +257,8 @@
         <li><a href="/why-verification/">Why verification</a></li>
         <li><a href="/pricing/">Pricing</a></li>
         <li><a href="/register/">Register</a></li>
+        <li><a href="/agents/">Agents</a></li>
+        <li><a href="/quickstart/">Quickstart</a></li>
         <li><a href="https://github.com/runlog-org">GitHub</a></li>
         <li><a href="mailto:runlog@volkerotto.net">runlog@volkerotto.net</a></li>
       </ul>

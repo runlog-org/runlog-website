@@ -99,17 +99,21 @@
   <main>
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/">Runlog</a>
-      <a href="https://github.com/runlog-org">GitHub</a>
-      <span class="sep">&middot;</span>
-      <a href="/trust/">Trust</a>
-      <span class="sep">&middot;</span>
-      <a href="/agents/" aria-current="page">Agents</a>
-      <span class="sep">&middot;</span>
-      <a href="/pricing/">Pricing</a>
-      <span class="sep">&middot;</span>
-      <a href="/blog/">Blog</a>
-      <span class="sep">&middot;</span>
-      <a href="/register/">Register</a>
+      <details class="nav-toggle">
+        <summary aria-label="Toggle navigation"><span class="burger-icon" aria-hidden="true"></span></summary>
+        <div class="nav-links">
+          <a href="https://github.com/runlog-org">GitHub</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/trust/">Trust</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/agents/" aria-current="page">Agents</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/pricing/">Pricing</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/blog/">Blog</a>
+        </div>
+      </details>
+      <a class="cta-register" href="/register/">Get&nbsp;API&nbsp;key</a>
     </header>
 
     <p class="crumbs"><a href="/">&larr; Runlog</a></p>
@@ -153,6 +157,14 @@
       <pre><code>/plugin marketplace add runlog-org/runlog-skills
 /plugin install runlog</code></pre>
     </aside>
+
+      <p class="prose">
+        <strong>Listed in the Official MCP Registry.</strong>
+        <code>npx add-mcp find runlog</code> resolves the entry at
+        <a href="https://registry.modelcontextprotocol.io"><code>registry.modelcontextprotocol.io</code></a>
+        and writes the right config for your detected agents &mdash; an alternative to the direct-URL form
+        above when you'd rather discover by name.
+      </p>
 
     <div class="grid agents">
       <div class="card" id="claude-code">
@@ -265,7 +277,10 @@ Pick (e.g. 1,2 or all): _</code></pre>
         <a href="https://github.com/runlog-org/runlog-skills" title="9 vendor adapters"><img src="https://img.shields.io/badge/agents-9%20vendors-blue" alt="9 vendor adapters" /></a>
         <a href="https://github.com/runlog-org#licenses" title="Code license"><img src="https://img.shields.io/badge/code-Apache%202.0%20%2F%20MIT-blue" alt="Apache 2.0 / MIT license" /></a>
       </p>
-      <p class="copyright">&copy; <span id="copyright-year">2026</span> Runlog</p>
+      <p class="copyright">
+        &copy; <span id="copyright-year">2026</span> Runlog
+        &middot; Built by <a href="https://volkerotto.net">Volker Otto</a>
+      </p>
     </footer>
   </main>
   <script src="/assets/js/copyright.js" defer></script>

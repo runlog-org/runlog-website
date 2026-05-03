@@ -60,15 +60,21 @@
   <main>
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/">Runlog</a>
-      <a href="https://github.com/runlog-org">GitHub</a>
-      <span class="sep">·</span>
-      <a href="/trust/">Trust</a>
-      <span class="sep">·</span>
-      <a href="/pricing/">Pricing</a>
-      <span class="sep">·</span>
-      <a href="/blog/">Blog</a>
-      <span class="sep">·</span>
-      <a href="/register/" aria-current="page">Register</a>
+      <details class="nav-toggle">
+        <summary aria-label="Toggle navigation"><span class="burger-icon" aria-hidden="true"></span></summary>
+        <div class="nav-links">
+          <a href="https://github.com/runlog-org">GitHub</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/trust/">Trust</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/agents/">Agents</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/pricing/">Pricing</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/blog/">Blog</a>
+        </div>
+      </details>
+      <a class="cta-register" href="/register/" aria-current="page">Get&nbsp;API&nbsp;key</a>
     </header>
 
     <h1>Get a Runlog API key</h1>
@@ -90,6 +96,13 @@
       <button type="submit">Send verification link</button>
     </form>
     <div id="status" role="status" aria-live="polite"></div>
+
+    <p>
+      Once you have a key, head to <a href="/quickstart/">Quickstart</a> for the 4-step setup
+      (register &rarr; wire MCP &rarr; drop in the skill &rarr; use Claude normally) or browse
+      <a href="/agents/">Agents</a> for the per-vendor install paths covering Claude Code,
+      Cursor, Cline, Continue, Windsurf, Aider, VS Code Copilot, JetBrains AI, and Zed.
+    </p>
 
     <footer>
       <p>
@@ -118,7 +131,10 @@
         <a href="https://github.com/runlog-org/runlog-skills" title="9 vendor adapters"><img src="https://img.shields.io/badge/agents-9%20vendors-blue" alt="9 vendor adapters" /></a>
         <a href="https://github.com/runlog-org#licenses" title="Code license"><img src="https://img.shields.io/badge/code-Apache%202.0%20%2F%20MIT-blue" alt="Apache 2.0 / MIT license" /></a>
       </p>
-      <p class="copyright">&copy; <span id="copyright-year">2026</span> Runlog</p>
+      <p class="copyright">
+        &copy; <span id="copyright-year">2026</span> Runlog
+        &middot; Built by <a href="https://volkerotto.net">Volker Otto</a>
+      </p>
     </footer>
   </main>
   <script src="app.js"></script>

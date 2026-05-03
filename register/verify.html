@@ -35,15 +35,21 @@
   <main data-api-base="https://api.runlog.org">
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/">Runlog</a>
-      <a href="https://github.com/runlog-org">GitHub</a>
-      <span class="sep">·</span>
-      <a href="/trust/">Trust</a>
-      <span class="sep">·</span>
-      <a href="/pricing/">Pricing</a>
-      <span class="sep">·</span>
-      <a href="/blog/">Blog</a>
-      <span class="sep">·</span>
-      <a href="/register/" aria-current="page">Register</a>
+      <details class="nav-toggle">
+        <summary aria-label="Toggle navigation"><span class="burger-icon" aria-hidden="true"></span></summary>
+        <div class="nav-links">
+          <a href="https://github.com/runlog-org">GitHub</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/trust/">Trust</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/agents/">Agents</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/pricing/">Pricing</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/blog/">Blog</a>
+        </div>
+      </details>
+      <a class="cta-register" href="/register/" aria-current="page">Get&nbsp;API&nbsp;key</a>
     </header>
 
     <h1 id="headline">Verifying your email…</h1>

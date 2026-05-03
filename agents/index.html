@@ -99,17 +99,21 @@
   <main>
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/">Runlog</a>
-      <a href="https://github.com/runlog-org">GitHub</a>
-      <span class="sep">&middot;</span>
-      <a href="/trust/">Trust</a>
-      <span class="sep">&middot;</span>
-      <a href="/agents/" aria-current="page">Agents</a>
-      <span class="sep">&middot;</span>
-      <a href="/pricing/">Pricing</a>
-      <span class="sep">&middot;</span>
-      <a href="/blog/">Blog</a>
-      <span class="sep">&middot;</span>
-      <a href="/register/">Register</a>
+      <details class="nav-toggle">
+        <summary aria-label="Toggle navigation"><span class="burger-icon" aria-hidden="true"></span></summary>
+        <div class="nav-links">
+          <a href="https://github.com/runlog-org">GitHub</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/trust/">Trust</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/agents/" aria-current="page">Agents</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/pricing/">Pricing</a>
+          <span class="sep" aria-hidden="true">&middot;</span>
+          <a href="/blog/">Blog</a>
+        </div>
+      </details>
+      <a class="cta-register" href="/register/">Get&nbsp;API&nbsp;key</a>
     </header>
 
     <p class="crumbs"><a href="/">&larr; Runlog</a></p>

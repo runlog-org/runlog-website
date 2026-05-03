@@ -387,3 +387,74 @@ h3 {
 .section-followup {
   margin-top: 1.25rem;
 }
+
+/* ---- Burger nav (F40, 2026-05-03) ----
+   Default (wide, > 36rem): nav-links visible inline, summary hidden,
+   <details> behaves as a no-op container.
+   Narrow (≤ 36rem): summary becomes a clickable burger icon; nav-links
+   hide until <details open>; nav-links expand into a vertical stack.
+   The Get-API-key CTA is OUTSIDE the toggle and always visible. */
+
+.site-badges .nav-toggle {
+  display: contents;
+}
+.site-badges .nav-toggle > summary {
+  display: none;
+  list-style: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+.site-badges .nav-toggle > summary::-webkit-details-marker { display: none; }
+.site-badges .nav-toggle > summary:hover { background: var(--code-bg); }
+.site-badges .burger-icon {
+  display: inline-block;
+  width: 1.1rem;
+  height: 0.85rem;
+  position: relative;
+}
+.site-badges .burger-icon::before,
+.site-badges .burger-icon::after,
+.site-badges .burger-icon {
+  background-image: linear-gradient(to bottom, var(--fg) 2px, transparent 2px);
+  background-size: 100% 0.3rem;
+  background-repeat: repeat-y;
+}
+.site-badges .nav-toggle > .nav-links { display: contents; }
+.site-badges .cta-register {
+  margin-left: auto;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.site-badges .cta-register:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+.site-badges .cta-register[aria-current="page"] {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+@media (max-width: 36rem) {
+  .site-badges {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .site-badges .nav-toggle > summary { display: inline-block; }
+  .site-badges .nav-toggle[open] > .nav-links {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    gap: 0.4rem;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: 0.5rem;
+  }
+  .site-badges .nav-toggle:not([open]) > .nav-links { display: none; }
+  .site-badges .nav-toggle .sep { display: none; }
+}

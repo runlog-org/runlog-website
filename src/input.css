@@ -461,6 +461,20 @@
     padding: 0.4rem 0 0.4rem 0.85rem;
     margin: 1.5rem 0;
   }
+
+  .start-here {
+    display: inline-block;
+    margin-left: 0.4rem;
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    background: var(--color-brand);
+    color: var(--color-on-brand);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    vertical-align: 0.15em;
+  }
 }
 
 @layer components {

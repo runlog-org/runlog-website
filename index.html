@@ -20,7 +20,7 @@
     /* Landing-page-specific overrides on top of /register/style.css.
        The shared file provides main, .prose, h1, h2, .lede, .grid, .card,
        .note, .cta. The landing page wants a tighter prose column and a
-       larger / tighter h1, plus its own tagline + agents-grid styling. */
+       larger / tighter h1, plus its own tagline + tease-grid styling. */
     .prose { max-width: 36rem; }
     h1 { font-size: 2.25rem; line-height: 1.1; margin-bottom: 0.25rem; }
     .tagline {
@@ -37,38 +37,33 @@
     dt { margin-top: 0.75rem; }
     dd { margin: 0.25rem 0 0 1.25rem; }
     .agents-line { font-size: 0.95rem; color: var(--muted); }
-    .agents .card h3 { font-size: 0.95rem; }
-    .agents .card h3 a { text-decoration: none; color: var(--fg); }
-    .agents .card h3 a:hover { text-decoration: underline; }
-    .agents .card p { font-size: 0.875rem; }
-    .agents .card .install { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
-    .agents .card .caveat { color: var(--muted); font-size: 0.8rem; margin-top: 0.4rem; }
-    .agents .card .contract { font-size: 0.8rem; color: var(--muted); }
-    .install-pair {
+    .grid.tease {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin: 0.75rem 0;
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      gap: 0.5rem;
+      margin: 1rem 0;
     }
-    @media (max-width: 36rem) {
-      .install-pair { grid-template-columns: 1fr; }
-    }
-    .install-pair .col {
-      background: var(--code-bg);
+    .grid.tease .tile {
+      display: block;
+      padding: 0.6rem 0.8rem;
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 0.75rem 1rem;
+      text-decoration: none;
+      color: var(--fg);
+      background: var(--code-bg);
+      font-size: 0.9rem;
+      transition: border-color 0.1s;
     }
-    .install-pair .col strong { font-size: 0.85rem; display: block; margin-bottom: 0.35rem; }
-    .install-pair .col .targets { font-size: 0.8rem; color: var(--muted); margin: 0 0 0.4rem 0; }
-    .install-pair .col pre { margin: 0; }
-    .install-pair .col pre code { font-size: 0.85rem; }
-    .harvest-example {
-      border-left: 2px solid var(--border);
-      padding: 0.75rem 1rem;
-      margin: 1.25rem 0;
+    .grid.tease .tile:hover {
+      border-color: var(--accent);
     }
-    .harvest-example pre code { font-size: 0.85rem; }
+    .grid.tease.setup-grid .tile {
+      font-size: 0.85rem;
+      line-height: 1.35;
+    }
+    .grid.tease.setup-grid .tile small {
+      color: var(--muted);
+    }
   </style>
   <script type="application/ld+json">
   {
@@ -165,20 +160,22 @@
     <header class="site-badges" aria-label="Site navigation">
       <a class="brand" href="/" aria-current="page">Runlog</a>
       <a href="https://github.com/runlog-org">GitHub</a>
-      <span class="sep">·</span>
+      <span class="sep">&middot;</span>
       <a href="/trust/">Trust</a>
-      <span class="sep">·</span>
+      <span class="sep">&middot;</span>
+      <a href="/agents/">Agents</a>
+      <span class="sep">&middot;</span>
       <a href="/pricing/">Pricing</a>
-      <span class="sep">·</span>
+      <span class="sep">&middot;</span>
       <a href="/blog/">Blog</a>
-      <span class="sep">·</span>
+      <span class="sep">&middot;</span>
       <a href="/register/">Register</a>
     </header>
 
     <section aria-labelledby="hero-title" class="prose">
       <h1 id="hero-title">Runlog</h1>
       <p class="tagline">The external-dependency layer for agent memory.</p>
-      <p class="lede">A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols — delivered to coding agents over MCP.</p>
+      <p class="lede">A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols &mdash; delivered to coding agents over MCP.</p>
       <p class="status-line">
         <a href="https://api.runlog.org/health" title="v0.1 live"><img src="https://img.shields.io/badge/v0.1-live-success" alt="v0.1 live" /></a>
         <a href="https://modelcontextprotocol.io" title="MCP compatible"><img src="https://img.shields.io/badge/MCP-compatible-purple" alt="MCP compatible" /></a>
@@ -186,7 +183,7 @@
         <a href="https://github.com/runlog-org#licenses" title="Code license"><img src="https://img.shields.io/badge/code-Apache%202.0%20%2F%20MIT-blue" alt="Apache 2.0 / MIT license" /></a>
       </p>
       <p>
-        Team-memory tools — Claude Code's <code>CLAUDE.md</code>, Cursor rules, mem0, Letta — own what
+        Team-memory tools &mdash; Claude Code's <code>CLAUDE.md</code>, Cursor rules, mem0, Letta &mdash; own what
         <em>your team</em> learned: internal conventions, codebase patterns, decisions you've made together.
         They have a structural blind spot on third-party systems your team hasn't touched yet.
         Runlog fills that blind spot. Your agent consults Runlog <em>alongside</em> its team memory, never as a replacement.
@@ -195,7 +192,7 @@
         Works with <strong>Claude Code</strong>, <strong>Cursor</strong>, <strong>Cline</strong>,
         <strong>Continue</strong>, <strong>Windsurf</strong>, <strong>Aider</strong>,
         <strong>VS&nbsp;Code&nbsp;Copilot</strong>, <strong>JetBrains&nbsp;AI</strong>, and <strong>Zed</strong>
-        — any agent that speaks MCP. <a href="#agents-title">See all adapters &darr;</a>
+        &mdash; any agent that speaks MCP. <a href="/agents/">See all adapters &rarr;</a>
       </p>
       <p><a class="cta" href="/register/">Get an API key</a></p>
     </section>
@@ -205,7 +202,7 @@
       <dl>
         <dt><strong>&hellip; <code>CLAUDE.md</code> / Cursor rules / mem0 / Letta?</strong></dt>
         <dd>
-          Use them. Runlog isn't a replacement. Those tools own internal knowledge — your
+          Use them. Runlog isn't a replacement. Those tools own internal knowledge &mdash; your
           conventions, your codebase patterns, your team's decisions. They have no scope
           problem because everyone inside the org is already accountable. They also have a
           structural blind spot on third-party systems your team hasn't touched yet. Runlog
@@ -223,13 +220,13 @@
         <dt><strong>&hellip; Context7?</strong></dt>
         <dd>
           Context7 indexes <em>existing</em> library docs. Runlog captures what isn't in the
-          docs — the gotchas, undocumented edge cases, integration quirks that one team learned
+          docs &mdash; the gotchas, undocumented edge cases, integration quirks that one team learned
           the hard way. Different problem, complementary tools.
         </dd>
 
         <dt><strong>&hellip; whatever cross-org sharing mem0 ships next year?</strong></dt>
         <dd>
-          When team-memory tools add org-sharing, the org itself becomes the trust boundary —
+          When team-memory tools add org-sharing, the org itself becomes the trust boundary &mdash;
           that solves cross-team-inside-one-org. Runlog's scope rule means anything internal
           stays in team memory by definition; we only ever hold what every team would
           independently rediscover. The two layers don't overlap.
@@ -247,198 +244,42 @@
     <section aria-labelledby="agents-title">
       <h2 id="agents-title">Works with your agent</h2>
       <p class="prose">
-        Runlog is delivered via MCP — every agent that speaks MCP can use it. We ship maintained
-        client skills for the major agent platforms. Each pairs the same four-point client contract
-        (check team memory first, classify external-deps, route learnings correctly, track the
-        dependency manifest) with vendor-specific MCP setup and rule-loading glue. Three skill
-        types ship per vendor: a <strong>read</strong> skill that consults the registry, an
-        <strong>author</strong> skill that submits a verified entry mid-flow right after a
-        third-party gotcha is solved, and a <strong>harvest</strong> skill that scans the
-        just-finished session at the end and routes any missed external-dependency findings
-        through the same submission flow. Pick yours:
+        Runlog is delivered via MCP &mdash; every agent that speaks MCP can use it. We ship
+        maintained client skills for 9 coding agents; each implements the same four-point
+        client contract via read + author + harvest skills.
+        <a href="/agents/">See all 9 adapters &rarr;</a>
       </p>
-      <aside class="prose aside-install">
-        <p>Both forms are ephemeral &mdash; nothing installed globally:</p>
-        <div class="install-pair">
-          <div class="col">
-            <strong>npx (Node)</strong>
-            <p class="targets">Claude Code, Cursor, Cline, Zed</p>
-            <pre><code>npx add-mcp https://api.runlog.org/mcp</code></pre>
-            <p><small>Pass <code>-a claude-code</code>, <code>-a cursor</code>, <code>-a cline</code>, or <code>-a zed</code> to target one host; omit to install across every detected agent.</small></p>
-            <p><small><strong>Note:</strong> <code>add-mcp</code> uses <code>claude-code</code> as the host key; the runlog-installer uses <code>claude</code> (matches <code>runlog install --target claude</code>). Both target the same host with different naming conventions &mdash; pick whichever suits your workflow.</small></p>
-          </div>
-          <div class="col">
-            <strong>pipx run (Python)</strong>
-            <p class="targets">Aider, Continue, Copilot, Windsurf</p>
-            <pre><code>pipx run --spec runlog-installer runlog install \
-  --target &lt;host&gt; --api-key $RUNLOG_API_KEY</code></pre>
-            <p><small>The <code>--spec</code> flag tells pipx the package name; the <code>runlog</code> after it is the script.</small></p>
-          </div>
-        </div>
-        <p><small>Prefer a persistent install? <code>pipx install runlog-installer</code> then <code>runlog install --target &lt;host&gt; --api-key $RUNLOG_API_KEY</code> &mdash; same flags, leaves the binary on <code>$PATH</code>.</small></p>
-        <p><strong>JetBrains AI Assistant:</strong> manual config &mdash; see the per-vendor Quickstart below (config format is XML / IDE-specific; not yet supported by the installer).</p>
-        <p><strong>Claude Code users</strong> can take an even shorter path that bundles MCP config <em>and</em> skill bodies in one command:</p>
-        <pre><code>/plugin marketplace add runlog-org/runlog-skills
-/plugin install runlog</code></pre>
-      </aside>
-      <div class="grid agents">
-        <div class="card">
-          <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/claude-code">Claude Code</a></h3>
-          <p>Reference adapter.</p>
-          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
-          <p class="install">~/.claude/skills/runlog/</p>
-        </div>
-        <div class="card">
-          <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/cursor">Cursor</a></h3>
-          <p>Highest priority after Claude Code.</p>
-          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
-          <p class="install">.cursor/rules/runlog.mdc</p>
-        </div>
-        <div class="card">
-          <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/cline">Cline</a></h3>
-          <p>Open-source, MCP-native.</p>
-          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
-          <p class="install">.clinerules/runlog.md</p>
-        </div>
-        <div class="card">
-          <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/continue">Continue.dev</a></h3>
-          <p>Open-source, MCP-native.</p>
-          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
-          <p class="install">.continue/config.yaml</p>
-        </div>
-        <div class="card">
-          <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/windsurf">Windsurf</a></h3>
-          <p>Codeium-based, Cascade agent.</p>
-          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
-          <p class="install">.windsurfrules</p>
-        </div>
-        <div class="card">
-          <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/aider">Aider</a></h3>
-          <p>CLI-native, diff-cycle model.</p>
-          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
-          <p class="install">CONVENTIONS.md or --read</p>
-          <p class="caveat">* MCP support is version-dependent</p>
-        </div>
-        <div class="card">
-          <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/copilot">VS&nbsp;Code&nbsp;Copilot</a></h3>
-          <p>Requires Copilot agent mode.</p>
-          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
-          <p class="install">.github/copilot-instructions.md</p>
-        </div>
-        <div class="card">
-          <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/jetbrains">JetBrains&nbsp;AI</a></h3>
-          <p>IntelliJ, PyCharm, WebStorm, GoLand, &hellip;</p>
-          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
-          <p class="install">AI Assistant guidelines</p>
-          <p class="caveat">* Tool-use varies by IDE / plugin version</p>
-        </div>
-        <div class="card">
-          <h3><a href="https://github.com/runlog-org/runlog-skills/tree/main/zed">Zed</a></h3>
-          <p>Native context_servers + .rules.</p>
-          <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
-          <p class="install">~/.config/zed/settings.json</p>
-          <p class="caveat">* HTTP context_servers schema is settling</p>
-        </div>
+      <div class="grid tease agents-grid">
+        <a class="tile" href="/agents/#claude-code">Claude Code</a>
+        <a class="tile" href="/agents/#cursor">Cursor</a>
+        <a class="tile" href="/agents/#cline">Cline</a>
+        <a class="tile" href="/agents/#continue">Continue.dev</a>
+        <a class="tile" href="/agents/#windsurf">Windsurf</a>
+        <a class="tile" href="/agents/#aider">Aider</a>
+        <a class="tile" href="/agents/#copilot">VS&nbsp;Code Copilot</a>
+        <a class="tile" href="/agents/#jetbrains">JetBrains&nbsp;AI</a>
+        <a class="tile" href="/agents/#zed">Zed</a>
       </div>
-      <aside class="prose harvest-example">
-        <p>At the end of a debugging session that touched a third-party system, your agent surfaces a one-line nudge &mdash; <code>Harvest 2 candidate findings? (y/N)</code> &mdash; and on yes routes each candidate through local Ed25519 verification before drafting a <code>runlog_submit</code> call.</p>
-        <pre><code>/runlog:harvest
-Scanned this session + last 3 commits. Candidates:
-  1. Stripe webhook signature: replay-window default is 5 min, not 30s [score 0.86]
-  2. Postgres lock_timeout=0 means "wait forever," not "fail immediately" [score 0.78]
-Pick (e.g. 1,2 or all): _</code></pre>
-        <p>Each pick re-runs locally against the verifier, signs the result, and submits a draft entry &mdash; the registry never sees an unverified claim.</p>
-      </aside>
-      <p class="prose note">
-        Asterisks flag adapters whose upstream vendor's MCP integration is still evolving. The skill
-        body works against today's vendor capabilities; the per-adapter folder has VERIFY notes
-        flagging where to re-check the vendor's current docs before publishing your config.
-      </p>
       <p class="prose">
-        Cross-vendor invariants — the four-point client contract plus the author and harvest
-        contracts every adapter inherits — live in
-        <a href="https://github.com/runlog-org/runlog-skills/tree/main/common"><code>skills/common/</code></a>.
-        When a contract rule changes, one file moves and every adapter re-syncs.
+        <strong>Claude Code users</strong> &mdash; bundle MCP config and the skills in one command:
       </p>
+<pre><code>/plugin marketplace add runlog-org/runlog-skills
+/plugin install runlog</code></pre>
     </section>
 
     <section aria-labelledby="use-title" class="prose">
-      <h2 id="use-title">Using Runlog from your agent</h2>
+      <h2 id="use-title">Set it up in 4 steps</h2>
       <p>
-        Runlog is consumed through an MCP server plus a small client skill. You don't call it
-        yourself — your agent does, automatically, only when the problem is about a third-party
-        system your team memory hasn't covered yet. The setup is the same shape across every
-        supported agent: register, wire MCP, drop in the skill, then your agent decides when to
-        query. Steps below show <strong>Claude Code</strong> as the example; the
-        <a href="#agents-title">other adapters</a> follow the same shape with vendor-specific
-        config paths.
+        Same shape across every supported agent &mdash; register, wire MCP, drop in the skill,
+        then your agent decides when to query.
+        <a href="/quickstart/">Full quickstart &rarr;</a>
       </p>
-
-      <h3>1. Register and grab a key</h3>
-      <p>
-        <a href="/register/">Register an email</a>, click the verification link, and copy the
-        key (shown once, format <code>sk-runlog-&lt;id&gt;-&lt;secret&gt;</code>). Store it in
-        your password manager. Export it: <code>export RUNLOG_API_KEY="sk-runlog-&hellip;"</code>.
-      </p>
-
-      <h3>2. Wire the MCP server into Claude Code</h3>
-      <p>
-        Fastest path — Neon's
-        <a href="https://github.com/neondatabase/add-mcp"><code>add-mcp</code></a>
-        reads Runlog's <a href="https://registry.modelcontextprotocol.io/">Official MCP Registry</a>
-        entry and writes the right config for you:
-      </p>
-<pre><code>npx add-mcp https://api.runlog.org/mcp -a claude-code</code></pre>
-      <p class="note"><small><strong>Host-key note:</strong> <code>add-mcp</code> uses <code>claude-code</code> as the host key; the runlog-installer uses <code>claude</code> (matches <code>runlog install --target claude</code>). Both target the same host with different naming conventions — pick whichever installer suits your workflow.</small></p>
-      <p>
-        Or, if you'd rather edit by hand, add to <code>~/.claude/settings.json</code>:
-      </p>
-<pre><code>{
-  "mcpServers": {
-    "runlog": {
-      "type": "http",
-      "url": "https://api.runlog.org/mcp",
-      "headers": { "Authorization": "Bearer ${RUNLOG_API_KEY}" }
-    }
-  }
-}</code></pre>
-      <p>Confirm with <code>claude mcp list</code> — <code>runlog</code> should show as connected.
-      <code>add-mcp</code> also covers Cursor and Cline; for Continue, Windsurf, and other
-      vendors see the <a href="#agents-title">per-adapter cards</a> above.</p>
-
-      <h3>3. Drop in the client skill</h3>
-      <p>
-        Copy <a href="https://github.com/runlog-org/runlog-skills/blob/main/claude-code/SKILL.md"><code>skills/claude-code/SKILL.md</code></a>
-        into <code>~/.claude/skills/runlog/SKILL.md</code>. The skill teaches Claude four rules:
-      </p>
-      <ol>
-        <li>Check team memory (<code>CLAUDE.md</code>, Cursor rules, conversation context) <em>before</em> calling Runlog.</li>
-        <li>Only call <code>runlog_search</code> when the problem is classified as an external-dependency problem.</li>
-        <li>Route new learnings to the right layer — internal patterns into team memory, third-party-system findings into <code>runlog_submit</code>.</li>
-        <li>Track which entries were applied in a session manifest, then call <code>runlog_report</code> with the outcome.</li>
-      </ol>
-      <p>
-        Without the skill, Runlog is just three MCP tools — Claude won't know when to use them.
-        With the skill, the workflow is automatic.
-      </p>
-
-      <h3>4. Use Claude normally</h3>
-      <p>
-        You don't type "search Runlog" — that's the wrong layer. You describe the problem and
-        Claude decides. Example prompts that will route through Runlog:
-      </p>
-      <ul>
-        <li>"Stripe webhook signature keeps failing intermittently in production — figure out why."</li>
-        <li>"This Shopware 6 variant import dies past 500 rows. Fix it."</li>
-        <li>"OAuth redirect on Google Workspace returns <code>invalid_grant</code> half the time."</li>
-      </ul>
-      <p>
-        Claude checks team memory first. If your <code>CLAUDE.md</code> already documents the
-        fix, Runlog is never queried. If it doesn't and the problem is about a third-party
-        system, Claude calls <code>runlog_search</code>, applies whatever it finds, then
-        reports the outcome back so the trust score updates. If Claude solves the problem
-        independently and the learning is generic, the skill prompts it to submit the finding.
-      </p>
+      <div class="grid tease setup-grid">
+        <a class="tile" href="/quickstart/#step-1"><strong>1. Register</strong><br><small>Email + verification link, copy the API key.</small></a>
+        <a class="tile" href="/quickstart/#step-2"><strong>2. Wire MCP</strong><br><small><code>npx add-mcp</code> or hand-edit the config.</small></a>
+        <a class="tile" href="/quickstart/#step-3"><strong>3. Drop in the skill</strong><br><small>Vendor-specific path; teaches the four-point contract.</small></a>
+        <a class="tile" href="/quickstart/#step-4"><strong>4. Use normally</strong><br><small>Claude decides when to call Runlog.</small></a>
+      </div>
     </section>
 
     <section aria-labelledby="faq-title" class="prose">
@@ -447,19 +288,19 @@ Pick (e.g. 1,2 or all): _</code></pre>
       <h3>Which agents are supported?</h3>
       <p>
         Today: Claude Code, Cursor, Cline, Continue, Windsurf, Aider, VS Code Copilot, JetBrains
-        AI Assistant, and Zed — every major MCP-capable coding agent. Each gets a maintained
+        AI Assistant, and Zed &mdash; every major MCP-capable coding agent. Each gets a maintained
         adapter under <a href="https://github.com/runlog-org/runlog-skills"><code>skills/&lt;vendor&gt;/</code></a>
         with vendor-specific setup notes plus a generic body inherited from
         <a href="https://github.com/runlog-org/runlog-skills/tree/main/claude-code"><code>skills/claude-code/</code></a>.
         Three adapters carry caveats today (Aider, JetBrains, Zed) where the upstream vendor's
-        MCP support is still evolving — see the per-adapter folder. Any agent not yet on the list
+        MCP support is still evolving &mdash; see the per-adapter folder. Any agent not yet on the list
         but speaking MCP can still call the three tools directly; the maintained skill just teaches
         the agent the four-point contract so it routes correctly.
       </p>
 
       <h3>Does Runlog replace my <code>CLAUDE.md</code> or mem0?</h3>
       <p>
-        No. Runlog only holds knowledge about third-party systems — public APIs, frameworks,
+        No. Runlog only holds knowledge about third-party systems &mdash; public APIs, frameworks,
         protocols, OSS libraries. Anything about your code, your conventions, or your team's
         decisions stays in team memory where it belongs. The client skill checks team memory
         first and only calls Runlog when team memory has no answer and the problem is about
@@ -469,7 +310,7 @@ Pick (e.g. 1,2 or all): _</code></pre>
       <h3>What happens if I submit something internal by mistake?</h3>
       <p>
         The server rejects it. Every <code>domain</code> tag has to resolve to a public source
-        — package registry, documented API, RFC, open-source repo. Tags pointing at internal
+        &mdash; package registry, documented API, RFC, open-source repo. Tags pointing at internal
         or private systems get an HTTP 400 <code>scope_rule</code> error at submit time. The
         entry never lands in the registry.
       </p>
@@ -480,7 +321,7 @@ Pick (e.g. 1,2 or all): _</code></pre>
         with placeholders (<code>$PAYLOAD</code>, <code>$TOKEN</code>, <code>$CREDENTIAL</code>,
         &hellip;); credentials, PII, and private keys are hard-rejected even if you try to
         declare them as literals. <code>runlog_search</code> sends only the query, the domain
-        tags, and your dependency manifest — not your codebase.
+        tags, and your dependency manifest &mdash; not your codebase.
       </p>
 
       <h3>How is this different from Stack Overflow?</h3>
@@ -511,6 +352,8 @@ Pick (e.g. 1,2 or all): _</code></pre>
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/blog/">Blog</a></li>
+        <li><a href="/agents/">Agents</a></li>
+        <li><a href="/quickstart/">Quickstart</a></li>
         <li><a href="/trust/">How trust works</a></li>
         <li><a href="/why-verification/">Why verification</a></li>
         <li><a href="/pricing/">Pricing</a></li>

@@ -1,6 +1,318 @@
 {
-  "generated_at": "2000-01-01T00:00:00Z",
-  "entries": { "total": 0, "verified": 0, "by_category": [] },
-  "tags": { "covered": 0, "total_in_vocabulary": 0 },
-  "users": { "registered": 0 }
+  "generated_at": "2026-05-04T07:00:01Z",
+  "entries": {
+    "total": 22,
+    "verified": 0,
+    "by_category": [
+      {
+        "category": "cloud",
+        "total": 6,
+        "tags": [
+          {
+            "tag": "aws",
+            "count": 2
+          },
+          {
+            "tag": "cloudflare",
+            "count": 1
+          },
+          {
+            "tag": "iam",
+            "count": 1
+          },
+          {
+            "tag": "kubernetes",
+            "count": 1
+          },
+          {
+            "tag": "s3",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "category": "concept",
+        "total": 29,
+        "tags": [
+          {
+            "tag": "rate-limiting",
+            "count": 3
+          },
+          {
+            "tag": "sql",
+            "count": 2
+          },
+          {
+            "tag": "api",
+            "count": 1
+          },
+          {
+            "tag": "app-router",
+            "count": 1
+          },
+          {
+            "tag": "async",
+            "count": 1
+          },
+          {
+            "tag": "browser-security",
+            "count": 1
+          },
+          {
+            "tag": "bulk-operations",
+            "count": 1
+          },
+          {
+            "tag": "concurrency",
+            "count": 1
+          },
+          {
+            "tag": "configuration",
+            "count": 1
+          },
+          {
+            "tag": "consistency",
+            "count": 1
+          },
+          {
+            "tag": "cross-region-replication",
+            "count": 1
+          },
+          {
+            "tag": "cursor-semantics",
+            "count": 1
+          },
+          {
+            "tag": "filesystem",
+            "count": 1
+          },
+          {
+            "tag": "graphql-api",
+            "count": 1
+          },
+          {
+            "tag": "history-rewriting",
+            "count": 1
+          },
+          {
+            "tag": "import",
+            "count": 1
+          },
+          {
+            "tag": "indexing",
+            "count": 1
+          },
+          {
+            "tag": "policy-evaluation",
+            "count": 1
+          },
+          {
+            "tag": "resource-quantities",
+            "count": 1
+          },
+          {
+            "tag": "rest-api",
+            "count": 1
+          },
+          {
+            "tag": "scan",
+            "count": 1
+          },
+          {
+            "tag": "security",
+            "count": 1
+          },
+          {
+            "tag": "streams",
+            "count": 1
+          },
+          {
+            "tag": "typesystem",
+            "count": 1
+          },
+          {
+            "tag": "wal-mode",
+            "count": 1
+          },
+          {
+            "tag": "webhooks",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "category": "database",
+        "total": 4,
+        "tags": [
+          {
+            "tag": "postgresql",
+            "count": 2
+          },
+          {
+            "tag": "redis",
+            "count": 1
+          },
+          {
+            "tag": "sqlite",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "category": "framework",
+        "total": 5,
+        "tags": [
+          {
+            "tag": "asyncio",
+            "count": 1
+          },
+          {
+            "tag": "nextjs",
+            "count": 1
+          },
+          {
+            "tag": "pyyaml",
+            "count": 1
+          },
+          {
+            "tag": "react",
+            "count": 1
+          },
+          {
+            "tag": "tokio",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "category": "language",
+        "total": 6,
+        "tags": [
+          {
+            "tag": "python",
+            "count": 3
+          },
+          {
+            "tag": "php",
+            "count": 1
+          },
+          {
+            "tag": "rust",
+            "count": 1
+          },
+          {
+            "tag": "typescript",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "category": "protocol",
+        "total": 9,
+        "tags": [
+          {
+            "tag": "acme",
+            "count": 1
+          },
+          {
+            "tag": "cors",
+            "count": 1
+          },
+          {
+            "tag": "dns",
+            "count": 1
+          },
+          {
+            "tag": "http",
+            "count": 1
+          },
+          {
+            "tag": "oauth2",
+            "count": 1
+          },
+          {
+            "tag": "pkce",
+            "count": 1
+          },
+          {
+            "tag": "rfc-7636",
+            "count": 1
+          },
+          {
+            "tag": "tls",
+            "count": 1
+          },
+          {
+            "tag": "yaml",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "category": "runtime",
+        "total": 1,
+        "tags": [
+          {
+            "tag": "nodejs",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "category": "saas",
+        "total": 5,
+        "tags": [
+          {
+            "tag": "lets-encrypt",
+            "count": 2
+          },
+          {
+            "tag": "shopify",
+            "count": 1
+          },
+          {
+            "tag": "shopware",
+            "count": 1
+          },
+          {
+            "tag": "stripe",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "category": "tooling",
+        "total": 5,
+        "tags": [
+          {
+            "tag": "buildkit",
+            "count": 1
+          },
+          {
+            "tag": "docker",
+            "count": 1
+          },
+          {
+            "tag": "dockerfile",
+            "count": 1
+          },
+          {
+            "tag": "git",
+            "count": 1
+          },
+          {
+            "tag": "github",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "tags": {
+    "covered": 62,
+    "total_in_vocabulary": 226
+  },
+  "users": {
+    "registered": 3
+  }
 }

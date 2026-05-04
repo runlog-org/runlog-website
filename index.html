@@ -115,19 +115,40 @@
       <a class="cta-register" href="/register/">Get&nbsp;API&nbsp;key</a>
     </header>
 
-    <section aria-labelledby="hero-title" class="prose" style="max-width:36rem">
-      <h1 id="hero-title" class="text-[2.25rem] leading-[1.1] mb-1">Runlog</h1>
-      <p class="tagline">The external-dependency layer for agent memory.</p>
-      <p class="text-muted text-[0.9rem]">A hobby side project by <a href="https://volkerotto.net">Volker Otto</a> &mdash; not a commercial product today.</p>
-      <p class="lede text-[1.1rem]">A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols &mdash; delivered to coding agents over MCP.</p>
+    <section aria-labelledby="hero-title" class="hero">
+      <p class="hero-eyebrow"><span>v0.1 live</span><span>MCP registry</span><span>9 agents</span></p>
+      <h1 id="hero-title" class="hero-mark">Runlog</h1>
+      <p class="hero-tagline">The external-dependency layer for agent memory.</p>
+      <p class="hero-meta">
+        A hobby side project by <a href="https://volkerotto.net">Volker Otto</a>, not a commercial product today.
+      </p>
+
+      <div class="hero-terminal" aria-label="Example runlog_search exchange">
+        <div class="hero-terminal-head">
+          <span class="hero-terminal-tag">RUNLOG_SEARCH</span>
+          <span class="hero-terminal-id">rl_a8c3f1</span>
+        </div>
+<pre class="hero-terminal-body"><span class="t-pmt">$</span> <span class="t-call">runlog_search</span>(<span class="t-key">tags</span>: [<span class="t-str">"stripe"</span>, <span class="t-str">"webhooks"</span>], <span class="t-key">query</span>: <span class="t-str">"replay-window default"</span>)
+<span class="t-resp">→</span> entry rl_a8c3f1   <span class="t-ok">verified ✓</span>   conf <span class="t-num">0.91</span>
+   <span class="t-key">fact</span>     Stripe webhook signature replay-window defaults to 5 min, not 30s
+   <span class="t-key">src</span>      stripe.com/docs/webhooks#replay-window
+   <span class="t-key">verified</span> 2026-04-19  <span class="t-pmt">(signed by verifier@v0.1)</span></pre>
+      </div>
+
+      <p class="hero-lede">
+        A cross-org registry of verified knowledge about third-party APIs, frameworks,
+        and protocols, delivered to coding agents over MCP.
+      </p>
+
       <p class="status-line">
         <a href="https://api.runlog.org/health" title="v0.1 live"><img src="/assets/img/badges/v0.1-live.svg" alt="v0.1 live" /></a>
         <a href="https://modelcontextprotocol.io" title="MCP compatible"><img src="/assets/img/badges/mcp-compatible.svg" alt="MCP compatible" /></a>
         <a href="https://github.com/runlog-org/runlog-skills" title="9 vendor adapters"><img src="/assets/img/badges/agents-9-vendors.svg" alt="9 vendor adapters" /></a>
         <a href="https://github.com/runlog-org#licenses" title="Code license"><img src="/assets/img/badges/code-license.svg" alt="Apache 2.0 / MIT license" /></a>
       </p>
+
       <p>
-        Team-memory tools &mdash; Claude Code's <code>CLAUDE.md</code>, Cursor rules, mem0, Letta &mdash; own what
+        Team-memory tools, Claude Code's <code>CLAUDE.md</code>, Cursor rules, mem0, Letta, own what
         <em>your team</em> learned: internal conventions, codebase patterns, decisions you've made together.
         They have a structural blind spot on third-party systems your team hasn't touched yet.
         Runlog fills that blind spot. Your agent consults Runlog <em>alongside</em> its team memory, never as a replacement.
@@ -135,8 +156,8 @@
       <p class="agents-line text-[0.95rem] text-muted">
         Works with <strong>Claude Code</strong>, <strong>Cursor</strong>, <strong>Cline</strong>,
         <strong>Continue</strong>, <strong>Windsurf</strong>, <strong>Aider</strong>,
-        <strong>VS&nbsp;Code&nbsp;Copilot</strong>, <strong>JetBrains&nbsp;AI</strong>, and <strong>Zed</strong>
-        &mdash; any agent that speaks MCP. <a href="/agents/">See all adapters &rarr;</a>
+        <strong>VS&nbsp;Code&nbsp;Copilot</strong>, <strong>JetBrains&nbsp;AI</strong>, and <strong>Zed</strong>,
+        any agent that speaks MCP. <a href="/agents/">See all adapters &rarr;</a>
       </p>
       <p><a class="cta" href="/register/">Get an API key</a></p>
     </section>

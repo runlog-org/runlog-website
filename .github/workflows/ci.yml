@@ -27,6 +27,16 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 22
+          cache: npm
+
+      # Astro produces dist/_worker.js/index.js (the entrypoint
+      # wrangler.jsonc points at) and dist/ as the assets directory.
+      # Build before validating so wrangler has something to point at.
+      - name: install
+        run: npm ci
+
+      - name: build
+        run: npm run build
 
       # Offline dry-run parses the deploy config, resolves the assets
       # directory, and writes the bundled output to --outdir without

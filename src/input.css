@@ -5,26 +5,32 @@
 @source not "../docs/**";
 
 @theme {
-  --color-bg: #ffffff;
-  --color-fg: #1a1a1a;
-  --color-muted: #555555;
-  --color-border: #cccccc;
-  --color-brand: #0060df;
-  --color-code-bg: #f4f4f4;
-  --color-on-brand: #ffffff;
+  --color-bg: #FAFAFB;
+  --color-fg: #1F2330;
+  --color-muted: #6B7280;
+  --color-border: #E5E7EB;
+  --color-brand: #5B5BD6;
+  --color-accent: #2D63E2;
+  --color-tint: #EDEBFE;
+  --color-code-bg: #F6F7F9;
+  --color-on-brand: #FFFFFF;
+  --color-ink: #0E1116;
 
-  --font-sans: system-ui, -apple-system, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #111111;
-    --color-fg: #e8e8e8;
-    --color-muted: #aaaaaa;
-    --color-border: #444444;
-    --color-brand: #6ba3ff;
-    --color-code-bg: #1e1e1e;
+    --color-bg: #0B0D12;
+    --color-fg: #D4D7DD;
+    --color-muted: #9098A4;
+    --color-border: #1F2430;
+    --color-brand: #8A8AFF;
+    --color-accent: #6CA0FF;
+    --color-tint: #1E1B3A;
+    --color-code-bg: #0F1218;
+    --color-ink: #F4F5F7;
   }
 }
 
@@ -454,6 +460,8 @@
   .post-list h3 a:hover { text-decoration: underline; }
   .post-list .meta { @apply text-muted; font-size: 0.85rem; margin: 0 0 0.5rem 0; }
   .post-list .summary { @apply text-muted; margin: 0; font-size: 0.95rem; }
+
+  article h1 { color: var(--color-ink); }
 
   .empty {
     @apply text-muted border-l-[3px] border-border;

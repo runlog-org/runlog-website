@@ -1,8 +1,9 @@
 {
-  "generated_at": "2026-05-04T07:00:01Z",
+  "generated_at": "2026-05-04T21:20:31Z",
   "entries": {
-    "total": 22,
+    "total": 29,
     "verified": 0,
+    "signed": 1,
     "by_category": [
       {
         "category": "cloud",
@@ -32,7 +33,7 @@
       },
       {
         "category": "concept",
-        "total": 29,
+        "total": 30,
         "tags": [
           {
             "tag": "rate-limiting",
@@ -76,6 +77,10 @@
           },
           {
             "tag": "cross-region-replication",
+            "count": 1
+          },
+          {
+            "tag": "csg",
             "count": 1
           },
           {
@@ -160,8 +165,12 @@
       },
       {
         "category": "framework",
-        "total": 5,
+        "total": 10,
         "tags": [
+          {
+            "tag": "godot",
+            "count": 5
+          },
           {
             "tag": "asyncio",
             "count": 1
@@ -186,11 +195,15 @@
       },
       {
         "category": "language",
-        "total": 6,
+        "total": 12,
         "tags": [
           {
             "tag": "python",
-            "count": 3
+            "count": 5
+          },
+          {
+            "tag": "gdscript",
+            "count": 4
           },
           {
             "tag": "php",
@@ -309,10 +322,10 @@
     ]
   },
   "tags": {
-    "covered": 62,
-    "total_in_vocabulary": 226
+    "covered": 65,
+    "total_in_vocabulary": 233
   },
   "users": {
-    "registered": 3
+    "registered": 6
   }
 }

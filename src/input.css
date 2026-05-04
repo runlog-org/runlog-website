@@ -243,6 +243,38 @@
   }
   .pull cite::before { content: "— "; }
 
+  /* DRENCH — committed indigo block. One per page, max.
+     Used for the single highest-stakes moment on a surface. */
+  .drench {
+    background: var(--color-brand);
+    color: var(--color-on-brand);
+    border-radius: 6px;
+    padding: var(--space-6) var(--space-6);
+    margin: var(--space-10) 0;
+    position: relative;
+  }
+  .drench > :first-child { margin-top: 0; }
+  .drench > :last-child  { margin-bottom: 0; }
+  .drench h2, .drench h3, .drench h4, .drench p { color: inherit; }
+  .drench a { color: inherit; text-decoration: underline; text-underline-offset: 0.18em; }
+  .drench a:hover { text-decoration-thickness: 2px; }
+  .drench code {
+    background: rgba(255,255,255,0.16);
+    color: inherit;
+    border-radius: 3px;
+  }
+  .drench pre {
+    background: rgba(0,0,0,0.28);
+    color: inherit;
+    border: none;
+    margin: var(--space-4) 0 0;
+  }
+  .drench pre code { background: transparent; padding: 0; }
+
+  /* Drench can also override a callout's tint */
+  .callout.drench { background: var(--color-brand); }
+  .callout.drench::before { color: rgba(255,255,255,0.72); }
+
   .section-followup { margin-top: 1.25rem; }
 
   .grid-cards {

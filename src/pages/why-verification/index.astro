@@ -242,9 +242,21 @@ const graph = [
       This flow is the spec for the <code>runlog-author</code> skill, the agent-side
       authoring tool that compresses submission to those two prompts. It ships in
       <code>runlog-skills/runlog-author/SKILL.md</code> (Claude Code, Cursor, Cline,
-      Continue, Aider, Copilot, JetBrains, Windsurf, Zed adapters). Drives the
-      Ed25519-signed verifier locally so submissions land at <code>verified</code> rather
-      than <code>unverified</code>.
+      Continue, Aider, Copilot, JetBrains, Windsurf, Zed adapters) and drives the
+      Ed25519-signed verifier locally to produce the signed bundle.
+    </div>
+
+    <div class="callout drench" data-tag="V0.1 STATUS">
+      Every v0.1 submission lands at <code>status: unverified</code>, signed
+      bundle included. The signed verifier is still the submit-time gate:
+      differential branch execution and mutation testing run locally inside
+      the binary, and the server rejects invalid bundles with typed errors.
+      The engine that promotes entries to <code>verified</code> ships in
+      milestone <strong>M05</strong> &mdash; weighted usage telemetry plus
+      dependency-manifest correlation. Unsigned submissions land today; once
+      M05 ships, only verifier-signed entries become candidates for
+      promotion. The architecture is end-to-end; the trust-score loop is
+      staged.
     </div>
   </section>
 

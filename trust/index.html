@@ -181,16 +181,16 @@
         publishing them would just hand out the playbook.
       </p>
 
-      <p class="note">
-        v0.1 ships the verifier with real Ed25519 signing AND differential branch execution
+      <div class="callout" data-tag="V0.1 STATUS">
+        The verifier ships with real Ed25519 signing AND differential branch execution
         AND mutation testing. Submissions verified end-to-end via
         <code>runlog-verifier verify &lt;bundle&gt;</code> land at <code>verified</code>;
         direct <code>runlog_submit</code> without a verifier-signed bundle still lands at
         <code>unverified</code> (lower trust). The verifier's claim-class shape varies by
-        tier &mdash; assertion_only / unit / integration / reexecute &mdash; see
+        tier (assertion_only / unit / integration / reexecute), see
         <code>runlog-docs/12-stability-and-versioning.md</code> &sect;17.4 for the
         per-tier contract.
-      </p>
+      </div>
 
       <p>
         <strong>Want the deeper why?</strong> <a href="/why-verification/">Why local verification is the whole product</a>

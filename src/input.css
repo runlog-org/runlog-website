@@ -159,43 +159,74 @@
   .crumbs { @apply text-muted; font-size: 0.875rem; margin: 0 0 1.5rem 0; }
   .crumbs a { @apply text-muted; }
 
-  .note {
-    @apply text-muted border-l-[3px] border-border;
-    font-size: 0.875rem;
-    padding: 0.25rem 0 0.25rem 0.75rem;
-    margin: 1.25rem 0;
-  }
-
-  .pull {
-    @apply border-l-4;
-    border-color: var(--color-brand);
-    padding: 0.4rem 0 0.4rem 1rem;
-    margin: 1.25rem 0;
-    font-size: 1.05rem;
-  }
-
-  .banner {
-    @apply text-muted border-l-[3px] border-border;
-    margin-top: 0.75rem;
-    padding: 0.6rem 0.9rem;
-    font-size: 0.95rem;
-  }
-
-  .aside-install {
-    @apply bg-code-bg border-l-[3px];
-    border-color: var(--color-brand);
-    margin: 1.25rem 0;
-    padding: 0.85rem 1rem;
-    font-size: 0.95rem;
-  }
-  .aside-install pre {
-    @apply bg-code-bg;
-    margin: 0.5rem 0;
-    padding: 0.5rem 0.75rem;
+  /* CALLOUT — labelled aside on flat tinted surface.
+     Tag string comes from data-tag (NOTE, INSTALL, HARVEST, EXAMPLE, …).
+     Replaces .note / .aside-install / .harvest-example / .banner. */
+  .callout {
+    background: var(--color-code-bg);
     border-radius: 4px;
-    overflow-x: auto;
-    font-size: 0.875rem;
+    padding: var(--space-4) var(--space-5);
+    margin: var(--space-6) 0;
+    font-size: 0.95rem;
   }
+  .callout::before {
+    content: attr(data-tag);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--color-brand);
+    margin-bottom: var(--space-2);
+  }
+  .callout > :first-child { margin-top: 0; }
+  .callout > :last-child  { margin-bottom: 0; }
+
+  /* The high-stakes callouts get the lavender tint instead of grey-code */
+  .callout[data-tag="INSTALL"],
+  .callout[data-tag="EXAMPLE"],
+  .callout[data-tag="HARVEST"] {
+    background: var(--color-tint);
+  }
+
+  .callout pre {
+    background: var(--color-bg);
+    margin: var(--space-3) 0 0 0;
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.85rem;
+  }
+
+  /* PULL QUOTE — typographic, no border. Curly mark hangs in the gutter. */
+  .pull {
+    font-size: 1.2rem;
+    line-height: 1.45;
+    font-style: italic;
+    color: var(--color-fg);
+    margin: var(--space-10) 0;
+    padding-left: var(--space-8);
+    position: relative;
+  }
+  .pull::before {
+    content: "\201C";
+    position: absolute;
+    left: 0;
+    top: -0.18em;
+    font-family: var(--font-mono);
+    font-size: 3em;
+    line-height: 1;
+    color: var(--color-brand);
+    font-style: normal;
+  }
+  .pull cite {
+    display: block;
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+  .pull cite::before { content: "— "; }
 
   .section-followup { margin-top: 1.25rem; }
 

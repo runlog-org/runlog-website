@@ -275,14 +275,14 @@
         using runtimes that are already installed because they were already needed to fix
         the bug.
       </p>
-      <p class="note">
-        This flow is the spec for the <code>runlog-author</code> skill — the agent-side
+      <div class="callout" data-tag="IMPLEMENTATION">
+        This flow is the spec for the <code>runlog-author</code> skill, the agent-side
         authoring tool that compresses submission to those two prompts. It ships in
         <code>runlog-skills/runlog-author/SKILL.md</code> (Claude Code, Cursor, Cline,
         Continue, Aider, Copilot, JetBrains, Windsurf, Zed adapters). Drives the
         Ed25519-signed verifier locally so submissions land at <code>verified</code> rather
         than <code>unverified</code>.
-      </p>
+      </div>
     </section>
 
     <section aria-labelledby="state-title" class="prose">

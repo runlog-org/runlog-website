@@ -92,7 +92,7 @@
       </p>
     </section>
 
-    <aside class="prose aside-install">
+    <aside class="prose callout" data-tag="INSTALL">
       <p>Both forms are ephemeral &mdash; nothing installed globally:</p>
       <div class="install-pair">
         <div class="col">
@@ -185,11 +185,11 @@
       </div>
     </div>
 
-    <p class="prose note">
+    <div class="prose callout" data-tag="NOTE">
       Asterisks flag adapters whose upstream vendor's MCP integration is still evolving. The skill
       body works against today's vendor capabilities; the per-adapter folder has VERIFY notes
       flagging where to re-check the vendor's current docs before publishing your config.
-    </p>
+    </div>
     <p class="prose">
       Cross-vendor invariants &mdash; the four-point client contract plus the author and harvest
       contracts every adapter inherits &mdash; live in
@@ -197,7 +197,7 @@
       When a contract rule changes, one file moves and every adapter re-syncs.
     </p>
 
-    <aside class="prose harvest-example">
+    <aside class="prose callout" data-tag="HARVEST">
       <p>At the end of a debugging session that touched a third-party system, your agent surfaces a one-line nudge &mdash; <code>Harvest 2 candidate findings? (y/N)</code> &mdash; and on yes routes each candidate through local Ed25519 verification before drafting a <code>runlog_submit</code> call.</p>
       <pre><code>/runlog:harvest
 Scanned this session + last 3 commits. Candidates:

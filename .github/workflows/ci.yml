@@ -48,7 +48,7 @@ jobs:
             --dry-run \
             --outdir=/tmp/wrangler-out
 
-  html-lint:
+  astro-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -56,14 +56,19 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 22
+          cache: npm
 
-      # htmlhint with the rules in .htmlhintrc — default ruleset minus
-      # href-abs-or-rel (we link to GitHub a lot) and inline-style /
-      # inline-script (used deliberately on a static marketing site
-      # with no build step). Catches unclosed tags, duplicate ids,
-      # missing alt attrs, malformed entities, mixed indentation.
-      - name: htmlhint
-        run: npx --yes htmlhint@latest --config .htmlhintrc './**/*.html'
+      - name: install
+        run: npm ci
+
+      # Astro's source-side gate — type-checks .astro frontmatter,
+      # validates Content Collection schemas (frontmatter against
+      # the Zod schema in src/content.config.ts), checks for broken
+      # imports, missing components, and Astro-specific syntax.
+      # Replaces the legacy htmlhint job (no .html source files
+      # post-Astro-migration).
+      - name: astro check
+        run: npx astro check
 
   js-syntax:
     runs-on: ubuntu-latest

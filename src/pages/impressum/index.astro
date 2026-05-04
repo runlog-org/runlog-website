@@ -1,0 +1,126 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE_URL, breadcrumbList, webPage } from '../../lib/schema';
+
+const url = `${SITE_URL}/impressum/`;
+const title = 'Impressum & Contact — Runlog';
+const description =
+  'Mandatory disclosure under DDG §5 and MStV §18 for runlog.org — operator name, postal address, editorial responsibility, and dispute-resolution notice.';
+
+const graph = [
+  breadcrumbList([
+    { name: 'Runlog', url: `${SITE_URL}/` },
+    { name: 'Impressum', url },
+  ]),
+  webPage({ url, name: 'Impressum & Contact' }),
+];
+---
+<Base
+  title={title}
+  description={description}
+  canonical={url}
+  dataNoNumber
+  graph={graph}
+>
+  <p slot="crumbs" class="crumbs"><a href="/">&larr; Runlog</a></p>
+
+  <article class="prose">
+    <h1>Impressum &amp; Contact</h1>
+
+    <p class="lede">
+      Mandatory disclosure for runlog.org under the German Digital Services Act (DDG §5)
+      and the Interstate Media Treaty (MStV §18).
+    </p>
+
+    <aside class="lang-summary" lang="de" aria-label="Deutsche Zusammenfassung">
+      <h2>Deutsche Zusammenfassung</h2>
+      <p>
+        Diese Seite enthält das gesetzlich vorgeschriebene Impressum für runlog.org gemäß
+        DDG §5 (ehemals TMG §5) sowie die redaktionelle Verantwortlichkeit nach §18 Abs. 2 MStV.
+      </p>
+      <p>
+        <strong>Verantwortlicher / Diensteanbieter:</strong><br>
+        Volker Otto<br>
+        Glashütter Kirchenweg 25<br>
+        22851 Norderstedt<br>
+        Deutschland
+      </p>
+      <p>
+        <strong>Kontakt:</strong><br>
+        E-Mail: <a href="mailto:hello@volkerotto.net">hello@volkerotto.net</a><br>
+        Eine Telefonnummer wird nicht bereitgestellt; Kontaktaufnahme bitte ausschließlich per E-Mail.
+      </p>
+      <p>
+        <strong>Unternehmensform:</strong> Einzelunternehmen ohne Handelsregistereintrag.
+        Eine Umsatzsteuer-Identifikationsnummer ist nicht vorhanden (Kleinunternehmerregelung oder
+        keine umsatzsteuerpflichtige Tätigkeit).
+      </p>
+      <p>
+        <strong>Verantwortlich für den Inhalt nach §18 Abs. 2 MStV:</strong><br>
+        Volker Otto, Anschrift wie oben.
+      </p>
+      <p>
+        <strong>Streitschlichtung:</strong> Der Betreiber ist nicht bereit und nicht verpflichtet,
+        an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).
+        Die Plattform der EU-Kommission zur Online-Streitbeilegung ist unter
+        <a href="https://ec.europa.eu/consumers/odr/">ec.europa.eu/consumers/odr/</a> erreichbar.
+      </p>
+      <p>
+        <strong>Datenschutz:</strong> Informationen zur Verarbeitung personenbezogener Daten
+        finden sich in der <a href="/datenschutz/">Datenschutzerklärung</a>.
+      </p>
+    </aside>
+
+    <h2>Service provider (Diensteanbieter)</h2>
+    <p>
+      The following disclosure is made in accordance with DDG §5 (Digital Services Act, Germany),
+      formerly TMG §5, which applies to commercially operated telemedia services.
+    </p>
+    <address>
+      Volker Otto<br>
+      Glashütter Kirchenweg 25<br>
+      22851 Norderstedt<br>
+      Germany
+    </address>
+    <p>
+      Email: <a href="mailto:hello@volkerotto.net">hello@volkerotto.net</a><br>
+      No phone number is provided; contact by email only.
+    </p>
+
+    <h2>Business form</h2>
+    <p>
+      Sole proprietor (Einzelunternehmen). Not registered in the commercial register (kein
+      Handelsregistereintrag, keine HRB-Nummer). No VAT identification number is held or
+      required for this operation.
+    </p>
+
+    <h2>Editorial responsibility (MStV §18 Abs. 2)</h2>
+    <p>
+      The person responsible for editorial content within the meaning of §18(2) of the German
+      Interstate Media Treaty (Medienstaatsvertrag, MStV) is:
+    </p>
+    <address>
+      Volker Otto<br>
+      Glashütter Kirchenweg 25<br>
+      22851 Norderstedt<br>
+      Germany
+    </address>
+
+    <h2>Privacy</h2>
+    <p>
+      Information on how personal data is processed in connection with this service is available
+      in the <a href="/datenschutz/">Privacy Notice (Datenschutzerklärung)</a>.
+    </p>
+
+    <h2>Online dispute resolution and consumer arbitration</h2>
+    <p>
+      The European Commission provides a platform for online dispute resolution:
+      <a href="https://ec.europa.eu/consumers/odr/">https://ec.europa.eu/consumers/odr/</a>.
+    </p>
+    <p>
+      The operator is neither obligated nor willing to participate in dispute-resolution
+      proceedings before a consumer-arbitration board pursuant to § 36 VSBG
+      (Verbraucherstreitbeilegungsgesetz).
+    </p>
+  </article>
+</Base>

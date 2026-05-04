@@ -1,0 +1,53 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { SITE_URL, breadcrumbList, blogPosting } from '../../../lib/schema';
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+};
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const url = `${SITE_URL}/blog/${post.id}/`;
+const headline = post.data.headline ?? post.data.title;
+const datePublished = post.data.pubDate.toISOString().slice(0, 10);
+
+const graph = [
+  breadcrumbList([
+    { name: 'Runlog', url: `${SITE_URL}/` },
+    { name: 'Blog', url: `${SITE_URL}/blog/` },
+    { name: headline, url },
+  ]),
+  blogPosting({
+    url,
+    headline,
+    description: post.data.description,
+    datePublished,
+  }),
+];
+---
+<Base
+  title={`${post.data.title} — Runlog`}
+  description={post.data.description}
+  canonical={url}
+  ogType="article"
+  ogTitle={headline}
+  ogDescription={post.data.description}
+  twitterTitle={headline}
+  twitterDescription={post.data.description}
+  articlePublishedTime={datePublished}
+  graph={graph}
+>
+  <p slot="crumbs" class="crumbs"><a href="/blog/">&larr; Blog</a></p>
+
+  <article>
+    <Content />
+  </article>
+</Base>

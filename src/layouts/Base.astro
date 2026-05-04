@@ -1,0 +1,77 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { ORGANIZATION_LD, WEBSITE_LD } from '../lib/schema';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogType?: 'website' | 'article';
+  ogTitle?: string;
+  ogDescription?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  noindex?: boolean;
+  dataNoNumber?: boolean;
+  articlePublishedTime?: string;
+  graph?: object[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogType = 'website',
+  ogTitle,
+  ogDescription,
+  twitterTitle,
+  twitterDescription,
+  noindex = false,
+  dataNoNumber = false,
+  articlePublishedTime,
+  graph = [],
+} = Astro.props;
+
+const ogTitleResolved = ogTitle ?? title;
+const ogDescResolved = ogDescription ?? description;
+const twTitleResolved = twitterTitle ?? ogTitleResolved;
+const twDescResolved = twitterDescription ?? ogDescResolved;
+
+const fullGraph = [ORGANIZATION_LD, WEBSITE_LD, ...graph];
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': fullGraph });
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  {canonical && <link rel="canonical" href={canonical} />}
+  <meta name="theme-color" content="#5B5BD6">
+  <link rel="preload" href="/assets/fonts/Inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Inter-600.woff2" as="font" type="font/woff2" crossorigin>
+  <meta property="og:type" content={ogType}>
+  <meta property="og:site_name" content="Runlog">
+  {canonical && <meta property="og:url" content={canonical} />}
+  <meta property="og:title" content={ogTitleResolved}>
+  {ogDescResolved && <meta property="og:description" content={ogDescResolved} />}
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content={twTitleResolved}>
+  {twDescResolved && <meta name="twitter:description" content={twDescResolved} />}
+  {articlePublishedTime && <meta property="article:published_time" content={articlePublishedTime} />}
+  {noindex && <meta name="robots" content="noindex" />}
+  <slot name="head-extra" />
+  <script type="application/ld+json" is:inline set:html={jsonLd} />
+</head>
+<body>
+  <main data-no-number={dataNoNumber ? '' : undefined}>
+    <Nav currentPath={Astro.url.pathname} />
+    <slot name="crumbs" />
+    <slot />
+    <Footer />
+  </main>
+</body>
+</html>

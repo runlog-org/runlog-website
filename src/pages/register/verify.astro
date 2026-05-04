@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  title="Verifying — Runlog"
+  noindex
+  dataNoNumber
+>
+  <div data-api-base="https://api.runlog.org">
+    <h1 id="headline">Verifying your email…</h1>
+    <div id="result" aria-live="polite"></div>
+
+    <p class="privacy-inline">
+      This verification step uses the token from your email to bind the issued API key
+      to your account. Token retention: 24 hours; see <a href="/datenschutz/">Privacy Notice</a>.
+    </p>
+  </div>
+
+  <script src="/assets/js/register-app.js" defer></script>
+</Base>

@@ -10,5 +10,9 @@ Thumbs.db
 .wrangler/
 node_modules/
 
+# ── Astro ──
+dist/
+.astro/
+
 # ── Worktrees (superpowers:using-git-worktrees) ──
 .worktrees/

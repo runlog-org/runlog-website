@@ -1,0 +1,135 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE_URL, breadcrumbList } from '../../lib/schema';
+
+const url = `${SITE_URL}/agents/`;
+const title = 'Agents that work with Runlog — Runlog';
+const description =
+  'Maintained client skills for 9 coding agents that speak MCP — Claude Code, Cursor, Cline, Continue, Windsurf, Aider, VS Code Copilot, JetBrains AI, Zed. Each adapter ships read + author + harvest skills implementing the four-point client contract.';
+
+const graph = [
+  breadcrumbList([
+    { name: 'Runlog', url: `${SITE_URL}/` },
+    { name: 'Agents', url },
+  ]),
+  {
+    '@type': 'TechArticle',
+    '@id': `${url}#article`,
+    name: 'Agents that work with Runlog',
+    headline: 'Agents that work with Runlog',
+    description,
+    url,
+    inLanguage: 'en',
+    datePublished: '2026-05-03',
+    author: { '@id': `${SITE_URL}/#organization` },
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+  },
+];
+
+const agents = [
+  { id: 'claude-code', name: 'Claude Code', logo: 'claude-code.png', logoExt: 'png', headline: 'Reference adapter.', install: '~/.claude/skills/runlog/' },
+  { id: 'cursor', name: 'Cursor', logo: 'cursor.png', headline: 'Highest priority after Claude Code.', install: '.cursor/rules/runlog.mdc' },
+  { id: 'cline', name: 'Cline', logo: 'cline.png', headline: 'Open-source, MCP-native.', install: '.clinerules/runlog.md' },
+  { id: 'continue', name: 'Continue.dev', logo: 'continue.png', headline: 'Open-source, MCP-native.', install: '.continue/config.yaml' },
+  { id: 'windsurf', name: 'Windsurf', logo: 'windsurf.png', headline: 'Codeium-based, Cascade agent.', install: '.windsurfrules' },
+  { id: 'aider', name: 'Aider', logo: 'aider.svg', headline: 'CLI-native, diff-cycle model.', install: 'CONVENTIONS.md or --read', caveat: 'MCP support is version-dependent' },
+  { id: 'copilot', name: 'VS Code Copilot', logo: 'copilot.png', headline: 'Requires Copilot agent mode.', install: '.github/copilot-instructions.md' },
+  { id: 'jetbrains', name: 'JetBrains AI', logo: 'jetbrains.png', headline: 'IntelliJ, PyCharm, WebStorm, GoLand, …', install: 'AI Assistant guidelines', caveat: 'Tool-use varies by IDE / plugin version' },
+  { id: 'zed', name: 'Zed', logo: 'zed.png', headline: 'Native context_servers + .rules.', install: '~/.config/zed/settings.json', caveat: 'HTTP context_servers schema is settling' },
+];
+---
+<Base
+  title={title}
+  description={description}
+  canonical={url}
+  ogType="article"
+  ogDescription={description}
+  twitterDescription={description}
+  graph={graph}
+>
+  <p slot="crumbs" class="crumbs"><a href="/">&larr; Runlog</a></p>
+
+  <section aria-labelledby="hero-title" class="prose">
+    <h1 id="hero-title">Agents that work with Runlog</h1>
+    <p class="lede">
+      Runlog is delivered via MCP &mdash; every agent that speaks MCP can use it. We ship maintained
+      client skills for 9 coding agents. Each adapter pairs the same four-point client contract
+      (check team memory first, classify external-deps, route learnings correctly, track the
+      dependency manifest) with vendor-specific MCP setup and rule-loading glue. Three skill
+      types ship per vendor: a <strong>read</strong> skill that consults the registry, an
+      <strong>author</strong> skill that submits a verified entry mid-flow right after a
+      third-party gotcha is solved, and a <strong>harvest</strong> skill that scans the
+      just-finished session at the end and routes any missed external-dependency findings
+      through the same submission flow.
+    </p>
+  </section>
+
+  <aside class="prose callout" data-tag="INSTALL">
+    <p>Both forms are ephemeral &mdash; nothing installed globally:</p>
+    <div class="install-pair">
+      <div class="col">
+        <strong>npx (Node)</strong>
+        <p class="targets">Claude Code, Cursor, Cline, Zed</p>
+        <pre><code>npx add-mcp https://api.runlog.org/mcp</code></pre>
+        <p><small>Pass <code>-a claude-code</code>, <code>-a cursor</code>, <code>-a cline</code>, or <code>-a zed</code> to target one host; omit to install across every detected agent.</small></p>
+        <p><small><strong>Note:</strong> <code>add-mcp</code> uses <code>claude-code</code> as the host key; the runlog-installer uses <code>claude</code> (matches <code>runlog install --target claude</code>). Both target the same host with different naming conventions &mdash; pick whichever suits your workflow.</small></p>
+      </div>
+      <div class="col">
+        <strong>pipx run (Python)</strong>
+        <p class="targets">Aider, Continue, Copilot, Windsurf</p>
+        <pre><code>pipx run --spec runlog-installer runlog install \
+  --target &lt;host&gt; --api-key $RUNLOG_API_KEY</code></pre>
+        <p><small>The <code>--spec</code> flag tells pipx the package name; the <code>runlog</code> after it is the script.</small></p>
+      </div>
+    </div>
+    <p><small>Prefer a persistent install? <code>pipx install runlog-installer</code> then <code>runlog install --target &lt;host&gt; --api-key $RUNLOG_API_KEY</code> &mdash; same flags, leaves the binary on <code>$PATH</code>.</small></p>
+    <p><strong>JetBrains AI Assistant:</strong> manual config &mdash; see the per-vendor Quickstart below (config format is XML / IDE-specific; not yet supported by the installer).</p>
+    <p><strong>Claude Code users</strong> can take an even shorter path that bundles MCP config <em>and</em> skill bodies in one command:</p>
+    <pre><code>/plugin marketplace add runlog-org/runlog-skills
+/plugin install runlog</code></pre>
+  </aside>
+
+  <p class="prose">
+    <strong>Listed in the Official MCP Registry.</strong>
+    <code>npx add-mcp find runlog</code> resolves the entry at
+    <a href="https://registry.modelcontextprotocol.io"><code>registry.modelcontextprotocol.io</code></a>
+    and writes the right config for your detected agents &mdash; an alternative to the direct-URL form
+    above when you'd rather discover by name.
+  </p>
+
+  <div class="grid-cards">
+    {agents.map((a) => (
+      <div class="card agents-card" id={a.id}>
+        <img class="agent-logo agent-logo--card" src={`/assets/img/agents/${a.logo}`} alt="" width="32" height="32" loading="lazy">
+        <h3><a href={`https://github.com/runlog-org/runlog-skills/tree/main/${a.id}`} set:html={a.name}></a></h3>
+        <p>{a.headline}</p>
+        <p class="contract">Read + author + harvest skills. Teaches the four-point contract (check team memory first; classify external-deps; route learnings; track + report).</p>
+        <p class="install">{a.install}</p>
+        {a.caveat && <p class="caveat">* {a.caveat}</p>}
+      </div>
+    ))}
+  </div>
+
+  <div class="prose callout" data-tag="NOTE">
+    Asterisks flag adapters whose upstream vendor's MCP integration is still evolving. The skill
+    body works against today's vendor capabilities; the per-adapter folder has VERIFY notes
+    flagging where to re-check the vendor's current docs before publishing your config.
+  </div>
+  <p class="prose">
+    Cross-vendor invariants &mdash; the four-point client contract plus the author and harvest
+    contracts every adapter inherits &mdash; live in
+    <a href="https://github.com/runlog-org/runlog-skills/tree/main/common"><code>skills/common/</code></a>.
+    When a contract rule changes, one file moves and every adapter re-syncs.
+  </p>
+
+  <aside class="prose callout" data-tag="HARVEST">
+    <p>At the end of a debugging session that touched a third-party system, your agent surfaces a one-line nudge &mdash; <code>Harvest 2 candidate findings? (y/N)</code> &mdash; and on yes routes each candidate through local Ed25519 verification before drafting a <code>runlog_submit</code> call.</p>
+    <pre><code>/runlog:harvest
+Scanned this session + last 3 commits. Candidates:
+  1. Stripe webhook signature: replay-window default is 5 min, not 30s [score 0.86]
+  2. Notion API: Retry-After header on 429 responses is bounded; bursts beyond ~1000 req/hr block silently [score 0.74]
+Pick (e.g. 1,2 or all): _</code></pre>
+    <p>Each pick re-runs locally against the verifier, signs the result, and submits a draft entry &mdash; the registry never sees an unverified claim.</p>
+  </aside>
+</Base>

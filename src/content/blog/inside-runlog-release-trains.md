@@ -1,0 +1,210 @@
+---
+title: "Release trains: how seven repos ship independently"
+description: "Runlog ships across seven repos with independent release trains. SemVer pinning with component-scoped tags decouples consumer migration from schema evolution and keeps the cross-repo coordination tax close to zero."
+pubDate: 2026-05-03
+readTime: "~7 min read"
+---
+
+<section aria-labelledby="hero-title" class="prose">
+  <h1 id="hero-title">Release trains: how seven repos ship independently</h1>
+  <p class="meta"><time datetime="2026-05-03">2026-05-03</time> &middot; ~7 min read</p>
+  <p class="lede">
+    Runlog ships across seven repos with independent release trains. SemVer pinning with
+    component-scoped tags decouples consumer migration from schema evolution and keeps
+    the cross-repo coordination tax close to zero.
+  </p>
+  <p>
+    This is the fifth and final post in the <a href="/blog/inside-runlog-overview/">Inside
+    Runlog</a> series. The previous posts covered the registry design, verification,
+    sanitization, and the agent client contract. This post is about the engineering
+    discipline behind shipping: how the seven components that make up Runlog each cut
+    releases on their own cadence, and why the tag convention that makes this work is
+    stricter than it first appears.
+  </p>
+</section>
+
+<section aria-labelledby="seven-repos-title" class="prose">
+  <h2 id="seven-repos-title">Seven repos, one system</h2>
+  <p>
+    Runlog is not a monorepo. The seven components &mdash; the MCP server, the signed
+    verifier, the submission schema, the domain vocabularies, the client skills, the
+    website, and the architectural docs &mdash; are separate repositories under
+    <a href="https://github.com/runlog-org">runlog-org</a>. They are related by
+    dependency, not by version: the verifier depends on the schema, the server depends on
+    the schema and vocabularies, the skills depend on the server&rsquo;s MCP tool
+    signatures. What they do not share is a release clock.
+  </p>
+  <p>
+    The design forces this. The schema is consumed by the server, the verifier, and the
+    skills. With a single shared version number, a schema-bumping PR cannot land until
+    every consumer has been updated to handle the new shape &mdash; a multi-repo lockstep
+    that scales badly with each new consumer added. Independent trains let the schema cut
+    a release first; consumers pull the new version on their own cadence. The CI gate on
+    each consumer repo re-validates against the schema version it is pinned to, so a
+    consumer that drifts past what its pinned schema version supports surfaces as a
+    localized CI failure rather than a silent runtime surprise. The coordination problem
+    becomes a localized CI failure that one repo&rsquo;s owner can resolve in their own
+    time.
+  </p>
+  <p>
+    The same logic applies asymmetrically across the other components. Vocabularies are
+    data; skills are instruction text; the website is content. All of them can and do
+    change on timescales that have nothing to do with each other. Forcing coordinated
+    releases would mean the fastest-moving components wait on the slowest, or the
+    slowest components get pulled along by premature bumps.
+  </p>
+</section>
+
+<section aria-labelledby="tag-convention-title" class="prose">
+  <h2 id="tag-convention-title">The tag convention</h2>
+  <p>
+    The canonical tag shape for most components is <code>&lt;component&gt;/v&lt;x.y.z&gt;</code>.
+    The path scope is part of the convention because the seven repos share a flat tag
+    namespace from a release-engineering perspective: an aggregator watching every release,
+    a <code>gh release list</code> command across multiple repos, or a future consolidated
+    changelog all stay unambiguous when each tag self-identifies its component.
+  </p>
+  <p>
+    Two repos use plain <code>v*</code> instead of the path-scoped form:
+    <code>runlog-schema</code> and <code>runlog-verifier</code>. Both carry a
+    <code>go.mod</code> at the repository root. The Go module proxy resolves only tags of
+    the shape the module root expects; a path-scoped <code>schema/v0.2.0</code> tag is
+    invisible to the proxy and consumers cannot <code>go get</code> against it. The
+    disambiguation benefit of path-scoped tags does not outweigh making the published Go
+    module unreachable, so these two repos use plain <code>v*</code> as their canonical
+    form. Every other component keeps the path-scoped convention.
+  </p>
+  <p>
+    Each component&rsquo;s release workflow keys off its own prefix glob. A
+    <code>skills/v0.2.0</code> tag triggers the skills workflow and nothing else; a
+    <code>vocabularies/v0.3.1</code> tag triggers the vocabularies workflow and nothing
+    else. Cross-repo coupling lives in CI gates, not in version numbers.
+  </p>
+</section>
+
+<section aria-labelledby="soft-cut-title" class="prose">
+  <h2 id="soft-cut-title">Landing on a moving baseline</h2>
+  <p>
+    The convention did not land on an empty slate. Components were already at different
+    points in their release history when the path-scoped tag discipline was introduced,
+    which means the trains fall into three categories based on how the transition was
+    handled.
+  </p>
+  <p>
+    <strong>Plain <code>v*</code> as canonical</strong> for <code>runlog-schema</code>
+    and <code>runlog-verifier</code>. Driven by the Go-module constraint, not by legacy
+    compatibility. Both workflows still accept the path-scoped shape as a soft-cut
+    concession from the brief window when path-scoping was the convention for every repo,
+    but new releases must use plain <code>v*</code>. The verifier&rsquo;s pre-convention
+    <code>v0.1.0</code> &mdash; the version every signed bundle currently in the wild
+    references &mdash; already had the canonical shape and needed no migration.
+  </p>
+  <p>
+    <strong>Soft-cut accepting both</strong> for <code>runlog-vocabularies</code>. Its
+    pre-convention <code>v0.1.0</code> is what the production server currently pins.
+    Forcing a migration would break the pin on a flag day for no gain. The workflow
+    accepts both the legacy <code>v*</code> and the new <code>vocabularies/v*</code>
+    shapes; new releases use the prefixed form. The unprefixed shape stays accepted
+    indefinitely &mdash; keeping both costs nothing, and removing it would re-introduce
+    the flag-day risk that was just avoided.
+  </p>
+  <p>
+    <strong>Strict prefixed-only</strong> for <code>runlog-skills</code> and
+    <code>runlog-website</code>. These trains started fresh in M02 with no pre-existing
+    unprefixed tags to honor and no Go-module constraint. Their workflows match the prefix
+    glob only; an unprefixed push would be a no-op against the release workflow.
+  </p>
+</section>
+
+<section aria-labelledby="prerelease-title" class="prose">
+  <h2 id="prerelease-title">Prerelease behavior by component</h2>
+  <p>
+    Prerelease tags follow the same prefix convention with a semver suffix:
+    <code>&lt;component&gt;/v&lt;x.y.z&gt;-rc&lt;N&gt;</code>,
+    <code>-beta&lt;N&gt;</code>, or <code>-alpha&lt;N&gt;</code>. What the prerelease
+    does on publication differs by component, and the differences map directly to the
+    artefact&rsquo;s trust profile.
+  </p>
+  <p>
+    Vocabularies, skills, and the website ship prerelease tags as GitHub prereleases. The
+    artefacts are text and data; the worst case is that a consumer opts into &ldquo;latest
+    including prereleases&rdquo; and pulls something incomplete. Default pinning ignores
+    them, so teams that do not explicitly opt in are not affected. This matches the
+    risk profile: these components change frequently and the cost of a partial update is
+    low.
+  </p>
+  <p>
+    The verifier ships prerelease tags as GitHub drafts, not published prereleases. The
+    verifier is a signed binary that becomes part of every signed-bundle trust path. An
+    accidentally-public unverified prerelease would be worse than no prerelease at all:
+    it would be a version that looks official, can be downloaded, but has not had its
+    reproducibility confirmed. The draft state forces a maintainer to publish it explicitly
+    after the check has been completed. The cost is a small amount of manual ceremony;
+    the benefit is that nothing lands in the trust chain by accident.
+  </p>
+  <p>
+    The schema ships prerelease tags as GitHub prereleases but blocks them from the
+    PyPI publishing path. The Go module side has no equivalent gate &mdash; <code>go
+    get</code> against a prerelease tag works but is non-default &mdash; so the asymmetry
+    between the two ecosystems is accepted rather than papered over. Each component&rsquo;s
+    <code>RELEASING.md</code> documents the exact behavior for its own artefact type.
+  </p>
+</section>
+
+<section aria-labelledby="bc-title" class="prose">
+  <h2 id="bc-title">Backwards compatibility across frozen clients</h2>
+  <p>
+    The release-train discipline interacts directly with the backwards-compatibility
+    guarantee described in the <a href="/blog/inside-runlog-mcp-interface/">MCP interface
+    post</a>. MCP client skills are installed once and are not auto-updated. Whatever tool
+    calls a skill from any past install would make, the server must understand indefinitely.
+    This is permanent by design &mdash; the alternative would require the server to be
+    able to update local files on a user&rsquo;s developer machine, which is not
+    acceptable.
+  </p>
+  <p>
+    When a schema change is breaking, it ships as a new surface alongside the old one:
+    a new <code>$id</code> URI, a new schema file, a new version segment. The server
+    accepts any schema version it still understands. The old surface stays valid for at
+    least six months after the new one is announced, with a deprecation warning in the
+    <code>_meta</code> field of old-tool responses for the entire window. Removal requires
+    a migration note and visible call-count data showing that the long-tail trail-off has
+    happened.
+  </p>
+  <p>
+    This means a breaking schema change can accumulate locally on the schema repo&rsquo;s
+    main branch without touching any consumer. The schema cuts a new release when it is
+    ready. Each consumer bumps its pin on its own schedule, behind its own CI gate.
+    Nothing is held hostage; nothing breaks silently.
+  </p>
+</section>
+
+<section aria-labelledby="closing-title" class="prose">
+  <h2 id="closing-title">What this enables</h2>
+  <p>
+    The release-train framework is the operational foundation for M02, the milestone that
+    establishes Runlog&rsquo;s operational discipline at scale. When the schema can evolve
+    without blocking the skills, and the skills can update without touching the server, and
+    the server can deploy without coordinating with the verifier, the system can sustain a
+    faster development cadence without accumulating coordination debt.
+  </p>
+  <p>
+    The two repos deliberately excluded from release-train discipline &mdash; the server
+    and the architectural docs &mdash; are excluded for concrete reasons. The server
+    deploys continuously from its main branch; versioned releases would add ceremony
+    without adding traceability for a component with no pinning consumers. The docs are
+    architectural prose; there is no consumer that pins documentation, and the published
+    artefact is already the version at main. Both exclusions are by design and both have
+    an explicit upgrade path: if either ever grows a versioned consumer, it joins the
+    convention with its own prefix.
+  </p>
+  <p>
+    That is the Inside Runlog series. The five posts cover the registry design, the
+    verification mechanism, the sanitization pipeline, the agent client contract, and the
+    release engineering. The <a href="/blog/">blog index</a> has the full list.
+  </p>
+  <p>
+    Notes by Volker Otto. Comments and corrections welcome at
+    <a href="mailto:runlog@volkerotto.net">runlog@volkerotto.net</a>.
+  </p>
+</section>

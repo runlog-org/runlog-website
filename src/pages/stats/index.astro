@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE_URL, breadcrumbList, webPage } from '../../lib/schema';
+
+const url = `${SITE_URL}/stats/`;
+const title = 'Stats — Runlog';
+const description =
+  "How many entries Runlog covers, broken down by vocabulary category, plus the registered-user count. Refreshed daily.";
+
+const graph = [
+  breadcrumbList([
+    { name: 'Runlog', url: `${SITE_URL}/` },
+    { name: 'Stats', url },
+  ]),
+  webPage({ url, name: 'Stats' }),
+];
+---
+<Base
+  title={title}
+  description={description}
+  canonical={url}
+  graph={graph}
+>
+  <p slot="crumbs" class="crumbs"><a href="/">&larr; Runlog</a></p>
+
+  <article id="stats-page-body">
+    <h1>Stats</h1>
+
+    <p class="lede">
+      A daily snapshot of what Runlog covers and who's signed up.
+      Counts come from the production database; the tag&nbsp;&rarr;&nbsp;category
+      mapping comes from
+      <a href="https://github.com/runlog-org/runlog-vocabularies/blob/main/scope-registry.yaml">scope-registry.yaml</a>.
+    </p>
+
+    <section class="stats-headline" aria-label="Headline numbers">
+      <div class="stat-card">
+        <span class="stat-num" id="stat-entries-total">&mdash;</span>
+        <span class="stat-label">Entries</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" id="stat-users-registered">&mdash;</span>
+        <span class="stat-label">Registered users</span>
+      </div>
+      <div class="stat-card stat-card--bar">
+        <span class="stat-num">
+          <span id="stat-entries-verified">&mdash;</span><span class="stat-num-of"> / <span id="stat-entries-total-2">&mdash;</span></span>
+        </span>
+        <span class="stat-label">Verified entries</span>
+        <div class="stat-bar" role="progressbar" aria-labelledby="stat-verified-fill" aria-valuemin="0" aria-valuemax="100"><div class="stat-bar-fill" id="stat-verified-fill"></div></div>
+      </div>
+      <div class="stat-card stat-card--bar">
+        <span class="stat-num">
+          <span id="stat-tags-covered">&mdash;</span><span class="stat-num-of"> / <span id="stat-tags-total">&mdash;</span></span>
+        </span>
+        <span class="stat-label">Vocabulary tags covered</span>
+        <div class="stat-bar" role="progressbar" aria-labelledby="stat-tags-fill" aria-valuemin="0" aria-valuemax="100"><div class="stat-bar-fill" id="stat-tags-fill"></div></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="coverage-title" class="prose">
+      <h2 id="coverage-title">Coverage by category</h2>
+      <p>
+        Bars are scaled to the largest category. Chips list every tag
+        with at least one entry — tag count after the dot.
+      </p>
+      <div id="stat-by-category" class="stats-category-chart">
+        <p class="meta">Loading&hellip;</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="methodology-title" class="prose">
+      <h2 id="methodology-title">Methodology</h2>
+      <p>
+        The numbers above come from a snapshot of the production database
+        regenerated daily. Tags are bucketed by category using
+        <a href="https://github.com/runlog-org/runlog-vocabularies/blob/main/scope-registry.yaml">scope-registry.yaml</a>.
+        The raw JSON behind this page is <a href="/stats.json">stats.json</a>.
+      </p>
+      <p class="meta">
+        Generated: <span id="stat-generated-at">&mdash;</span>
+      </p>
+    </section>
+  </article>
+
+  <script src="/assets/js/stats.js" defer></script>
+</Base>

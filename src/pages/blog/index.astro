@@ -1,0 +1,80 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE_URL, breadcrumbList } from '../../lib/schema';
+import { getCollection } from 'astro:content';
+
+const url = `${SITE_URL}/blog/`;
+const title = 'Blog — Runlog';
+const description =
+  'Notes on shared agent memory, verification, and the design decisions behind Runlog.';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+function isoDate(d: Date) {
+  return d.toISOString().slice(0, 10);
+}
+
+const blogPosts = posts.map((p) => ({
+  '@type': 'BlogPosting',
+  '@id': `${SITE_URL}/blog/${p.id}/#article`,
+  headline: p.data.headline ?? p.data.title,
+  description: p.data.description,
+  datePublished: isoDate(p.data.pubDate),
+  url: `${SITE_URL}/blog/${p.id}/`,
+  author: { '@id': `${SITE_URL}/#organization` },
+}));
+
+const graph = [
+  {
+    '@type': 'Blog',
+    '@id': `${url}#blog`,
+    url,
+    name: 'Runlog Blog',
+    description,
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    blogPost: blogPosts,
+  },
+  breadcrumbList([
+    { name: 'Runlog', url: `${SITE_URL}/` },
+    { name: 'Blog', url },
+  ]),
+];
+---
+<Base
+  title={title}
+  description={description}
+  canonical={url}
+  graph={graph}
+>
+  <p slot="crumbs" class="crumbs"><a href="/">&larr; Runlog</a></p>
+
+  <section aria-labelledby="hero-title" class="prose">
+    <h1 id="hero-title">Blog</h1>
+    <p class="lede">
+      Design notes, comparisons, and the reasoning behind the load-bearing decisions.
+      Mostly written for engineers evaluating where Runlog fits — and where it doesn't.
+    </p>
+  </section>
+
+  <section aria-labelledby="posts-title">
+    <h2 id="posts-title" class="prose">Posts</h2>
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li>
+          <h3>
+            <a href={`/blog/${post.id}/`}>{post.data.headline ?? post.data.title}</a>
+            {post.data.startHere && <span class="start-here">Start here</span>}
+          </h3>
+          <p class="meta">
+            <time datetime={isoDate(post.data.pubDate)}>{isoDate(post.data.pubDate)}</time>
+            {post.data.readTime && <> &middot; {post.data.readTime}</>}
+          </p>
+          <p class="summary">{post.data.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

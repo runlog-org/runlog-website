@@ -1,0 +1,245 @@
+---
+title: "The scope rule: why Runlog refuses internal knowledge"
+description: "Runlog accepts only third-party system knowledge. Internal knowledge is hard-rejected at submission time through a four-layer sanitization pipeline — not as a content guideline, but as a server-enforced invariant."
+pubDate: 2026-05-03
+readTime: "~7 min read"
+---
+
+<section aria-labelledby="hero-title" class="prose">
+  <h1 id="hero-title">The scope rule: why Runlog refuses internal knowledge</h1>
+  <p class="meta"><time datetime="2026-05-03">2026-05-03</time> &middot; ~7 min read</p>
+  <p class="lede">
+    Runlog accepts only third-party system knowledge. Internal knowledge is hard-rejected at
+    submission time through a four-layer sanitization pipeline &mdash; not as a content
+    guideline, but as a server-enforced invariant.
+  </p>
+  <p>
+    This is the third post in the <a href="/blog/inside-runlog-overview/">Inside Runlog</a>
+    series. The first two posts covered what Runlog is and how verification works. This one
+    explains the mechanism that enforces the scope boundary and prevents internal data from
+    escaping into the cross-org registry: the sanitization pipeline.
+  </p>
+  <p>
+    The scope rule was introduced in the
+    <a href="/blog/inside-runlog-overview/">overview post</a> as a design invariant. This
+    post is the implementation detail behind that invariant. Understanding the pipeline is
+    useful for anyone contributing entries, because a rejection at submission time will
+    name the layer that caught it and the reason.
+  </p>
+</section>
+
+<section aria-labelledby="why-hard-title" class="prose">
+  <h2 id="why-hard-title">Why this is a hard boundary, not a guideline</h2>
+  <p>
+    A shared registry has two options when it comes to scope enforcement: it can establish
+    a content policy and rely on contributors to follow it, or it can enforce the boundary
+    mechanically at the submission protocol. Runlog chose the second option, and the reasons
+    compound.
+  </p>
+  <p>
+    Cross-org sharing only makes sense for knowledge that is relevant to multiple
+    organizations. Internal-domain knowledge &mdash; a proprietary service endpoint, a
+    bespoke authentication library, a private deployment convention &mdash; is not that.
+    It may be well-documented and accurately described, but it is not publishable to a
+    shared registry because it only has value inside the organization that owns it.
+    Allowing it in doesn&rsquo;t make the registry more useful; it makes it noisier for
+    everyone else.
+  </p>
+  <p>
+    Legal and compliance risk is a second, separate reason. An organization that submits
+    internal data to a cross-org registry may be violating its own security policy without
+    knowing it. An agent composing an entry from session context may include internal
+    hostnames, proprietary identifiers, or configuration details that the submitter would
+    not have included if writing by hand. Relying on the submitter to catch this is
+    unreliable; enforcing it at the protocol level is not.
+  </p>
+  <p>
+    The third reason is competitive: the differentiation from team-memory tools depends on
+    this boundary. The moment a shared registry accepts internal knowledge, it is competing
+    with CLAUDE.md and Cursor rules on their own ground, where they have deeper integration
+    and lower friction. The scope rule is what keeps Runlog from converging on a weaker
+    version of those tools.
+  </p>
+</section>
+
+<section aria-labelledby="allow-list-title" class="prose">
+  <h2 id="allow-list-title">The default-deny allow-list</h2>
+  <p>
+    The core mechanism is a default-deny allow-list applied at <code>runlog_submit</code>.
+    Rather than scanning submissions for known bad patterns &mdash; an approach that fails
+    on novel strings and requires constant maintenance &mdash; the pipeline inverts the
+    default: everything is rejected unless it is explicitly allowed.
+  </p>
+  <p>
+    The allowed set for any given submission has three parts. First, whitespace and
+    source-language syntax for the declared programming language or languages. Second, a
+    set of registered placeholders that the submission format uses in place of real values:
+    <code>$INPUT</code>, <code>$OUTPUT</code>, <code>$PAYLOAD</code>, <code>$TOKEN</code>,
+    <code>$ENDPOINT</code>, and a few dozen others covering common patterns across API,
+    database, auth, and file operations. Third, a domain vocabulary specific to the
+    declared domain tags: standard library identifiers, public framework APIs, and
+    registered protocol tokens for each declared domain. An entry tagged
+    <code>domain: ["shopware", "php"]</code> gets the PHP standard library symbols and
+    Shopware&rsquo;s public API surface added to its allow-list automatically.
+  </p>
+  <p>
+    Any token that appears in the entry but is not in one of these three categories must
+    be explicitly declared as a <code>$LITERAL_N</code> with a written reason. The
+    submitter sees a review sidebar before the verifier signs:
+  </p>
+  <pre><code>You are about to publish the following literals:
+  $LITERAL_1 = "413"               reason: well-known HTTP status code       ✓
+  $LITERAL_2 = "acme.corp.local"   reason: (none provided)                   ✗ BLOCKED
+  $LITERAL_3 = "X-Tenant-ID"       reason: standard vendor header name       ✓
+Confirm each or reject submission.</code></pre>
+  <p>
+    The signed verifier refuses to sign until every declared literal has an accepted reason
+    and the submitter has confirmed the sidebar. This mechanism relocates the problem: the
+    question changes from &ldquo;can the platform detect hidden PII?&rdquo; to &ldquo;can
+    anything non-routine leave the submitter&rsquo;s machine by default?&rdquo; The answer
+    is no.
+  </p>
+</section>
+
+<section aria-labelledby="pipeline-title" class="prose">
+  <h2 id="pipeline-title">The four-layer sanitization pipeline</h2>
+  <p>
+    Submissions pass through four enforcement layers in sequence. A rejection at any layer
+    terminates the submission with an error naming the layer. The layers are applied at
+    different times and by different components, so they are genuinely independent:
+  </p>
+  <p>
+    <strong>Layer 1: <code>schema_validation</code>.</strong> The entry must conform to
+    the published JSON Schema. Malformed entries, missing required fields, and type
+    violations are caught here before any content analysis begins. This layer runs on the
+    server at receipt.
+  </p>
+  <p>
+    <strong>Layer 2: <code>scope_rule</code>.</strong> Every declared <code>domain</code>
+    tag must resolve to a publicly-available source: a published package registry, a
+    documented public API, an open-source repository, or a recognized standards body.
+    Internal hostnames, private identifiers, and proprietary system names cannot resolve
+    to any of these. A submission that fails this check is returned with
+    <code>HTTP 400 scope_rule</code>. This layer runs on the server against the 227-tag
+    scope registry. It is not a semantic judgment; it is a lookup.
+  </p>
+  <p>
+    <strong>Layer 3: <code>allowlist_violation</code>.</strong> The token-level allow-list
+    described in the previous section. Any token outside the language syntax, registered
+    placeholders, domain vocabulary, and declared literals fails this layer. This layer
+    runs during signing on the submitter&rsquo;s machine &mdash; the verifier enforces it
+    before producing a signature &mdash; and is re-checked on the server at receipt.
+  </p>
+  <p>
+    <strong>Layer 4: <code>contamination</code>.</strong> A classifier scans the
+    already-allow-listed content for prompt injection, vendor bias, and narrative-prose
+    contamination. The prompt-injection check looks for content that would cause a
+    consuming agent to behave in a way the original submitter could not have intended.
+    The prose-contamination check catches entries that are more narrative explanation than
+    reproducible finding &mdash; a common failure mode in crowd-sourced knowledge bases,
+    where the valuable content is buried in prose that does not translate into agent
+    actions.
+  </p>
+  <p>
+    The four-layer sequence is not redundant. Schema validation catches structural
+    problems the other layers cannot see. The scope rule catches domain violations before
+    the token-level analysis wastes time on an entry that will be rejected anyway. The
+    allow-list catches the content violations the scope rule cannot see. The contamination
+    classifier catches semantic problems the allow-list cannot see.
+  </p>
+  <div class="callout" data-tag="V0.1 STATUS">
+    Layers 1 (<code>schema_validation</code>) and 2 (<code>scope_rule</code>)
+    are operational against the 227-tag registry. Layer 3 (<code>allowlist_violation</code>)
+    ships in <code>warn</code> mode, violations are logged with structured counts
+    but submissions still land, pending coverage observation before flipping the
+    gate to <code>reject</code> via the existing env-var toggle. Layer 4
+    (<code>contamination</code>) is the V1 target: the coarse credential / PII / private-key
+    patterns described in the next section are enforced today; the prompt-injection and
+    prose-contamination classifiers are scoped for V1. The architecture is the four layers;
+    the enforcement is staged.
+  </div>
+</section>
+
+<section aria-labelledby="hard-reject-title" class="prose">
+  <h2 id="hard-reject-title">What is never publishable</h2>
+  <p>
+    Certain content is hard-rejected regardless of declared reasons or submitter
+    confirmation. The sidebar review that covers ordinary literals has no mechanism for
+    these categories; they are blocked unconditionally:
+  </p>
+  <ul>
+    <li><strong>Credentials:</strong> API keys, authentication tokens, passwords, session identifiers, private cryptographic keys.</li>
+    <li><strong>Personal identifiers:</strong> Email addresses, phone numbers, usernames that contain personally identifiable information.</li>
+    <li><strong>Narrative prose disguised as code or commands:</strong> Content that is structurally formatted like a code block but is semantically prose, submitted to evade the contamination classifier.</li>
+  </ul>
+  <p>
+    These categories exist because the risk of their appearing in a cross-org shared
+    registry is not a question of intent. An agent composing an entry may include a
+    credential it retrieved from context without knowing it is a credential. A hard
+    rejection on the category is more reliable than a soft block that depends on the
+    submitter recognizing the problem.
+  </p>
+  <p>
+    A submission that hits a hard-reject category returns a specific error code at the
+    relevant layer. The submitter knows which category caused the rejection. They cannot
+    override it; they can restructure the entry to remove the offending content and
+    resubmit.
+  </p>
+</section>
+
+<section aria-labelledby="scope-registry-title" class="prose">
+  <h2 id="scope-registry-title">The 227-tag scope registry</h2>
+  <p>
+    The scope rule operates against a maintained registry of allowed domains. The registry
+    currently lists 227 tags covering programming languages, standard libraries, public
+    frameworks, documented APIs, standard protocols, and widely-used open-source libraries.
+    The tags are open source in the
+    <a href="https://github.com/runlog-org/runlog-vocabularies">runlog-vocabularies</a>
+    repository.
+  </p>
+  <p>
+    Adding a new domain to the registry requires that the domain resolve to a
+    publicly-available source. This is a factual check, not a curation judgment. If a
+    library is published on a package registry, its identifier can be added. If an API is
+    publicly documented and accessible, its tag can be added. The process is designed to
+    be low-friction for well-established external systems and structurally closed for
+    anything internal.
+  </p>
+  <p>
+    Entries that cross multiple external domains are explicitly allowed. A finding about
+    PHP memory limits affecting both a specific framework and the language runtime is
+    still external knowledge about two public systems. The constraint is on the direction
+    of the reference &mdash; public systems only &mdash; not on the breadth.
+  </p>
+</section>
+
+<section aria-labelledby="closing-title" class="prose">
+  <h2 id="closing-title">What this means for contributors</h2>
+  <p>
+    For an engineer submitting an entry, the practical implication is that the verifier
+    will surface any token that the allow-list does not recognize before signing. In most
+    cases, these are standard identifiers or status codes that belong in the domain
+    vocabulary and simply have not been added yet. The literal declaration mechanism
+    handles them; the reason field documents why they are public constants rather than
+    internal data.
+  </p>
+  <p>
+    A <code>scope_rule</code> rejection means the declared domain is not in the
+    public-system registry. This is the most common structural rejection and the most
+    informative: it tells you exactly which domain tag caused the problem. The fix is
+    either to reclassify the entry under a public system it actually describes, or to keep
+    the finding in team memory where it belongs.
+  </p>
+  <p>
+    The next post in this series covers how Runlog plugs into agents: the four-point
+    client contract that every official skill implements, and why the skill &mdash; not
+    the MCP tools themselves &mdash; is what teaches an agent when and how to call
+    the registry. See
+    <a href="/blog/inside-runlog-mcp-interface/">&ldquo;The four-point client
+    contract.&rdquo;</a>
+  </p>
+  <p>
+    Notes by Volker Otto. Comments and corrections welcome at
+    <a href="mailto:runlog@volkerotto.net">runlog@volkerotto.net</a>.
+  </p>
+</section>

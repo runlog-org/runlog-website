@@ -18,6 +18,38 @@
 
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* spacing scale — 4px base grid */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* layout widths */
+  --width-prose: 38rem;
+  --width-page:  44rem;
+  --width-wide:  56rem;
+
+  /* vertical rhythm — between top-level sections */
+  --section-y: var(--space-10);
+  --page-y:    var(--space-8);
+  --page-x:    var(--space-4);
+}
+
+/* desktop: more breathing room + wider container */
+@media (min-width: 60rem) {
+  :root {
+    --section-y: var(--space-16);
+    --page-y:    var(--space-12);
+    --page-x:    var(--space-6);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,19 +72,23 @@
   body {
     @apply bg-bg text-fg font-sans;
     margin: 0;
-    padding: 2rem 1rem;
+    padding: var(--page-y) var(--page-x);
     font-size: 1rem;
     line-height: 1.5;
   }
 
   main {
-    max-width: 44rem;
+    max-width: var(--width-page);
     margin: 0 auto;
   }
 
-  h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 0.5rem 0; }
-  h2 { font-size: 1.25rem; margin: 2.5rem 0 0.5rem 0; }
-  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.4rem 0; }
+  @media (min-width: 60rem) {
+    main { max-width: var(--width-wide); }
+  }
+
+  h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 var(--space-2) 0; }
+  h2 { font-size: 1.25rem; margin: var(--section-y) 0 var(--space-2) 0; }
+  h3 { font-size: 1.05rem; margin: var(--space-6) 0 var(--space-2) 0; }
 
   a { @apply text-brand; }
 

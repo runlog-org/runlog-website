@@ -302,6 +302,81 @@
   .callout.drench { background: var(--color-brand); }
   .callout.drench::before { color: rgba(255,255,255,0.72); }
 
+  /* STEPS — readable numbered process tiles. Replaces the cramped
+     .grid-tease.setup-grid pattern. */
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-6) 0 var(--space-8);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    counter-reset: stepc;
+  }
+  @media (min-width: 36rem) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 60rem) { .steps { grid-template-columns: repeat(4, 1fr); } }
+
+  .step {
+    background: var(--color-code-bg);
+    border-radius: 6px;
+    padding: var(--space-5);
+    text-decoration: none;
+    color: var(--color-fg);
+    display: block;
+    counter-increment: stepc;
+    transition: background 0.15s ease-out, transform 0.15s ease-out;
+    height: 100%;
+  }
+  .step:hover { background: var(--color-tint); transform: translateY(-1px); }
+  .step::before {
+    content: counter(stepc, decimal-leading-zero);
+    display: block;
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum";
+    font-size: 1.85rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-brand);
+    margin-bottom: var(--space-3);
+    letter-spacing: -0.02em;
+  }
+  .step strong {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+    color: var(--color-ink);
+  }
+  .step small {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-muted);
+  }
+
+  /* HOMEPAGE STATS CALLOUT — mini version of the stats page cards */
+  .stats-callout-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin: var(--space-4) 0 var(--space-3);
+  }
+  @media (min-width: 36rem) {
+    .stats-callout-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .stat-card--mini {
+    padding: var(--space-4);
+    gap: var(--space-1);
+  }
+  .stat-card--mini .stat-num { font-size: 1.85rem; }
+  .stats-callout-link {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
   /* HOMEPAGE HERO — committed type scale, faux-terminal centerpiece */
   .hero {
     margin-bottom: var(--space-12);
@@ -566,8 +641,6 @@
     transition: border-color 0.1s;
   }
   .grid-tease .tile:hover { border-color: var(--color-brand); }
-  .grid-tease.setup-grid .tile { font-size: 0.85rem; line-height: 1.35; }
-  .grid-tease.setup-grid .tile small { @apply text-muted; }
 
   .compare {
     width: 100%;
@@ -661,6 +734,37 @@
     }
   }
 
+  .site-badges .nav-cta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-left: auto;
+  }
+  .site-badges .github-icon {
+    color: var(--color-muted);
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.4rem;
+    text-decoration: none;
+    transition: color 0.15s ease-out;
+  }
+  .site-badges .github-icon:hover { color: var(--color-fg); }
+  .site-badges .github-icon svg { display: block; }
+
+  .site-badges .cta-secondary {
+    color: var(--color-fg);
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background 0.15s ease-out, color 0.15s ease-out;
+  }
+  .site-badges .cta-secondary:hover {
+    background: var(--color-code-bg);
+    color: var(--color-ink);
+  }
+
   .site-badges .cta-register {
     border: 1px solid var(--color-brand);
     color: var(--color-brand);
@@ -669,7 +773,6 @@
     text-decoration: none;
     font-weight: 500;
     white-space: nowrap;
-    margin-left: auto;
   }
   .site-badges .cta-register:hover {
     background: var(--color-brand);
@@ -678,6 +781,10 @@
   .site-badges .cta-register[aria-current="page"] {
     background: var(--color-brand);
     color: var(--color-bg);
+  }
+  /* Hide secondary CTA on tight viewports — Quickstart link still in nav-links via Quickstart text? Actually keep it visible always; only collapse if screen real estate is truly tight */
+  @media (max-width: 26rem) {
+    .site-badges .cta-secondary { display: none; }
   }
 
   .cta {

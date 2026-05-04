@@ -145,7 +145,10 @@
 }
 
 @layer components {
-  .prose { max-width: 38rem; }
+  .prose { max-width: var(--width-prose); }
+  @media (min-width: 60rem) {
+    .prose { max-width: none; }
+  }
 
   .lede {
     @apply text-muted;

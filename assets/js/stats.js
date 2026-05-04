@@ -20,6 +20,21 @@
     if (el) el.textContent = String(value);
   }
 
+  function setWidth(id, ratio) {
+    var el = document.getElementById(id);
+    if (el) el.style.width = (Math.max(0, Math.min(1, ratio)) * 100).toFixed(1) + "%";
+  }
+
+  function setProgress(barId, ratio) {
+    var fill = document.getElementById(barId);
+    if (!fill) return;
+    fill.style.width = (Math.max(0, Math.min(1, ratio)) * 100).toFixed(1) + "%";
+    var bar = fill.parentNode;
+    if (bar && bar.setAttribute) {
+      bar.setAttribute("aria-valuenow", Math.round(ratio * 100));
+    }
+  }
+
   function formatGeneratedAt(iso) {
     var d = new Date(iso);
     if (isNaN(d.getTime())) return iso;
@@ -28,37 +43,74 @@
 
   function renderHeadline(stats) {
     setText("stat-entries-total", stats.entries.total);
+    setText("stat-entries-total-2", stats.entries.total);
     setText("stat-entries-verified", stats.entries.verified);
     setText("stat-tags-covered", stats.tags.covered);
     setText("stat-tags-total", stats.tags.total_in_vocabulary);
     setText("stat-users-registered", stats.users.registered);
+
+    var verifiedRatio = stats.entries.total > 0
+      ? stats.entries.verified / stats.entries.total
+      : 0;
+    var tagsRatio = stats.tags.total_in_vocabulary > 0
+      ? stats.tags.covered / stats.tags.total_in_vocabulary
+      : 0;
+    setProgress("stat-verified-fill", verifiedRatio);
+    setProgress("stat-tags-fill", tagsRatio);
   }
 
   function renderByCategory(container, stats) {
     clearChildren(container);
-    stats.entries.by_category.forEach(function (cat) {
-      var section = document.createElement("section");
-      section.className = "stats-category";
 
-      var heading = document.createElement("h3");
-      heading.textContent =
-        cat.category.charAt(0).toUpperCase() +
-        cat.category.slice(1) +
-        " — " +
-        cat.total +
-        " entries";
-      section.appendChild(heading);
+    var sorted = stats.entries.by_category.slice().sort(function (a, b) {
+      return b.total - a.total;
+    });
+    var max = sorted.reduce(function (m, c) { return Math.max(m, c.total); }, 1);
 
-      var line = document.createElement("p");
-      line.className = "stats-tags";
-      line.textContent = cat.tags
-        .map(function (t) {
-          return t.tag + " (" + t.count + ")";
-        })
-        .join(" · "); // middle dot
-      section.appendChild(line);
+    sorted.forEach(function (cat) {
+      var row = document.createElement("div");
+      row.className = "stats-row";
 
-      container.appendChild(section);
+      var head = document.createElement("div");
+      head.className = "stats-row-head";
+
+      var label = document.createElement("span");
+      label.className = "stats-row-label";
+      label.textContent = cat.category;
+      head.appendChild(label);
+
+      var barWrap = document.createElement("span");
+      barWrap.className = "stats-row-bar";
+      var fill = document.createElement("span");
+      fill.className = "stats-row-fill";
+      fill.style.width = ((cat.total / max) * 100).toFixed(1) + "%";
+      barWrap.appendChild(fill);
+      head.appendChild(barWrap);
+
+      var num = document.createElement("span");
+      num.className = "stats-row-num";
+      num.textContent = cat.total;
+      head.appendChild(num);
+
+      row.appendChild(head);
+
+      if (cat.tags && cat.tags.length) {
+        var chips = document.createElement("div");
+        chips.className = "stats-tag-chips";
+        cat.tags.forEach(function (t) {
+          var chip = document.createElement("span");
+          chip.className = "stats-chip";
+          chip.appendChild(document.createTextNode(t.tag));
+          var cnt = document.createElement("span");
+          cnt.className = "stats-chip-count";
+          cnt.textContent = "·" + t.count;
+          chip.appendChild(cnt);
+          chips.appendChild(chip);
+        });
+        row.appendChild(chips);
+      }
+
+      container.appendChild(row);
     });
   }
 
@@ -77,9 +129,8 @@
     if (!page) return;
     clearChildren(page);
     var msg = document.createElement("p");
-    msg.className = "note";
-    msg.textContent =
-      "Stats temporarily unavailable — try again shortly.";
+    msg.className = "meta";
+    msg.textContent = "Stats temporarily unavailable, try again shortly.";
     page.appendChild(msg);
   }
 

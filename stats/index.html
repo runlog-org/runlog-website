@@ -72,41 +72,64 @@
 
     <p class="crumbs"><a href="/">&larr; Runlog</a></p>
 
-    <article id="stats-page-body" class="prose">
+    <article id="stats-page-body">
       <h1>Stats</h1>
 
       <p class="lede">
         A daily snapshot of what Runlog covers and who's signed up.
-        Counts come from the production database; the tag→category
+        Counts come from the production database; the tag&nbsp;&rarr;&nbsp;category
         mapping comes from
         <a href="https://github.com/runlog-org/runlog-vocabularies/blob/main/scope-registry.yaml">scope-registry.yaml</a>.
       </p>
 
       <section class="stats-headline" aria-label="Headline numbers">
-        <dl>
-          <div><dt>Entries</dt><dd><span id="stat-entries-total">—</span></dd></div>
-          <div><dt>Verified</dt><dd><span id="stat-entries-verified">—</span></dd></div>
-          <div><dt>Tags covered</dt><dd><span id="stat-tags-covered">—</span> of <span id="stat-tags-total">—</span></dd></div>
-          <div><dt>Registered users</dt><dd><span id="stat-users-registered">—</span></dd></div>
-        </dl>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-entries-total">&mdash;</span>
+          <span class="stat-label">Entries</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-users-registered">&mdash;</span>
+          <span class="stat-label">Registered users</span>
+        </div>
+        <div class="stat-card stat-card--bar">
+          <span class="stat-num">
+            <span id="stat-entries-verified">&mdash;</span><span class="stat-num-of"> / <span id="stat-entries-total-2">&mdash;</span></span>
+          </span>
+          <span class="stat-label">Verified entries</span>
+          <div class="stat-bar" role="progressbar" aria-labelledby="stat-verified-fill" aria-valuemin="0" aria-valuemax="100"><div class="stat-bar-fill" id="stat-verified-fill"></div></div>
+        </div>
+        <div class="stat-card stat-card--bar">
+          <span class="stat-num">
+            <span id="stat-tags-covered">&mdash;</span><span class="stat-num-of"> / <span id="stat-tags-total">&mdash;</span></span>
+          </span>
+          <span class="stat-label">Vocabulary tags covered</span>
+          <div class="stat-bar" role="progressbar" aria-labelledby="stat-tags-fill" aria-valuemin="0" aria-valuemax="100"><div class="stat-bar-fill" id="stat-tags-fill"></div></div>
+        </div>
       </section>
 
-      <h2>Coverage by category</h2>
-      <div id="stat-by-category">
-        <p class="meta">Loading…</p>
-      </div>
+      <section aria-labelledby="coverage-title" class="prose">
+        <h2 id="coverage-title">Coverage by category</h2>
+        <p>
+          Bars are scaled to the largest category. Chips list every tag
+          with at least one entry — tag count after the dot.
+        </p>
+        <div id="stat-by-category" class="stats-category-chart">
+          <p class="meta">Loading&hellip;</p>
+        </div>
+      </section>
 
-      <h2>Methodology</h2>
-      <p>
-        The numbers above come from a snapshot of the production database
-        regenerated daily. Tags are bucketed by category using
-        <a href="https://github.com/runlog-org/runlog-vocabularies/blob/main/scope-registry.yaml">scope-registry.yaml</a>.
-        The raw JSON behind this page is
-        <a href="/stats.json">stats.json</a>.
-      </p>
-      <p class="generated-at">
-        Generated: <span id="stat-generated-at">—</span>
-      </p>
+      <section aria-labelledby="methodology-title" class="prose">
+        <h2 id="methodology-title">Methodology</h2>
+        <p>
+          The numbers above come from a snapshot of the production database
+          regenerated daily. Tags are bucketed by category using
+          <a href="https://github.com/runlog-org/runlog-vocabularies/blob/main/scope-registry.yaml">scope-registry.yaml</a>.
+          The raw JSON behind this page is <a href="/stats.json">stats.json</a>.
+        </p>
+        <p class="meta">
+          Generated: <span id="stat-generated-at">&mdash;</span>
+        </p>
+      </section>
     </article>
 
     <footer class="site-footer">

@@ -275,6 +275,132 @@
   .callout.drench { background: var(--color-brand); }
   .callout.drench::before { color: rgba(255,255,255,0.72); }
 
+  /* STATS PAGE — data-as-data, not text-as-data */
+  .stats-headline {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin: var(--space-8) 0 var(--space-12);
+  }
+  @media (min-width: 36rem) { .stats-headline { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 60rem) { .stats-headline { grid-template-columns: repeat(4, 1fr); } }
+
+  .stat-card {
+    background: var(--color-code-bg);
+    border-radius: 6px;
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .stat-num {
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum";
+    font-size: 2.6rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+  }
+  .stat-num-of {
+    font-size: 0.55em;
+    color: var(--color-muted);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .stat-bar {
+    height: 6px;
+    background: var(--color-bg);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: var(--space-2);
+  }
+  .stat-bar-fill {
+    height: 100%;
+    background: var(--color-brand);
+    border-radius: 3px;
+    width: 0;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .stats-category-chart {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    margin: var(--space-6) 0 0;
+  }
+  .stats-row-head {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr 2.75rem;
+    gap: var(--space-3);
+    align-items: center;
+    margin-bottom: var(--space-2);
+  }
+  .stats-row-label {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-fg);
+    font-weight: 600;
+  }
+  .stats-row-bar {
+    height: 10px;
+    background: var(--color-code-bg);
+    border-radius: 5px;
+    overflow: hidden;
+    display: block;
+  }
+  .stats-row-fill {
+    display: block;
+    height: 100%;
+    background: var(--color-brand);
+    border-radius: 5px;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stats-row-num {
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum";
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: right;
+    color: var(--color-ink);
+  }
+  .stats-tag-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding-left: calc(6.5rem + var(--space-3));
+  }
+  @media (max-width: 36rem) {
+    .stats-row-head { grid-template-columns: 5rem 1fr 2.5rem; }
+    .stats-tag-chips { padding-left: 0; }
+  }
+  .stats-chip {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    background: var(--color-tint);
+    color: var(--color-fg);
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .stats-chip-count {
+    color: var(--color-muted);
+    margin-left: 0.32rem;
+  }
+  /* On the stats page the headline grid sits outside .prose so it gets the
+     full container width even when other sections constrain to prose width. */
+  #stats-page-body { max-width: none; }
+
   .section-followup { margin-top: 1.25rem; }
 
   .grid-cards {

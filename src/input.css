@@ -642,6 +642,28 @@
   }
   .grid-tease .tile:hover { border-color: var(--color-brand); }
 
+  /* Agent tiles with logos — homepage agents-grid */
+  .grid-tease .agent-tile {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    line-height: 1.2;
+  }
+  .agent-logo {
+    flex-shrink: 0;
+    border-radius: 4px;
+    object-fit: contain;
+    background: transparent;
+  }
+  /* Larger logo in the agents-page cards */
+  .agent-logo--card {
+    width: 32px;
+    height: 32px;
+    margin-bottom: var(--space-3);
+    border-radius: 6px;
+  }
+  .agents-card { display: flex; flex-direction: column; }
+
   .compare {
     width: 100%;
     border-collapse: collapse;

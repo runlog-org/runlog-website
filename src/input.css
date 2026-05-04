@@ -120,6 +120,21 @@
   h2 { font-size: 1.25rem; margin: var(--section-y) 0 var(--space-2) 0; }
   h3 { font-size: 1.05rem; margin: var(--space-6) 0 var(--space-2) 0; }
 
+  /* log-aesthetic section markers: [01] [02] … in mono before each h2.
+     Opt-out via main[data-no-number] (legal pages, etc.). */
+  main:not([data-no-number]) { counter-reset: section; }
+  main:not([data-no-number]) section > h2::before,
+  main:not([data-no-number]) article section > h2::before {
+    counter-increment: section;
+    content: "[" counter(section, decimal-leading-zero) "]\00a0\00a0";
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 0.7em;
+    color: var(--color-brand);
+    vertical-align: 0.18em;
+    font-feature-settings: "tnum";
+  }
+
   a { @apply text-brand; }
 
   code {

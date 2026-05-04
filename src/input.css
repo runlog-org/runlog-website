@@ -168,7 +168,34 @@
   .lede {
     @apply text-muted;
     font-size: 1.15rem;
+    line-height: 1.45;
     margin-top: 0;
+  }
+  @media (min-width: 60rem) {
+    .lede { font-size: 1.3rem; }
+  }
+
+  /* FAQ — number questions Q01, Q02 in mono indigo, log-aesthetic */
+  .faq { counter-reset: faq; }
+  .faq h3 {
+    counter-increment: faq;
+    font-size: 1.1rem;
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-2);
+  }
+  .faq h3::before {
+    content: "Q" counter(faq, decimal-leading-zero);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--color-brand);
+    margin-bottom: var(--space-1);
+  }
+  .faq h3 + p {
+    margin-top: 0;
+    color: var(--color-fg);
   }
 
   .crumbs { @apply text-muted; font-size: 0.875rem; margin: 0 0 1.5rem 0; }

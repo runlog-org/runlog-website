@@ -42,20 +42,29 @@
   }
 
   function renderHeadline(stats) {
+    // v0.1: signed_at non-null is the meaningful verification metric.
+    // status='verified' is gated on the M05 trust engine (telemetry +
+    // manifest correlation) and stays at 0 until then; entries.verified
+    // is still emitted in stats.json for forwards-compat with M05.
+    //
+    // Default-to-zero guards the deploy window between this script
+    // shipping and the daily stats-export job emitting the new field.
+    var signedCount = stats.entries.signed != null ? stats.entries.signed : 0;
+
     setText("stat-entries-total", stats.entries.total);
     setText("stat-entries-total-2", stats.entries.total);
-    setText("stat-entries-verified", stats.entries.verified);
+    setText("stat-entries-signed", signedCount);
     setText("stat-tags-covered", stats.tags.covered);
     setText("stat-tags-total", stats.tags.total_in_vocabulary);
     setText("stat-users-registered", stats.users.registered);
 
-    var verifiedRatio = stats.entries.total > 0
-      ? stats.entries.verified / stats.entries.total
+    var signedRatio = stats.entries.total > 0
+      ? signedCount / stats.entries.total
       : 0;
     var tagsRatio = stats.tags.total_in_vocabulary > 0
       ? stats.tags.covered / stats.tags.total_in_vocabulary
       : 0;
-    setProgress("stat-verified-fill", verifiedRatio);
+    setProgress("stat-signed-fill", signedRatio);
     setProgress("stat-tags-fill", tagsRatio);
   }
 

@@ -45,6 +45,10 @@
   --color-on-brand: #FFFFFF;
   --color-ink: #0E1116;
 
+  --color-state-success: #0F9D58;
+  --color-state-warn:    #B45309;
+  --color-state-error:   #B42318;
+
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
@@ -92,6 +96,10 @@
     --color-tint: #1E1B3A;
     --color-code-bg: #0F1218;
     --color-ink: #F4F5F7;
+
+    --color-state-success: #34D399;
+    --color-state-warn:    #F59E0B;
+    --color-state-error:   #F87171;
   }
 }
 
@@ -236,6 +244,51 @@
     padding: var(--space-3) var(--space-4);
     font-size: 0.85rem;
   }
+
+  /* INFO-BOX — outcome message component for forms and async status.
+     Variants by state color; icon slot on the left. Reused by /register
+     (success/error from the verification flow) and other surfaces that
+     need a visually distinct outcome line. */
+  .info-box {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    border-radius: 4px;
+    border-left: 3px solid var(--color-border);
+    background: var(--color-code-bg);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .info-box__icon {
+    flex: 0 0 auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.15rem;
+    color: var(--color-muted);
+  }
+  .info-box__body { flex: 1 1 auto; }
+  .info-box__body > :first-child { margin-top: 0; }
+  .info-box__body > :last-child  { margin-bottom: 0; }
+
+  .info-box--success {
+    background: color-mix(in srgb, var(--color-state-success) 12%, var(--color-bg));
+    border-left-color: var(--color-state-success);
+  }
+  .info-box--success .info-box__icon { color: var(--color-state-success); }
+
+  .info-box--warn {
+    background: color-mix(in srgb, var(--color-state-warn) 12%, var(--color-bg));
+    border-left-color: var(--color-state-warn);
+  }
+  .info-box--warn .info-box__icon { color: var(--color-state-warn); }
+
+  .info-box--error {
+    background: color-mix(in srgb, var(--color-state-error) 12%, var(--color-bg));
+    border-left-color: var(--color-state-error);
+  }
+  .info-box--error .info-box__icon { color: var(--color-state-error); }
 
   /* PULL QUOTE — typographic, no border. Curly mark hangs in the gutter. */
   .pull {

@@ -42,6 +42,46 @@
     return url.protocol + '//' + url.host;
   }
 
+  // ── Info-box rendering ─────────────────────────────────────────────────
+  // Inline-SVG icon paths (Heroicons-derived, public-domain shapes).
+  // SVGs are inline so no extra fetch and so they pick up CSS color via
+  // `fill="currentColor"`. They are aria-hidden — the variant + body text
+  // already convey meaning to assistive tech.
+  const INFO_BOX_ICON_PATHS = {
+    success: 'M16.704 5.29a1 1 0 0 1 0 1.42l-7.99 7.99a1 1 0 0 1-1.42 0L3.296 10.7a1 1 0 1 1 1.42-1.42l3.286 3.286 7.282-7.276a1 1 0 0 1 1.42 0z',
+    warn:    'M9.401 2.293a1.5 1.5 0 0 1 2.598 0l7.5 12.99A1.5 1.5 0 0 1 18.2 17.5H3.8a1.5 1.5 0 0 1-1.299-2.217l7.5-12.99zM10 7.5a.75.75 0 0 0-.75.75v3.5a.75.75 0 0 0 1.5 0v-3.5A.75.75 0 0 0 10 7.5zm0 6.5a.9.9 0 1 0 0 1.8.9.9 0 0 0 0-1.8z',
+    error:   'M9.401 2.293a1.5 1.5 0 0 1 2.598 0l7.5 12.99A1.5 1.5 0 0 1 18.2 17.5H3.8a1.5 1.5 0 0 1-1.299-2.217l7.5-12.99zM10 7.5a.75.75 0 0 0-.75.75v3.5a.75.75 0 0 0 1.5 0v-3.5A.75.75 0 0 0 10 7.5zm0 6.5a.9.9 0 1 0 0 1.8.9.9 0 0 0 0-1.8z',
+    info:    'M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm.75 4.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM10 8.5a.75.75 0 0 0-.75.75v4.5a.75.75 0 0 0 1.5 0v-4.5A.75.75 0 0 0 10 8.5z',
+  };
+
+  // buildInfoBox returns a <div class="info-box info-box--{variant}">
+  // with an inline SVG icon followed by an .info-box__body containing
+  // `parts` rendered via appendParts. `variant` is one of
+  // 'success' | 'warn' | 'error' | 'info'.
+  function buildInfoBox(variant, parts) {
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const box = document.createElement('div');
+    box.className = 'info-box info-box--' + variant;
+
+    const svg = document.createElementNS(SVG_NS, 'svg');
+    svg.setAttribute('class', 'info-box__icon');
+    svg.setAttribute('viewBox', '0 0 20 20');
+    svg.setAttribute('fill', 'currentColor');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    const path = document.createElementNS(SVG_NS, 'path');
+    const iconKey = INFO_BOX_ICON_PATHS[variant] ? variant : 'info';
+    path.setAttribute('d', INFO_BOX_ICON_PATHS[iconKey]);
+    svg.appendChild(path);
+
+    const body = document.createElement('div');
+    body.className = 'info-box__body';
+    appendParts(body, parts);
+
+    box.append(svg, body);
+    return box;
+  }
+
   // ── Index page (/register/) ──────────────────────────────────────────────
 
   function initIndex() {
@@ -74,8 +114,14 @@
       }
 
       // Always show the same message to prevent email enumeration.
-      status.textContent =
-        'If that address is valid, a verification link is on its way. It expires in 1 hour.';
+      // The text is byte-identical regardless of input validity — the
+      // server returns the same response either way and we mustn't leak
+      // success-vs-failure via DOM differences.
+      const statusBox = buildInfoBox('success', [
+        'If that address is valid, a verification link is on its way. It expires in 1 hour.',
+      ]);
+      while (status.firstChild) status.removeChild(status.firstChild);
+      status.appendChild(statusBox);
 
       // Re-enable the button on network failure so the user can retry.
       // On success the same anti-enumeration message is shown either way,
@@ -184,9 +230,14 @@
   function renderSuccess(headline, result, data) {
     headline.textContent = 'Welcome — here is your API key';
 
-    const warning = document.createElement('p');
-    warning.textContent =
-      'This is the only time your key will be shown. Copy it now and store it somewhere safe.';
+    // The "store this now" warning is store-it-or-lose-it advice — it's
+    // a positive outcome but still cautionary, so the warn (amber) variant
+    // fits its content better than success (green). The <pre>/copy/docs
+    // flow stays outside the box so the existing copy-button semantics
+    // are unchanged.
+    const warningBox = buildInfoBox('warn', [
+      'This is the only time your key will be shown. Copy it now and store it somewhere safe.',
+    ]);
 
     const pre = document.createElement('pre');
     const code = document.createElement('code');
@@ -223,19 +274,18 @@
     ]);
 
     while (result.firstChild) result.removeChild(result.firstChild);
-    result.append(warning, pre, copyBtn, docsNote);
+    result.append(warningBox, pre, copyBtn, docsNote);
   }
 
-  // setError builds a <p> with safe DOM nodes from `parts`, which is
-  // either a plain string or an array whose elements are strings (text)
-  // or {href, text} objects (rendered as <a>). Nothing in `parts`
-  // is ever interpreted as HTML.
+  // setError builds an info-box--error with safe DOM nodes from `parts`,
+  // which is either a plain string or an array whose elements are
+  // strings (text) or {href, text} objects (rendered as <a>). Nothing
+  // in `parts` is ever interpreted as HTML.
   function setError(headline, result, title, parts) {
     headline.textContent = title;
-    const p = document.createElement('p');
-    appendParts(p, parts);
+    const box = buildInfoBox('error', parts);
     while (result.firstChild) result.removeChild(result.firstChild);
-    result.appendChild(p);
+    result.appendChild(box);
   }
 
   function appendParts(parent, parts) {

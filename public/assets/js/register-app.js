@@ -88,6 +88,20 @@
     const form = document.getElementById('register-form');
     if (!form) return;
 
+    // Turnstile callbacks — globals because Turnstile invokes them by name from data-* attrs.
+    window.onTurnstileSuccess = function () {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = false;
+    };
+    window.onTurnstileError = function () {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+    };
+    window.onTurnstileExpired = function () {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+    };
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -98,13 +112,20 @@
 
       submitBtn.disabled = true;
 
+      // Read Turnstile token if the widget has completed. Empty string is intentional:
+      // the server returns the same anti-enumeration 202 either way; we do NOT short-circuit
+      // or show an error to the user — that would leak challenge-pass/fail state.
+      const turnstileToken = window.turnstile && typeof window.turnstile.getResponse === 'function'
+        ? window.turnstile.getResponse() || ''
+        : '';
+
       let fetchFailed = false;
       if (apiBase) {
         try {
           await fetch(`${apiBase}/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email }),
+            body: JSON.stringify({ email, turnstile_token: turnstileToken }),
           });
         } catch (err) {
           // Network error — swallow; user sees the same message regardless.

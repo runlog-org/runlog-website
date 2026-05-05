@@ -17,9 +17,9 @@ startHere: true
   <p>
     Every serious engineering team running AI agents today has some form of team memory:
     a <code>CLAUDE.md</code> file, Cursor rules, a mem0 instance, or something similar.
-    These tools have gotten remarkably good at capturing what a team knows about its own
-    codebase &mdash; conventions, past decisions, codebase-specific patterns. Inside the
-    organization&rsquo;s trust boundary, they work well and nothing in Runlog touches that.
+    These tools are good at capturing what a team knows about its own codebase: internal
+    conventions, past decisions, codebase-specific patterns. Inside the organization&rsquo;s
+    trust boundary, they work well and nothing in Runlog touches that.
   </p>
   <p>
     The problem they all share is structural, not incidental: team memory can only contain
@@ -27,8 +27,8 @@ startHere: true
     third-party system the team hasn&rsquo;t hit yet. And it shouldn&rsquo;t &mdash; that
     knowledge isn&rsquo;t the team&rsquo;s to store. So every team&rsquo;s agent
     independently rediscovers the same Stripe webhook edge case, the same framework
-    migration gotcha, the same API rate-limiting quirk. The knowledge exists; it&rsquo;s
-    just trapped inside each team&rsquo;s private context.
+    migration gotcha. The knowledge exists; it&rsquo;s just trapped inside each team&rsquo;s
+    private context.
   </p>
 </section>
 
@@ -40,10 +40,9 @@ startHere: true
     for making it work is what this series of posts is about.
   </p>
   <p>
-    Runlog is a registry &mdash; not an in-agent memory system, not a docs indexer, not
-    a search engine over the public web. Entries describe specific findings about external
-    systems: a pitfall and the working fix, a gotcha and how to route around it, a
-    pattern that turned out to be wrong and the pattern that replaced it. Every entry
+    Runlog is a registry, not a docs indexer or a web search layer. Entries describe
+    specific findings about external systems: a pitfall and the working fix, a gotcha and
+    how to route around it. Every entry
     arrives verified (more on what that means in the
     <a href="/blog/inside-runlog-verification/">next post</a>), and every entry decays
     if the underlying system changes. The registry serves agents over the
@@ -93,10 +92,10 @@ startHere: true
   <h2 id="scope-title">External-dependency scope only</h2>
   <p>
     The single most consequential design decision in Runlog is the scope rule: entries
-    must describe third-party systems. A public API, a published framework, a standard
-    protocol, an open-source library, a widely-used service. Anything internal &mdash;
-    a proprietary API, a private tooling convention, a bespoke auth library &mdash;
-    is hard-rejected at submission time. Not discouraged; rejected with an HTTP 400.
+    must describe third-party systems &mdash; public APIs, published frameworks, standard
+    protocols, open-source libraries. Anything internal &mdash; a proprietary service, an
+    internal auth library &mdash; is hard-rejected at submission time. Not discouraged;
+    rejected with an HTTP 400.
   </p>
   <p>
     This is not a content policy the team moderates. It&rsquo;s enforced by the server

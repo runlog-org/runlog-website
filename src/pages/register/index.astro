@@ -39,7 +39,21 @@ const graph = [
       autocomplete="email"
       placeholder="you@example.com"
     >
-    <button class="form-button" type="submit">Send verification link</button>
+    <!--
+      Replace data-sitekey with the production site key from the Cloudflare Turnstile
+      dashboard before deploy. The site key is public-safe; the secret lives in
+      RUNLOG_TURNSTILE_SECRET on the VPS. The placeholder will fail-closed in production
+      until replaced, which is the desired behaviour during the staged rollout (the server
+      runs in stub mode until the secret lands too).
+    -->
+    <div
+      class="cf-turnstile"
+      data-sitekey="0x4AAAAAABXXXXXXXXXXXXXXXX"
+      data-callback="onTurnstileSuccess"
+      data-error-callback="onTurnstileError"
+      data-expired-callback="onTurnstileExpired"
+    ></div>
+    <button class="form-button" type="submit" disabled>Send verification link</button>
   </form>
   <div id="status" role="status" aria-live="polite"></div>
 
@@ -47,13 +61,13 @@ const graph = [
     Submitting your email is processed by the data controller (see
     <a href="/impressum/">Impressum</a>) for the sole purpose of issuing your API key
     and binding it to your account. No use beyond issuance, no third-party sharing
-    beyond the email-delivery service. Full disclosure: <a href="/datenschutz/">Privacy Notice</a>.
+    beyond the email-delivery service and Cloudflare's bot-detection challenge. Full disclosure: <a href="/datenschutz/">Privacy Notice</a>.
   </p>
   <p class="privacy-inline" lang="de">
     Mit dem Absenden wird Deine E-Mail-Adresse vom Verantwortlichen (siehe
     <a href="/impressum/">Impressum</a>) ausschließlich zur Ausstellung Deines API-Keys
     und zur Bindung an Dein Konto verarbeitet. Keine darüber hinausgehende Nutzung,
-    keine Weitergabe außer an den E-Mail-Dienstleister.
+    keine Weitergabe außer an den E-Mail-Dienstleister und Cloudflares Bot-Abwehrdienst.
     Vollständige Auskunft: <a href="/datenschutz/">Datenschutzerklärung</a>.
   </p>
 
@@ -64,5 +78,6 @@ const graph = [
     Cursor, Cline, Continue, Windsurf, Aider, VS Code Copilot, JetBrains AI, and Zed.
   </p>
 
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script is:inline src="/assets/js/register-app.js" defer></script>
 </Base>

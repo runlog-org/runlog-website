@@ -7,6 +7,14 @@
     "nodejs_compat",
     "global_fetch_strictly_public"
   ],
+  // Run the Astro build before any `wrangler deploy` (including Cloudflare
+  // Workers Builds). The Astro 5 hybrid migration moved the entry-point to
+  // ./dist/_worker.js/index.js, which only exists after `astro build` runs;
+  // putting the build step here makes the build a guarantee of the deploy
+  // contract rather than a setting that can drift in the CF dashboard.
+  "build": {
+    "command": "npm run build"
+  },
   "assets": {
     "binding": "ASSETS",
     "directory": "./dist",

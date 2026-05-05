@@ -6,7 +6,7 @@ const url = `${SITE_URL}/datenschutz/`;
 const title = 'Privacy Notice — Runlog';
 const description =
   'DSGVO Art. 13 privacy disclosure for runlog.org — controller, purposes, lawful bases, recipients, retention periods, and data-subject rights.';
-const dateModified = '2026-05-04';
+const dateModified = '2026-05-05';
 
 const graph = [
   breadcrumbList([
@@ -40,7 +40,7 @@ const graph = [
 
     <p class="lede">
       This notice fulfils the information obligations under DSGVO Art. 13 for all processing
-      activities carried out in connection with runlog.org. Last updated: 2026-05-04.
+      activities carried out in connection with runlog.org. Last updated: 2026-05-05.
     </p>
 
     <aside class="lang-summary" lang="de" aria-label="Deutsche Zusammenfassung">
@@ -61,7 +61,10 @@ const graph = [
         dieses Keys an das Nutzerkonto verarbeitet (Art. 6 Abs. 1 lit. b DSGVO — Erfüllung eines
         nutzergewünschten Vorgangs). Sicherheits- und Anti-Missbrauchsprotokolle (IP-Adressen,
         Verifikations-Token) stützen sich auf Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse
-        an Betriebssicherheit).
+        an Betriebssicherheit). Zur Abwehr automatisierter Missbrauchsversuche auf /register/ kommt
+        die Cloudflare Turnstile Challenge zum Einsatz; Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO
+        (berechtigtes Interesse an Betriebssicherheit). Verarbeitete Daten: IP-Adresse,
+        Browser-Charakteristika; verarbeitet von Cloudflare als Auftragsverarbeiter.
       </p>
       <p>
         <strong>Datenkategorien:</strong> E-Mail-Adresse (Klartext im Versandvorgang, danach als
@@ -74,6 +77,10 @@ const graph = [
         E-Mail-Dienstleister (EU-Standort, aktuell gültige Auftragsverarbeiter-Liste unter
         <a href="https://resend.com/legal/subprocessors">resend.com/legal/subprocessors</a>);
         CDN-/Edge-Provider (US-Sitz, EU-Edge — Drittlandtransfer mit SCCs über Standard-DPA);
+        Bot-Erkennungs-Dienst: Cloudflare Turnstile (US-Sitz) zur Challenge-Verifikation auf
+        /register/ — verarbeitet IP-Adresse und Browser-Charakteristika als Auftragsverarbeiter;
+        Datenschutzhinweis: <a href="https://www.cloudflare.com/privacypolicy/">cloudflare.com/privacypolicy/</a>;
+        Drittlandtransfer mit SCCs über Standard-DPA;
         Uptime-Monitoring-Dienst (EU-Anbieter, verarbeitet ausschließlich Server-Metadaten,
         keine Nutzerdaten).
       </p>
@@ -96,13 +103,15 @@ const graph = [
         <strong>Keine Pflicht zur Angabe / rein freiwillig:</strong> Die Registrierung ist
         freiwillig; die einzige Konsequenz einer Nichtangabe ist, dass kein API-Key ausgestellt
         werden kann. <strong>Keine automatisierten Entscheidungen</strong> (kein Profiling).
-        <strong>Keine Cookies</strong> durch den Betreiber gesetzt; der CDN-/Edge-Provider kann
-        technisch notwendige Cookies zur Bot-Erkennung setzen (unter der aktuellen Konfiguration
-        nicht beobachtet).
+        <strong>Keine Cookies</strong> durch den Betreiber gesetzt; das Cloudflare Turnstile Widget
+        auf /register/ kann technisch notwendige Cookies oder Local-Storage-Einträge zur
+        Durchführung der Challenge setzen (gesetzt von Cloudflare, nicht vom Betreiber); der
+        CDN-/Edge-Provider kann darüber hinaus plattformseitig technisch notwendige Cookies zur
+        Bot-Erkennung setzen (unter der aktuellen Konfiguration nicht beobachtet).
       </p>
     </aside>
 
-    <p class="meta">Last updated: 2026-05-04. Material changes to this notice will be reflected
+    <p class="meta">Last updated: 2026-05-05. Material changes to this notice will be reflected
     via the <code>og:updated_time</code> meta tag and the "Last updated" line above.</p>
 
     <h2>1. Controller (Verantwortlicher)</h2>
@@ -125,6 +134,11 @@ const graph = [
           (one-time verification token, valid for 1 hour).</li>
       <li>Anti-abuse and security logging to protect service integrity
           (IP address and request metadata, retained for limited periods).</li>
+      <li>Bot-detection challenge (Cloudflare Turnstile) on the registration form to prevent
+          scripted email abuse. Processes IP address and browser characteristics. Lawful basis:
+          Art. 6(1)(f) DSGVO — legitimate interest in fraud prevention and service integrity.
+          Cloudflare acts as a processor; see
+          <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare's privacy notice</a>.</li>
     </ul>
     <p>
       No data is used for marketing, analytics, profiling, or any purpose beyond those
@@ -200,6 +214,16 @@ const graph = [
         see Section 13 below. Third-country transfer: see Section 7.
       </li>
       <li>
+        <strong>Bot-detection service — Cloudflare Turnstile (US-headquartered)</strong> —
+        renders a challenge widget on the registration form at /register/ to distinguish human
+        visitors from automated scripts. Processes the visitor's IP address and browser
+        characteristics as part of the challenge flow. Operates as a data processor under a DPA.
+        Lawful basis: Art. 6(1)(f) DSGVO — legitimate interest in fraud prevention.
+        For Cloudflare's privacy practices, see
+        <a href="https://www.cloudflare.com/privacypolicy/">cloudflare.com/privacypolicy/</a>.
+        Third-country transfer: Standard Contractual Clauses (SCCs) incorporated in the standard DPA.
+      </li>
+      <li>
         <strong>Uptime-monitoring service (EU-based)</strong> — receives periodic
         availability pings from the API server. Processes only the server's public IP
         address; no visitor data or personal data is transmitted to this service.
@@ -208,12 +232,12 @@ const graph = [
 
     <h2>7. Third-country transfers (Drittlandtransfers)</h2>
     <p>
-      The content-delivery / edge provider is headquartered in the United States. The
-      controller-to-processor relationship with this provider constitutes a transfer of
-      personal data to a third country within the meaning of DSGVO Art. 44. The legal
-      basis for this transfer is the Standard Contractual Clauses (SCCs) incorporated
-      in the provider's standard data-processing agreement, which was accepted at account
-      sign-up.
+      The content-delivery / edge provider and the bot-detection service (Cloudflare Turnstile)
+      are both headquartered in the United States. The controller-to-processor relationships
+      with these providers constitute transfers of personal data to a third country within the
+      meaning of DSGVO Art. 44. The legal basis for these transfers is the Standard Contractual
+      Clauses (SCCs) incorporated in each provider's standard data-processing agreement, accepted
+      at account sign-up.
     </p>
     <p>
       All other processors operate within the European Union or, in the case of the
@@ -299,9 +323,15 @@ const graph = [
 
     <h2>13. Cookies and device storage</h2>
     <p>
-      The operator sets no cookies and accesses no device storage (Web Storage, IndexedDB,
-      or similar) for any purpose. No fingerprinting or tracking scripts are deployed
-      on this site.
+      The operator sets no first-party cookies and accesses no device storage (Web Storage,
+      IndexedDB, or similar) for any purpose.
+    </p>
+    <p>
+      The Cloudflare Turnstile widget embedded on /register/ may set strictly necessary
+      technical cookies or use local storage as part of its bot-detection challenge. These
+      are set by Cloudflare (challenges.cloudflare.com), not by the operator, and are
+      limited to what is required for the challenge to function. No tracking or advertising
+      cookies are set by Turnstile.
     </p>
     <p>
       The content-delivery / edge provider may, under certain traffic conditions, set

@@ -75,12 +75,11 @@ readTime: "~8 min read"
   </p>
   <p>
     Without a skill, an agent given access to <code>runlog_search</code> might call it on
-    every problem &mdash; including problems about internal systems that should stay in
-    team memory, and problems that team memory already answers. It might call
-    <code>runlog_submit</code> without having run the verifier, producing a submission that
-    the sanitization pipeline will reject. It might never call <code>runlog_report</code>
-    at all, leaving the session manifest empty and depriving the trust-scoring system of
-    the confirmation signal it needs.
+    every problem &mdash; including internal systems that should stay in team memory. It
+    might call <code>runlog_submit</code> without having run the verifier, producing a
+    submission the sanitization pipeline will reject. And it won't call
+    <code>runlog_report</code>, leaving the session manifest empty and depriving the
+    trust-scoring system of the confirmation signal it needs.
   </p>
   <p>
     The skill is the instruction layer that teaches the agent when and how to use the

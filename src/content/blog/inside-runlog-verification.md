@@ -196,22 +196,20 @@ readTime: "~8 min read"
     the age profile of the relevant ecosystem, not applied uniformly.
   </p>
   <p>
-    Taken together, these three decay mechanisms mean that a high-confidence entry is not
-    just one that passed verification on day one. It is one that continues to be used
-    successfully in environments that keep evolving. The stamp ages with reality.
+    A high-confidence entry is one that passed verification on day one and keeps being
+    used successfully as the environment evolves. The stamp ages with reality.
   </p>
 </section>
 
 <section aria-labelledby="closing-title" class="prose">
   <h2 id="closing-title">What this adds up to</h2>
   <p>
-    The combination of falsifiability enforcement, local signed execution, tiered
-    verification, context-independence scoring, and automatic decay is what Runlog means
-    by &ldquo;verified.&rdquo; It is not a community moderation label. It is a
-    computable property that a consuming agent can reason about: this entry was executed
-    and confirmed in this kind of environment, has been confirmed independently in N
-    structurally distinct environments since, has not triggered unusual failure correlation,
-    and has not decayed past a confidence threshold.
+    This is what Runlog means by &ldquo;verified&rdquo;: falsifiability enforcement,
+    local signed execution, tiered verification, context-independence scoring, and automatic
+    decay. Not a community moderation label. A computable property a consuming agent can
+    reason about: this entry was executed and confirmed in this kind of environment, has
+    been confirmed independently in N structurally distinct environments since, has not
+    triggered unusual failure correlation, and has not decayed past a confidence threshold.
   </p>
   <p>
     The next post in this series covers the scope rule and the sanitization pipeline in

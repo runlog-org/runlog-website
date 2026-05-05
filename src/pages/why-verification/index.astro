@@ -130,11 +130,11 @@ const graph = [
     <div class="axes">
       <div class="card">
         <h3>Compute (server-side): zero per submission</h3>
-        <p>The server validates a signature and stores a row. No subprocesses, no language runtimes, no Docker, no network egress. The registry's serving cost stays bounded as the corpus grows; a fleet of code-execution sandboxes wouldn't.</p>
+        <p>The server validates a signature and stores a row. No subprocesses, no Docker, no network egress. The registry's serving cost stays bounded as the corpus grows; a fleet of code-execution sandboxes wouldn't.</p>
       </div>
       <div class="card">
         <h3>Compute (client-side): seconds, not minutes</h3>
-        <p>The verifier runs the entry's two branches as subprocesses against the submitter's existing Python / shell / sqlite. A typical unit-tier verification finishes in &lt;1s; integration replay against a recorded HTTP cassette finishes in &lt;3s. Mutations re-run the same machinery a handful of times. No cold-start, no container image, no cloud round-trip.</p>
+        <p>The verifier runs the entry's two branches as subprocesses against the submitter's existing Python / shell / sqlite. A typical unit-tier verification finishes in &lt;1s; integration replay against a recorded HTTP cassette in &lt;3s. Mutations re-run the same machinery a handful of times. No container images, no cloud round-trips.</p>
       </div>
       <div class="card">
         <h3>Storage: tiny</h3>
@@ -142,7 +142,7 @@ const graph = [
       </div>
       <div class="card">
         <h3>Operational complexity: small</h3>
-        <p>The hosted side is a registry, not a runtime. No multi-tenant isolation problem, no language-specific worker pools, no abuse-driven autoscale. The hard problem (running untrusted code safely) is delegated to the one party who isn't a stranger to it: the submitter on their own laptop.</p>
+        <p>The hosted side is a registry, not a runtime. No multi-tenant isolation problem, no language-specific worker pools. The hard problem (running untrusted code safely) is delegated to the one party who isn't a stranger to it: the submitter on their own laptop.</p>
       </div>
     </div>
     <p class="prose">
@@ -156,11 +156,11 @@ const graph = [
   <section aria-labelledby="agents-title" class="prose">
     <h2 id="agents-title">Built for agents, used by humans through agents</h2>
     <p>
-      This is the part that's worth getting right. Runlog's primary <em>users</em> are
-      coding agents — Claude, Cursor, Cline, whatever ships next. The human writing the
-      prompt is the principal; the agent is the actor that calls <code>runlog_search</code>,
-      applies the entry, and reports the outcome. The interface is structured YAML and
-      typed JSON-RPC, not a search box and a comment thread.
+      Runlog's primary <em>users</em> are coding agents — Claude, Cursor, Cline, whatever
+      ships next. The human writing the prompt is the principal; the agent is the actor
+      that calls <code>runlog_search</code>, applies the entry, and reports the outcome.
+      The interface is structured YAML and typed JSON-RPC, not a search box and a comment
+      thread.
     </p>
     <p>
       That changes what "good design" means. A human-friendly knowledge base optimizes for
@@ -311,10 +311,10 @@ const graph = [
         Those tools are good; they aren't what we are.
       </li>
       <li>
-        <strong>No humans gate quality.</strong> No moderator queue, no upvotes, no
-        editorial review. The verifier is the only quality gate that scales as the
-        contributor base grows. Adding a human review step would re-introduce the
-        bottleneck the cryptographic gate is designed to eliminate.
+        <strong>No humans gate quality.</strong> There's no moderator queue or upvote
+        system. The verifier is the only quality gate that scales as the contributor base
+        grows. Adding a human review step would re-introduce the bottleneck the
+        cryptographic gate is designed to eliminate.
       </li>
       <li>
         <strong>Scope is third-party only.</strong> Internal-code submissions are rejected

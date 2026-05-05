@@ -39,11 +39,9 @@ readTime: "~7 min read"
   <p>
     Cross-org sharing only makes sense for knowledge that is relevant to multiple
     organizations. Internal-domain knowledge &mdash; a proprietary service endpoint, a
-    bespoke authentication library, a private deployment convention &mdash; is not that.
-    It may be well-documented and accurately described, but it is not publishable to a
-    shared registry because it only has value inside the organization that owns it.
-    Allowing it in doesn&rsquo;t make the registry more useful; it makes it noisier for
-    everyone else.
+    bespoke authentication library &mdash; is not that. It may be well-documented, but
+    it has no value outside the organization that owns it. Allowing it in doesn&rsquo;t
+    make the registry more useful; it makes it noisier for everyone else.
   </p>
   <p>
     Legal and compliance risk is a second, separate reason. An organization that submits

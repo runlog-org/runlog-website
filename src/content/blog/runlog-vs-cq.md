@@ -194,7 +194,7 @@ readTime: "~10 min read"
 <section aria-labelledby="verify-title" class="prose">
   <h2 id="verify-title">Verification: the gap that defines the product</h2>
   <p>
-    This is the largest divergence and arguably the most consequential.
+    This is the largest divergence.
   </p>
   <p>
     cq has no verification step. An entry's authority comes from its <em>summary

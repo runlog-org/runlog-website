@@ -146,7 +146,7 @@ Scale (light theme):
 | H2          | 1.5rem  | 1.25 | 600 | `ink/900` |
 | H3          | 1.125rem| 1.3  | 600 | `ink/900` |
 | Body        | 1rem    | 1.55 | 400 | `ink/700` |
-| Lede        | 1.15rem | 1.5  | 400 | `ink/500` |
+| Lede        | 1.15rem | 1.5  | 400 | `ink/400` |
 | Small / meta| 0.875rem| 1.45 | 400 | `ink/400` |
 | Code        | 0.9rem  | 1.5  | 400 | `ink/700` on `surface/code` |
 

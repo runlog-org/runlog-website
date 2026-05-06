@@ -7,14 +7,20 @@
     "nodejs_compat",
     "global_fetch_strictly_public"
   ],
-  // Run the Astro build before any `wrangler deploy` (including Cloudflare
-  // Workers Builds). With @astrojs/cloudflare 13 the input `main` points at
-  // the adapter's unified entrypoint (`@astrojs/cloudflare/entrypoints/server`),
-  // which the integration wires up to the post-build worker for us. The build
-  // hook stays so the deploy contract still produces dist/ before upload.
-  "build": {
-    "command": "npm run build"
-  },
+  // Note: a `build.command` is intentionally NOT declared here.
+  // - Locally, `npm run build` runs via the package script before
+  //   `wrangler deploy`.
+  // - On Cloudflare Workers Builds, the trigger's `build_command`
+  //   (set via the PATCH /builds/triggers API) runs the build before
+  //   the trigger's `deploy_command` invokes `npx wrangler deploy`.
+  // Once the build has produced `dist/server/wrangler.json`, wrangler
+  // auto-resolves that as the deploy config (per the @astrojs/cloudflare 13
+  // / Cloudflare Vite-plugin contract); the `main` virtual export below
+  // is only consumed by the vite-plugin path during build.
+  // If `build.command` were here, wrangler's standalone `[custom build]`
+  // path would re-validate `main` as a literal file *before* scanning the
+  // output config — which fails on the virtual export. See [B17] commit
+  // a0e27e6 for the migration and the build that exposed this regression.
   "assets": {
     "binding": "ASSETS",
     "directory": "./dist",

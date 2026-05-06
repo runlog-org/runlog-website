@@ -39,13 +39,6 @@ const graph = [
       autocomplete="email"
       placeholder="you@example.com"
     >
-    <!--
-      Replace data-sitekey with the production site key from the Cloudflare Turnstile
-      dashboard before deploy. The site key is public-safe; the secret lives in
-      RUNLOG_TURNSTILE_SECRET on the VPS. The placeholder will fail-closed in production
-      until replaced, which is the desired behaviour during the staged rollout (the server
-      runs in stub mode until the secret lands too).
-    -->
     <div
       class="cf-turnstile"
       data-sitekey="0x4AAAAAADJpmHztG77rDJ0F"

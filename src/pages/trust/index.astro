@@ -9,6 +9,31 @@ const description =
 const ogDescription =
   'Trust is computed, not voted. Three independent signals — signed verification, weighted usage telemetry, and dependency-manifest correlation — decide whether an entry earns the verified tier.';
 
+// Single source for the FAQ — `q` + plain-text `a` feeds the FAQPage
+// JSON-LD; `html` renders the visible answer with link formatting.
+const faqs = [
+  {
+    q: 'How do you stop people gaming the trust score?',
+    a: "Three layers stack against it. Submission requires running a signed open-source verifier with differential execution and mutation testing — fake results don't pass. Field confirmations are weighted so identical clients on overlapping codebases count as roughly one — sybil farms don't compound. And every retrieval is tagged in a dependency manifest, so a bad entry leaves a trail when it correlates with downstream failures. We don't publish the exact weights; that would be the playbook.",
+    html: `Three layers stack against it. Submission requires running a signed open-source
+      verifier with differential execution and mutation testing — fake results don't pass.
+      Field confirmations are weighted so identical clients on overlapping codebases count
+      as roughly one — sybil farms don't compound. And every retrieval is tagged in a
+      dependency manifest, so a bad entry leaves a trail when it correlates with downstream
+      failures. We don't publish the exact weights; that would be the playbook.`,
+  },
+  {
+    q: 'Is the verifier open source?',
+    a: "Yes — Apache 2.0, Go, reproducible builds. The verifier, the schema, and the vocabularies are all public so anyone can audit what's signed and what gets rejected. The hosted server is currently closed source.",
+    html: `Yes — Apache 2.0, Go, reproducible builds. The
+      <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>, the
+      <a href="https://github.com/runlog-org/runlog-schema">schema</a>, and the
+      <a href="https://github.com/runlog-org/runlog-vocabularies">vocabularies</a>
+      are all public so anyone can audit what's signed and what gets rejected.
+      The hosted server is currently closed source.`,
+  },
+];
+
 const graph = [
   breadcrumbList([
     { name: 'Runlog', url: `${SITE_URL}/` },
@@ -28,24 +53,11 @@ const graph = [
   {
     '@type': 'FAQPage',
     '@id': `${url}#faq`,
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'How do you stop people gaming the trust score?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: "Three layers stack against it. Submission requires running a signed open-source verifier with differential execution and mutation testing — fake results don't pass. Field confirmations are weighted so identical clients on overlapping codebases count as roughly one — sybil farms don't compound. And every retrieval is tagged in a dependency manifest, so a bad entry leaves a trail when it correlates with downstream failures. We don't publish the exact weights; that would be the playbook.",
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Is the verifier open source?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes — Apache 2.0, Go, reproducible builds. The verifier, the schema, and the vocabularies are all public so anyone can audit what\'s signed and what gets rejected. The hosted server is currently closed source.',
-        },
-      },
-    ],
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
   },
 ];
 ---
@@ -170,26 +182,12 @@ const graph = [
 
   <section aria-labelledby="faq-title" class="prose faq">
     <h2 id="faq-title">FAQ</h2>
-
-    <h3>How do you stop people gaming the trust score?</h3>
-    <p>
-      Three layers stack against it. Submission requires running a signed open-source
-      verifier with differential execution and mutation testing — fake results don't pass.
-      Field confirmations are weighted so identical clients on overlapping codebases count
-      as roughly one — sybil farms don't compound. And every retrieval is tagged in a
-      dependency manifest, so a bad entry leaves a trail when it correlates with downstream
-      failures. We don't publish the exact weights; that would be the playbook.
-    </p>
-
-    <h3>Is the verifier open source?</h3>
-    <p>
-      Yes — Apache 2.0, Go, reproducible builds. The
-      <a href="https://github.com/runlog-org/runlog-verifier">verifier</a>, the
-      <a href="https://github.com/runlog-org/runlog-schema">schema</a>, and the
-      <a href="https://github.com/runlog-org/runlog-vocabularies">vocabularies</a>
-      are all public so anyone can audit what's signed and what gets rejected.
-      The hosted server is currently closed source.
-    </p>
+    {faqs.map((f) => (
+      <>
+        <h3>{f.q}</h3>
+        <p set:html={f.html} />
+      </>
+    ))}
   </section>
 
   <section aria-labelledby="contribute-title" class="prose">

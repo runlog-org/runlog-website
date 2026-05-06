@@ -1,17 +1,17 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "runlog-website",
-  "main": "./dist/_worker.js/index.js",
+  "main": "@astrojs/cloudflare/entrypoints/server",
   "compatibility_date": "2026-04-25",
   "compatibility_flags": [
     "nodejs_compat",
     "global_fetch_strictly_public"
   ],
   // Run the Astro build before any `wrangler deploy` (including Cloudflare
-  // Workers Builds). The Astro 5 hybrid migration moved the entry-point to
-  // ./dist/_worker.js/index.js, which only exists after `astro build` runs;
-  // putting the build step here makes the build a guarantee of the deploy
-  // contract rather than a setting that can drift in the CF dashboard.
+  // Workers Builds). With @astrojs/cloudflare 13 the input `main` points at
+  // the adapter's unified entrypoint (`@astrojs/cloudflare/entrypoints/server`),
+  // which the integration wires up to the post-build worker for us. The build
+  // hook stays so the deploy contract still produces dist/ before upload.
   "build": {
     "command": "npm run build"
   },

@@ -756,6 +756,12 @@
   }
   .grid-tease .tile:hover { border-color: var(--color-brand); }
 
+  /* Homepage "Works with …" agents inline summary */
+  .agents-line {
+    @apply text-muted;
+    font-size: 0.95rem;
+  }
+
   /* Agent tiles with logos — homepage agents-grid */
   .grid-tease .agent-tile {
     display: flex;

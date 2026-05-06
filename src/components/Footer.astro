@@ -1,4 +1,5 @@
 ---
+import StatusBadges from './StatusBadges.astro';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -26,12 +27,7 @@ const year = new Date().getFullYear();
     <li><a href="/impressum/">Impressum</a></li>
     <li><a href="/datenschutz/">Datenschutz</a></li>
   </ul>
-  <p class="status-line">
-    <a href="https://api.runlog.org/health" title="v0.1 live"><img src="/assets/img/badges/v0.1-live.svg" alt="v0.1 live" /></a>
-    <a href="https://modelcontextprotocol.io" title="MCP compatible"><img src="/assets/img/badges/mcp-compatible.svg" alt="MCP compatible" /></a>
-    <a href="https://github.com/runlog-org/runlog-skills" title="9 vendor adapters"><img src="/assets/img/badges/agents-9-vendors.svg" alt="9 vendor adapters" /></a>
-    <a href="https://github.com/runlog-org#licenses" title="Code license"><img src="/assets/img/badges/code-license.svg" alt="Apache 2.0 / MIT license" /></a>
-  </p>
+  <StatusBadges />
   <p class="copyright">
     &copy; {year} Runlog
     &middot; Built by <a href="https://volkerotto.net">Volker Otto</a>

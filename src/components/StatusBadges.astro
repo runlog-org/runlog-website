@@ -1,0 +1,11 @@
+---
+// StatusBadges.astro — the four trust/integration badges shown both
+// on the homepage hero and in the global footer. Single source for the
+// link/title/alt strings and badge filenames so they don't drift.
+---
+<p class="status-line">
+  <a href="https://api.runlog.org/health" title="v0.1 live"><img src="/assets/img/badges/v0.1-live.svg" alt="v0.1 live" /></a>
+  <a href="https://modelcontextprotocol.io" title="MCP compatible"><img src="/assets/img/badges/mcp-compatible.svg" alt="MCP compatible" /></a>
+  <a href="https://github.com/runlog-org/runlog-skills" title="9 vendor adapters"><img src="/assets/img/badges/agents-9-vendors.svg" alt="9 vendor adapters" /></a>
+  <a href="https://github.com/runlog-org#licenses" title="Code license"><img src="/assets/img/badges/code-license.svg" alt="Apache 2.0 / MIT license" /></a>
+</p>

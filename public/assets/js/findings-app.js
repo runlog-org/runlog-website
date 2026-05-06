@@ -1,6 +1,5 @@
 // findings-app.js — runtime for runlog.org/findings/.
-// Vanilla JS, ES2020, no framework, no build step.
-// Mirrors src/lib/api.ts (kept in sync by hand for v0). On page load,
+// Vanilla JS, ES2020, no framework, no build step. On page load,
 // fetches the public /v1/findings/recent endpoint, then either
 // populates #findings-list with up to 5 cards or reveals
 // #findings-empty for the friendly empty-state. Any non-200 / network
@@ -63,7 +62,7 @@
 
   // ── DOM construction ───────────────────────────────────────────────────
   // Builds an <article class="info-box info-box--success finding-card">
-  // matching the FindingCard.astro shape. Uses createElement /
+  // styled by the .finding-card rules in global.css. Uses createElement /
   // textContent throughout — innerHTML is only used for the inline SVG
   // icon, which is a hardcoded constant (no untrusted input).
   function buildFindingCard(f) {

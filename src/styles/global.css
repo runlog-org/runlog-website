@@ -584,7 +584,6 @@
   .t-call { color: #8A8AFF; font-weight: 600; }       /* indigo (brand on dark) */
   .t-key  { color: rgba(255,255,255,0.55); }
   .t-str  { color: #FBBF24; }                          /* qual amber */
-  .t-num  { color: #FFFFFF; font-weight: 600; }
   .t-resp { color: rgba(255,255,255,0.4); }
   .t-ok   { color: #5EEAD4; font-weight: 600; }        /* qual teal */
 
@@ -718,8 +717,6 @@
   /* On the stats page the headline grid sits outside .prose so it gets the
      full container width even when other sections constrain to prose width. */
   #stats-page-body { max-width: none; }
-
-  .section-followup { margin-top: 1.25rem; }
 
   .grid-cards {
     display: grid;
@@ -1088,13 +1085,6 @@
   .post-list .summary { @apply text-muted; margin: 0; font-size: 0.95rem; }
 
   article h1 { color: var(--color-ink); }
-
-  .empty {
-    @apply text-muted border-l-[3px] border-border;
-    font-size: 0.95rem;
-    padding: 0.4rem 0 0.4rem 0.85rem;
-    margin: 1.5rem 0;
-  }
 
   .start-here {
     display: inline-block;

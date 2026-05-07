@@ -1,6 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import { SITE_URL, breadcrumbList, blogPosting } from '../../../lib/schema';
+import Crumbs from '../../../components/Crumbs.astro';
+import { SITE_URL, breadcrumbList, blogPosting, isoDate } from '../../../lib/schema';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -17,7 +18,7 @@ const { Content } = await render(post);
 
 const url = `${SITE_URL}/blog/${post.id}/`;
 const headline = post.data.headline ?? post.data.title;
-const datePublished = post.data.pubDate.toISOString().slice(0, 10);
+const datePublished = isoDate(post.data.pubDate);
 
 const graph = [
   breadcrumbList([
@@ -45,7 +46,7 @@ const graph = [
   articlePublishedTime={datePublished}
   graph={graph}
 >
-  <p slot="crumbs" class="crumbs"><a href="/blog/">&larr; Blog</a></p>
+  <Crumbs slot="crumbs" href="/blog/" label="Blog" />
 
   <article>
     <Content />

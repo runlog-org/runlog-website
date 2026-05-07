@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { SITE_URL, breadcrumbList } from '../../lib/schema';
+import Crumbs from '../../components/Crumbs.astro';
+import { SITE_URL, breadcrumbList, isoDate } from '../../lib/schema';
 import { getCollection } from 'astro:content';
 
 const url = `${SITE_URL}/blog/`;
@@ -11,10 +12,6 @@ const description =
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
-
-function isoDate(d: Date) {
-  return d.toISOString().slice(0, 10);
-}
 
 const blogPosts = posts.map((p) => ({
   '@type': 'BlogPosting',
@@ -49,7 +46,7 @@ const graph = [
   canonical={url}
   graph={graph}
 >
-  <p slot="crumbs" class="crumbs"><a href="/">&larr; Runlog</a></p>
+  <Crumbs slot="crumbs" />
 
   <section aria-labelledby="hero-title" class="prose">
     <h1 id="hero-title">Blog</h1>

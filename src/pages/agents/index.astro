@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
 import { SITE_URL, breadcrumbList } from '../../lib/schema';
+import { agents } from '../../lib/agents';
 
 const url = `${SITE_URL}/agents/`;
 const title = 'Agents that work with Runlog — Runlog';
@@ -26,18 +28,6 @@ const graph = [
     isPartOf: { '@id': `${SITE_URL}/#website` },
   },
 ];
-
-const agents = [
-  { id: 'claude-code', name: 'Claude Code', logo: 'claude-code.png', logoExt: 'png', headline: 'Reference adapter.', install: '~/.claude/skills/runlog/' },
-  { id: 'cursor', name: 'Cursor', logo: 'cursor.png', headline: 'Highest priority after Claude Code.', install: '.cursor/rules/runlog.mdc' },
-  { id: 'cline', name: 'Cline', logo: 'cline.png', headline: 'Open-source, MCP-native.', install: '.clinerules/runlog.md' },
-  { id: 'continue', name: 'Continue.dev', logo: 'continue.png', headline: 'Open-source, MCP-native.', install: '.continue/config.yaml' },
-  { id: 'windsurf', name: 'Windsurf', logo: 'windsurf.png', headline: 'Codeium-based, Cascade agent.', install: '.windsurfrules' },
-  { id: 'aider', name: 'Aider', logo: 'aider.svg', headline: 'CLI-native, diff-cycle model.', install: 'CONVENTIONS.md or --read', caveat: 'MCP support is version-dependent' },
-  { id: 'copilot', name: 'VS Code Copilot', logo: 'copilot.png', headline: 'Requires Copilot agent mode.', install: '.github/copilot-instructions.md' },
-  { id: 'jetbrains', name: 'JetBrains AI', logo: 'jetbrains.png', headline: 'IntelliJ, PyCharm, WebStorm, GoLand, …', install: 'AI Assistant guidelines', caveat: 'Tool-use varies by IDE / plugin version' },
-  { id: 'zed', name: 'Zed', logo: 'zed.png', headline: 'Native context_servers + .rules.', install: '~/.config/zed/settings.json', caveat: 'HTTP context_servers schema is settling' },
-];
 ---
 <Base
   title={title}
@@ -48,7 +38,7 @@ const agents = [
   twitterDescription={description}
   graph={graph}
 >
-  <p slot="crumbs" class="crumbs"><a href="/">&larr; Runlog</a></p>
+  <Crumbs slot="crumbs" />
 
   <section aria-labelledby="hero-title" class="prose">
     <h1 id="hero-title">Agents that work with Runlog</h1>

@@ -27,6 +27,13 @@ export const WEBSITE_LD = {
   inLanguage: 'en',
 } as const;
 
+/** YYYY-MM-DD slice of an ISO timestamp — the canonical date format for
+ *  schema.org `datePublished` / `<time datetime>` and the visible date on
+ *  blog list/detail pages. Centralised so the pubDate format never drifts. */
+export function isoDate(d: Date): string {
+  return d.toISOString().slice(0, 10);
+}
+
 export type BreadcrumbItem = { name: string; url: string };
 
 export function breadcrumbList(items: BreadcrumbItem[]) {

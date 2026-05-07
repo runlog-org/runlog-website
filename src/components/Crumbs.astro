@@ -1,0 +1,21 @@
+---
+// Crumbs.astro — single back-link rendered into Base.astro's `crumbs`
+// slot. Most pages climb back to the homepage; the only consumer
+// overriding both props is /blog/<slug>/ (back to /blog/).
+//
+// Usage:
+//   <Crumbs slot="crumbs" />                          // ← Runlog (default)
+//   <Crumbs slot="crumbs" href="/blog/" label="Blog" />
+//
+// The component sets `slot="crumbs"` on its <p> root via $$Astro slot
+// inheritance — the parent must pass `slot="crumbs"` on the component
+// usage itself; we don't redeclare it here.
+
+interface Props {
+  href?: string;
+  label?: string;
+}
+
+const { href = '/', label = 'Runlog' } = Astro.props;
+---
+<p class="crumbs"><a href={href}>&larr; {label}</a></p>

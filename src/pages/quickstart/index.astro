@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
 import { SITE_URL, breadcrumbList } from '../../lib/schema';
 
 const url = `${SITE_URL}/quickstart/`;
@@ -41,7 +42,7 @@ const graph = [
   twitterDescription={description}
   graph={graph}
 >
-  <p slot="crumbs" class="crumbs"><a href="/">&larr; Runlog</a></p>
+  <Crumbs slot="crumbs" />
 
   <section aria-labelledby="hero-title" class="prose">
     <h1 id="hero-title">Quickstart</h1>

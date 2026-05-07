@@ -154,7 +154,7 @@
   pre {
     @apply bg-code-bg border border-border;
     border-radius: 4px;
-    padding: 0.75rem 1rem;
+    padding: var(--space-3) var(--space-4);
     overflow-x: auto;
   }
 
@@ -206,7 +206,7 @@
   }
   .faq-followup { margin: var(--space-4) 0; }
 
-  .crumbs { @apply text-muted; font-size: 0.875rem; margin: 0 0 1.5rem 0; }
+  .crumbs { @apply text-muted; font-size: 0.875rem; margin: 0 0 var(--space-6) 0; }
   .crumbs a { @apply text-muted; }
 
   /* CALLOUT — labelled aside on flat tinted surface.
@@ -721,8 +721,8 @@
   .grid-cards {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
   }
   @media (min-width: 44rem) {
     .grid-cards { grid-template-columns: repeat(3, 1fr); }
@@ -731,7 +731,7 @@
   .card {
     @apply border border-border;
     border-radius: 6px;
-    padding: 1rem 1.1rem;
+    padding: var(--space-4) 1.1rem;
   }
   .card h3 { margin: 0 0 0.4rem 0; font-size: 1rem; }
   .card p { @apply text-muted; margin: 0; font-size: 0.95rem; }
@@ -739,8 +739,8 @@
   .grid-tease {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    gap: 0.5rem;
-    margin: 1rem 0;
+    gap: var(--space-2);
+    margin: var(--space-4) 0;
   }
   .grid-tease .tile {
     @apply border border-border bg-code-bg text-fg;
@@ -784,20 +784,20 @@
   .compare {
     width: 100%;
     border-collapse: collapse;
-    margin: 1rem 0;
+    margin: var(--space-4) 0;
     font-size: 0.95rem;
   }
   .compare th, .compare td {
     @apply border-b border-border;
     text-align: left;
-    padding: 0.5rem 0.6rem;
+    padding: var(--space-2) 0.6rem;
     vertical-align: top;
   }
   .compare th { @apply bg-code-bg; font-weight: 600; }
   .compare td:first-child { font-weight: 600; width: 30%; }
 
   .status-line {
-    margin: 0.75rem 0 0 0;
+    margin: var(--space-3) 0 0 0;
     font-size: 0.875rem;
     line-height: 1;
     display: flex;
@@ -814,23 +814,23 @@
 
   .site-footer {
     @apply text-muted border-t border-border;
-    margin-top: 2.5rem;
-    padding-top: 1rem;
+    margin-top: var(--space-10);
+    padding-top: var(--space-4);
     font-size: 0.875rem;
   }
   .site-footer ul {
     list-style: none;
     padding: 0;
-    margin: 0.5rem 0 0 0;
+    margin: var(--space-2) 0 0 0;
   }
   .site-footer li {
     display: inline;
-    margin-right: 1rem;
+    margin-right: var(--space-4);
   }
-  .site-footer .status-line { margin: 1rem 0 0.5rem 0; }
+  .site-footer .status-line { margin: var(--space-4) 0 var(--space-2) 0; }
   .site-footer .copyright {
     @apply text-muted;
-    margin-top: 1rem;
+    margin-top: var(--space-4);
     font-size: 0.8rem;
   }
 
@@ -840,8 +840,8 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 0.85rem;
-    padding-bottom: 0.75rem;
-    margin-bottom: 1.5rem;
+    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-6);
     font-size: 0.875rem;
   }
   .site-badges img { vertical-align: middle; height: 20px; }
@@ -928,7 +928,7 @@
   .cta {
     @apply bg-brand text-on-brand;
     display: inline-block;
-    margin-top: 1.25rem;
+    margin-top: var(--space-5);
     padding: 0.6rem 1.4rem;
     border-radius: 4px;
     text-decoration: none;
@@ -937,7 +937,7 @@
 
   .form-label {
     display: block;
-    margin-bottom: 0.25rem;
+    margin-bottom: var(--space-1);
     font-weight: 600;
   }
 
@@ -945,15 +945,15 @@
     @apply bg-bg text-fg border border-border;
     display: block;
     width: 100%;
-    padding: 0.5rem 0.75rem;
-    margin-bottom: 0.75rem;
+    padding: var(--space-2) var(--space-3);
+    margin-bottom: var(--space-3);
     border-radius: 4px;
     font-size: 1rem;
   }
 
   .form-button {
     @apply bg-brand text-on-brand;
-    padding: 0.5rem 1.25rem;
+    padding: var(--space-2) var(--space-5);
     border: none;
     border-radius: 4px;
     font-size: 1rem;
@@ -963,8 +963,8 @@
 }
 
 @layer components {
-  .diff-list dt { margin-top: 0.75rem; }
-  .diff-list dd { margin: 0.25rem 0 0 1.25rem; }
+  .diff-list dt { margin-top: var(--space-3); }
+  .diff-list dd { margin: var(--space-1) 0 0 var(--space-5); }
 }
 
 @layer components {
@@ -982,8 +982,8 @@
   .install-pair {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin: 0.75rem 0;
+    gap: var(--space-4);
+    margin: var(--space-3) 0;
   }
   @media (max-width: 36rem) {
     .install-pair { grid-template-columns: 1fr; }
@@ -991,7 +991,7 @@
   .install-pair .col {
     @apply bg-code-bg border border-border;
     border-radius: 4px;
-    padding: 0.75rem 1rem;
+    padding: var(--space-3) var(--space-4);
   }
   .install-pair .col strong {
     font-size: 0.85rem;
@@ -1009,13 +1009,13 @@
     counter-reset: flow;
     list-style: none;
     padding: 0;
-    margin: 1rem 0;
+    margin: var(--space-4) 0;
   }
   .flow li {
     @apply border-t border-border;
     counter-increment: flow;
     position: relative;
-    padding: 0.6rem 0 0.6rem 2.5rem;
+    padding: 0.6rem 0 0.6rem var(--space-10);
   }
   .flow li:first-child { border-top: none; }
   .flow li::before {
@@ -1053,26 +1053,26 @@
   .axes {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.75rem;
-    margin: 1rem 0;
+    gap: var(--space-3);
+    margin: var(--space-4) 0;
   }
   @media (min-width: 44rem) {
     .axes { grid-template-columns: repeat(2, 1fr); }
   }
-  .axes .card { padding: 0.85rem 1rem; }
+  .axes .card { padding: 0.85rem var(--space-4); }
   .axes .card h3 { margin: 0 0 0.3rem 0; font-size: 1rem; }
   .axes .card p { @apply text-muted; margin: 0; font-size: 0.95rem; }
 }
 
 @layer components {
-  .meta { @apply text-muted; font-size: 0.85rem; margin: 0.25rem 0 1.5rem 0; }
+  .meta { @apply text-muted; font-size: 0.85rem; margin: var(--space-1) 0 var(--space-6) 0; }
 }
 
 @layer components {
-  .post-list { list-style: none; padding: 0; margin: 1.5rem 0 0 0; }
+  .post-list { list-style: none; padding: 0; margin: var(--space-6) 0 0 0; }
   .post-list > li {
     @apply border-t border-border;
-    padding: 1.25rem 0;
+    padding: var(--space-5) 0;
   }
   .post-list > li:first-child { border-top: none; }
   .post-list h3 {
@@ -1081,7 +1081,7 @@
   }
   .post-list h3 a { @apply text-fg; text-decoration: none; }
   .post-list h3 a:hover { text-decoration: underline; }
-  .post-list .meta { @apply text-muted; font-size: 0.85rem; margin: 0 0 0.5rem 0; }
+  .post-list .meta { @apply text-muted; font-size: 0.85rem; margin: 0 0 var(--space-2) 0; }
   .post-list .summary { @apply text-muted; margin: 0; font-size: 0.95rem; }
 
   article h1 { color: var(--color-ink); }
@@ -1105,13 +1105,13 @@
   .verdict {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.75rem;
-    margin: 1rem 0;
+    gap: var(--space-3);
+    margin: var(--space-4) 0;
   }
   @media (min-width: 44rem) {
     .verdict { grid-template-columns: repeat(2, 1fr); }
   }
-  .verdict .card { padding: 0.85rem 1rem; }
+  .verdict .card { padding: 0.85rem var(--space-4); }
   .verdict .card h3 { margin: 0 0 0.4rem 0; font-size: 1rem; }
   .verdict .card p { @apply text-muted; margin: 0; font-size: 0.95rem; }
   .verdict .card ul {

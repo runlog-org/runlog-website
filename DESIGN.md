@@ -208,21 +208,25 @@ Rules:
 
 ## 6. Mapping to the current website
 
-The site already has the right token shape — it just needs the values
-swapped and one or two new tokens added. In `runlog-website/src/input.css`:
+The website's CSS custom properties are the canonical consumer of these
+tokens. In `runlog-website/src/styles/global.css`:
 
 ```css
 @theme {
-  --color-bg:        #FAFAFB;   /* was #ffffff */
-  --color-fg:        #1F2330;   /* was #1a1a1a */
-  --color-muted:     #6B7280;   /* was #555555 */
-  --color-border:    #E5E7EB;   /* was #cccccc */
-  --color-brand:     #5B5BD6;   /* was #0060df — indigo, not pure blue */
-  --color-accent:    #2D63E2;   /* NEW — secondary cobalt */
-  --color-tint:      #EDEBFE;   /* NEW — lavender tint */
-  --color-code-bg:   #F6F7F9;   /* was #f4f4f4 */
+  --color-bg:        #FAFAFB;
+  --color-fg:        #1F2330;
+  --color-muted:     #6B7280;
+  --color-border:    #E5E7EB;
+  --color-brand:     #5B5BD6;   /* indigo, not pure blue */
+  --color-accent:    #2D63E2;   /* secondary cobalt */
+  --color-tint:      #EDEBFE;   /* lavender tint */
+  --color-code-bg:   #F6F7F9;
   --color-on-brand:  #FFFFFF;
-  --color-ink:       #0E1116;   /* NEW — heading ink */
+  --color-ink:       #0E1116;   /* heading ink */
+
+  --color-state-success: #0F9D58;
+  --color-state-warn:    #B45309;
+  --color-state-error:   #B42318;
 
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -239,14 +243,18 @@ swapped and one or two new tokens added. In `runlog-website/src/input.css`:
     --color-tint:     #1E1B3A;
     --color-code-bg:  #0F1218;
     --color-ink:      #F4F5F7;
+
+    --color-state-success: #34D399;
+    --color-state-warn:    #F59E0B;
+    --color-state-error:   #F87171;
   }
 }
 ```
 
 Touch points elsewhere:
 
-- `<meta name="theme-color">` in every `*.html` head: `#5B5BD6` (was `#0060df`).
-- README badge colors: switch the brand-blue badges to `5B5BD6`.
+- `<meta name="theme-color">` in every `*.html` head: `#5B5BD6`.
+- README badge colors: brand-blue badges use `5B5BD6`.
 - Blog post headers: H1 in `--color-ink`, lede in `--color-muted`.
 
 ---

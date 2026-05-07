@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "check:design": "node scripts/check-design-mirror.mjs",
+    "prebuild": "npm run check:design",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"

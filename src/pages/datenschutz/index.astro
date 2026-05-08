@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import { SITE_URL, breadcrumbList } from '../../lib/schema';
+import { OPERATOR_EMAIL } from '../../lib/operator';
 
 const url = `${SITE_URL}/datenschutz/`;
 const title = 'Privacy Notice — Runlog';
@@ -52,7 +53,7 @@ const graph = [
       <p>
         <strong>Verantwortlicher:</strong> Volker Otto (Einzelunternehmen), Norderstedt, Deutschland.
         Vollständige Kontaktdaten: <a href="/impressum/">Impressum</a>. E-Mail für Datenschutzanfragen:
-        <a href="mailto:hello@volkerotto.net">hello@volkerotto.net</a>. Ein Datenschutzbeauftragter
+        <a href={`mailto:${OPERATOR_EMAIL}`}>{OPERATOR_EMAIL}</a>. Ein Datenschutzbeauftragter
         wurde nicht bestellt; die gesetzlichen Schwellen aus Art. 37 DSGVO sind nicht erreicht.
       </p>
       <p>
@@ -98,7 +99,7 @@ const graph = [
         Löschung (Art. 17), Einschränkung (Art. 18), Datenübertragbarkeit (Art. 20),
         Widerspruch (Art. 21). Beschwerderecht bei der zuständigen Aufsichtsbehörde am
         Sitz des Verantwortlichen (Art. 77). Anfragen an:
-        <a href="mailto:hello@volkerotto.net">hello@volkerotto.net</a>.
+        <a href={`mailto:${OPERATOR_EMAIL}`}>{OPERATOR_EMAIL}</a>.
       </p>
       <p>
         <strong>Keine Pflicht zur Angabe / rein freiwillig:</strong> Die Registrierung ist
@@ -120,7 +121,7 @@ const graph = [
       The controller within the meaning of DSGVO Art. 4(7) is the natural person operating
       runlog.org. Full name, postal address, and contact details are published in the
       <a href="/impressum/">Impressum</a>. For data-protection enquiries, write to
-      <a href="mailto:hello@volkerotto.net">hello@volkerotto.net</a>.
+      <a href={`mailto:${OPERATOR_EMAIL}`}>{OPERATOR_EMAIL}</a>.
     </p>
 
     <h2>2. Purposes of processing</h2>
@@ -275,7 +276,7 @@ const graph = [
     <h2>9. Data-subject rights (Betroffenenrechte)</h2>
     <p>
       Under DSGVO, data subjects have the following rights, exercisable by writing to
-      <a href="mailto:hello@volkerotto.net">hello@volkerotto.net</a>:
+      <a href={`mailto:${OPERATOR_EMAIL}`}>{OPERATOR_EMAIL}</a>:
     </p>
     <ul>
       <li><strong>Art. 15 — Access (Auskunft):</strong> right to obtain confirmation

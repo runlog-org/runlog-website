@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
+import AddMcpHostKeyNote from '../../components/AddMcpHostKeyNote.astro';
 import { SITE_URL, breadcrumbList } from '../../lib/schema';
 
 const url = `${SITE_URL}/quickstart/`;
@@ -80,9 +81,7 @@ const graph = [
       entry and writes the right config for you:
     </p>
 <pre><code>npx add-mcp https://api.runlog.org/mcp -a claude-code</code></pre>
-    <div class="callout" data-tag="HOST KEY">
-      <code>add-mcp</code> uses <code>claude-code</code> as the host key; the runlog-installer uses <code>claude</code> (matches <code>runlog install --target claude</code>). Both target the same host with different naming conventions, pick whichever installer suits your workflow.
-    </div>
+    <AddMcpHostKeyNote wrapInCallout />
     <p>
       Or, if you'd rather edit by hand, add to <code>~/.claude/settings.json</code>:
     </p>

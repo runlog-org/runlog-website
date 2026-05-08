@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
+import V01StatusCallout from '../../components/V01StatusCallout.astro';
 import { SITE_URL, breadcrumbList } from '../../lib/schema';
 
 const url = `${SITE_URL}/trust/`;
@@ -157,21 +158,8 @@ const graph = [
       publishing them would just hand out the playbook.
     </p>
 
-    <div class="callout drench" data-tag="V0.1 STATUS">
-      Every v0.1 submission lands at <code>status: unverified</code>, even
-      with a signed bundle attached. The signed verifier is still the
-      submit-time gate: differential branch execution and mutation testing
-      run locally inside the binary, and the server rejects invalid bundles
-      with typed errors. Verifier shape varies by tier (assertion_only,
-      unit, integration, reexecute); see
-      <code>runlog-docs/12-stability-and-versioning.md</code> &sect;17.4 for
-      the per-tier contract. The engine that promotes entries to
-      <code>verified</code> ships in milestone <strong>M05</strong> with
-      weighted usage telemetry plus dependency-manifest correlation.
-      Unsigned submissions land today; once M05 ships, only verifier-signed
-      entries become candidates for promotion. The architecture is
-      end-to-end; the trust-score loop is staged.
-    </div>
+    <V01StatusCallout tierDetail />
+
 
     <p>
       <a href="/why-verification/">Why local verification is the whole product</a>

@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
+import AddMcpHostKeyNote from '../../components/AddMcpHostKeyNote.astro';
 import { SITE_URL, breadcrumbList } from '../../lib/schema';
 import { agents } from '../../lib/agents';
 
@@ -63,7 +64,7 @@ const graph = [
         <p class="targets">Claude Code, Cursor, Cline, Zed</p>
         <pre><code>npx add-mcp https://api.runlog.org/mcp</code></pre>
         <p><small>Pass <code>-a claude-code</code>, <code>-a cursor</code>, <code>-a cline</code>, or <code>-a zed</code> to target one host; omit to install across every detected agent.</small></p>
-        <p><small><strong>Note:</strong> <code>add-mcp</code> uses <code>claude-code</code> as the host key; the runlog-installer uses <code>claude</code> (matches <code>runlog install --target claude</code>). Both target the same host with different naming conventions &mdash; pick whichever suits your workflow.</small></p>
+        <AddMcpHostKeyNote />
       </div>
       <div class="col">
         <strong>pipx run (Python)</strong>

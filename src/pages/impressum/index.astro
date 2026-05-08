@@ -2,6 +2,11 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import { SITE_URL, breadcrumbList, webPage } from '../../lib/schema';
+import {
+  OPERATOR_ADDRESS_LINES_DE,
+  OPERATOR_ADDRESS_LINES_EN,
+  OPERATOR_EMAIL,
+} from '../../lib/operator';
 
 const url = `${SITE_URL}/impressum/`;
 const title = 'Impressum & Contact — Runlog';
@@ -41,14 +46,13 @@ const graph = [
       </p>
       <p>
         <strong>Verantwortlicher / Diensteanbieter:</strong><br>
-        Volker Otto<br>
-        Glashütter Kirchenweg 25<br>
-        22851 Norderstedt<br>
-        Deutschland
+        {OPERATOR_ADDRESS_LINES_DE.map((line, i) => (
+          <>{line}{i < OPERATOR_ADDRESS_LINES_DE.length - 1 && <br>}</>
+        ))}
       </p>
       <p>
         <strong>Kontakt:</strong><br>
-        E-Mail: <a href="mailto:hello@volkerotto.net">hello@volkerotto.net</a><br>
+        E-Mail: <a href={`mailto:${OPERATOR_EMAIL}`}>{OPERATOR_EMAIL}</a><br>
         Eine Telefonnummer wird nicht bereitgestellt; Kontaktaufnahme bitte ausschließlich per E-Mail.
       </p>
       <p>
@@ -58,7 +62,7 @@ const graph = [
       </p>
       <p>
         <strong>Verantwortlich für den Inhalt nach §18 Abs. 2 MStV:</strong><br>
-        Volker Otto, Anschrift wie oben.
+        {OPERATOR_ADDRESS_LINES_DE[0]}, Anschrift wie oben.
       </p>
       <p>
         <strong>Streitschlichtung:</strong> Der Betreiber ist nicht bereit und nicht verpflichtet,
@@ -78,13 +82,12 @@ const graph = [
       formerly TMG §5, which applies to commercially operated telemedia services.
     </p>
     <address>
-      Volker Otto<br>
-      Glashütter Kirchenweg 25<br>
-      22851 Norderstedt<br>
-      Germany
+      {OPERATOR_ADDRESS_LINES_EN.map((line, i) => (
+        <>{line}{i < OPERATOR_ADDRESS_LINES_EN.length - 1 && <br>}</>
+      ))}
     </address>
     <p>
-      Email: <a href="mailto:hello@volkerotto.net">hello@volkerotto.net</a><br>
+      Email: <a href={`mailto:${OPERATOR_EMAIL}`}>{OPERATOR_EMAIL}</a><br>
       No phone number is provided; contact by email only.
     </p>
 
@@ -101,10 +104,9 @@ const graph = [
       Interstate Media Treaty (Medienstaatsvertrag, MStV) is:
     </p>
     <address>
-      Volker Otto<br>
-      Glashütter Kirchenweg 25<br>
-      22851 Norderstedt<br>
-      Germany
+      {OPERATOR_ADDRESS_LINES_EN.map((line, i) => (
+        <>{line}{i < OPERATOR_ADDRESS_LINES_EN.length - 1 && <br>}</>
+      ))}
     </address>
 
     <h2>Privacy</h2>

@@ -1,0 +1,42 @@
+---
+// V01StatusCallout — the "v0.1 STATUS" drench callout shared by /trust/
+// and /why-verification/. Both pages need to clarify that today every
+// submission lands at status: unverified, that the signed verifier is
+// the submit-time gate, and that the trust-score promotion engine ships
+// in M05.
+//
+// /trust/ also wants to point at the per-tier verifier-shape contract in
+// runlog-docs §17.4. Pass `tierDetail` to include that extra sentence;
+// /why-verification/ omits it because the surrounding section already
+// spells out the verifier flow.
+//
+// Drench tint comes from `.callout.drench` in src/styles/global.css.
+
+interface Props {
+  /** Show the per-tier verifier-shape sentence (assertion_only / unit /
+   *  integration / reexecute) plus the runlog-docs §17.4 pointer. Used
+   *  on /trust/; omitted on /why-verification/. */
+  tierDetail?: boolean;
+}
+
+const { tierDetail = false } = Astro.props;
+---
+<div class="callout drench" data-tag="V0.1 STATUS">
+  Every v0.1 submission lands at <code>status: unverified</code>, signed
+  bundle included. The signed verifier is still the submit-time gate:
+  differential branch execution and mutation testing run locally inside
+  the binary, and the server rejects invalid bundles with typed errors.
+  {tierDetail && (
+    <>
+      Verifier shape varies by tier (assertion_only, unit, integration,
+      reexecute); see <code>runlog-docs/12-stability-and-versioning.md</code>
+      &sect;17.4 for the per-tier contract.{' '}
+    </>
+  )}
+  The engine that promotes entries to <code>verified</code> ships in
+  milestone <strong>M05</strong> &mdash; weighted usage telemetry plus
+  dependency-manifest correlation. Unsigned submissions land today; once
+  M05 ships, only verifier-signed entries become candidates for
+  promotion. The architecture is end-to-end; the trust-score loop is
+  staged.
+</div>

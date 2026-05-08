@@ -1,0 +1,34 @@
+---
+// AddMcpHostKeyNote — explains the host-key naming difference between
+// Neon's `add-mcp` (`claude-code`) and the runlog-installer (`claude`).
+// Both target the same Claude Code host; copy lives in one place so
+// /agents/ and /quickstart/ stay in sync when either tool's naming
+// changes.
+//
+// Defaults to the bare paragraph used inside the /agents/ install-pair
+// callout. /quickstart/ wraps it in `<div class="callout" data-tag="HOST KEY">`
+// for visual separation; pass `wrapInCallout` to apply that wrapper here.
+
+interface Props {
+  /** When true, render the note inside `.callout[data-tag="HOST KEY"]`.
+   *  /quickstart/ uses this; /agents/ keeps the bare-paragraph form. */
+  wrapInCallout?: boolean;
+}
+
+const { wrapInCallout = false } = Astro.props;
+---
+{wrapInCallout ? (
+  <div class="callout" data-tag="HOST KEY">
+    <code>add-mcp</code> uses <code>claude-code</code> as the host key; the
+    runlog-installer uses <code>claude</code> (matches
+    <code>runlog install --target claude</code>). Both target the same host
+    with different naming conventions, pick whichever installer suits your
+    workflow.
+  </div>
+) : (
+  <p><small><strong>Note:</strong> <code>add-mcp</code> uses
+    <code>claude-code</code> as the host key; the runlog-installer uses
+    <code>claude</code> (matches <code>runlog install --target claude</code>).
+    Both target the same host with different naming conventions &mdash; pick
+    whichever suits your workflow.</small></p>
+)}

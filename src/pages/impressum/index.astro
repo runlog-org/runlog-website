@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
+import AddressBlock from '../../components/AddressBlock.astro';
 import { SITE_URL, breadcrumbList, webPage } from '../../lib/schema';
 import {
   OPERATOR_ADDRESS_LINES_DE,
@@ -46,9 +47,7 @@ const graph = [
       </p>
       <p>
         <strong>Verantwortlicher / Diensteanbieter:</strong><br>
-        {OPERATOR_ADDRESS_LINES_DE.map((line, i) => (
-          <>{line}{i < OPERATOR_ADDRESS_LINES_DE.length - 1 && <br>}</>
-        ))}
+        <AddressBlock lines={OPERATOR_ADDRESS_LINES_DE} />
       </p>
       <p>
         <strong>Kontakt:</strong><br>
@@ -82,9 +81,7 @@ const graph = [
       formerly TMG §5, which applies to commercially operated telemedia services.
     </p>
     <address>
-      {OPERATOR_ADDRESS_LINES_EN.map((line, i) => (
-        <>{line}{i < OPERATOR_ADDRESS_LINES_EN.length - 1 && <br>}</>
-      ))}
+      <AddressBlock lines={OPERATOR_ADDRESS_LINES_EN} />
     </address>
     <p>
       Email: <a href={`mailto:${OPERATOR_EMAIL}`}>{OPERATOR_EMAIL}</a><br>
@@ -104,9 +101,7 @@ const graph = [
       Interstate Media Treaty (Medienstaatsvertrag, MStV) is:
     </p>
     <address>
-      {OPERATOR_ADDRESS_LINES_EN.map((line, i) => (
-        <>{line}{i < OPERATOR_ADDRESS_LINES_EN.length - 1 && <br>}</>
-      ))}
+      <AddressBlock lines={OPERATOR_ADDRESS_LINES_EN} />
     </address>
 
     <h2>Privacy</h2>

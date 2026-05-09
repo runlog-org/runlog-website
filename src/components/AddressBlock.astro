@@ -1,0 +1,17 @@
+---
+// AddressBlock — renders an array of address lines separated by <br>,
+// with no terminal break. Used inside `<address>` and `<p>` blocks on
+// /impressum/ to keep the postal-block markup consistent across the
+// service-provider, editorial-responsibility, and Deutsche Zusammenfassung
+// sections. The lines themselves are sourced from src/lib/operator.ts —
+// this component owns only the rendering, not the data.
+
+interface Props {
+  lines: readonly string[];
+}
+
+const { lines } = Astro.props;
+---
+{lines.map((line, i) => (
+  <>{line}{i < lines.length - 1 && <br>}</>
+))}

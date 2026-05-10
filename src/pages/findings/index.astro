@@ -1,17 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { SITE_URL, breadcrumbList, webPage } from '../../lib/schema';
+import Crumbs from '../../components/Crumbs.astro';
+import { pageBreadcrumb, pageUrl, webPage } from '../../lib/schema';
 
-const url = `${SITE_URL}/findings/`;
+const url = pageUrl('findings');
 const title = 'Latest verified findings — Runlog';
 const description =
   'Browse the most recent verified findings in the Runlog registry — short, signed entries describing how external dependencies actually behave.';
 
 const graph = [
-  breadcrumbList([
-    { name: 'Runlog', url: `${SITE_URL}/` },
-    { name: 'Findings', url },
-  ]),
+  pageBreadcrumb({ name: 'Findings', url }),
   webPage({ url, name: 'Latest verified findings', description }),
 ];
 ---
@@ -21,6 +19,8 @@ const graph = [
   canonical={url}
   graph={graph}
 >
+  <Crumbs slot="crumbs" />
+
   <h1>Latest verified findings</h1>
   <p>
     The five most-recently verified entries in the Runlog registry. Each one

@@ -2,18 +2,15 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import AddMcpHostKeyNote from '../../components/AddMcpHostKeyNote.astro';
-import { SITE_URL, breadcrumbList } from '../../lib/schema';
+import { SITE_URL, pageBreadcrumb, pageUrl } from '../../lib/schema';
 
-const url = `${SITE_URL}/quickstart/`;
+const url = pageUrl('quickstart');
 const title = 'Quickstart — Runlog';
 const description =
   'Set up Runlog with Claude Code (or any MCP-capable agent) in four steps: register, wire MCP, drop in the client skill, use Claude normally.';
 
 const graph = [
-  breadcrumbList([
-    { name: 'Runlog', url: `${SITE_URL}/` },
-    { name: 'Quickstart', url },
-  ]),
+  pageBreadcrumb({ name: 'Quickstart', url }),
   {
     '@type': 'HowTo',
     '@id': `${url}#howto`,

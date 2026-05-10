@@ -2,9 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import V01StatusCallout from '../../components/V01StatusCallout.astro';
-import { SITE_URL, breadcrumbList } from '../../lib/schema';
+import { SITE_URL, pageBreadcrumb, pageUrl } from '../../lib/schema';
 
-const url = `${SITE_URL}/trust/`;
+const url = pageUrl('trust');
 const title = 'How trust works — Runlog';
 const description =
   "Runlog's trust score is computed, not voted. Three independent signals — signed verification, weighted usage telemetry, and dependency-manifest correlation — decide whether an entry earns the verified tier.";
@@ -37,10 +37,7 @@ const faqs = [
 ];
 
 const graph = [
-  breadcrumbList([
-    { name: 'Runlog', url: `${SITE_URL}/` },
-    { name: 'How trust works', url },
-  ]),
+  pageBreadcrumb({ name: 'How trust works', url }),
   {
     '@type': 'TechArticle',
     '@id': `${url}#article`,

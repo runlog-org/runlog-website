@@ -2,23 +2,20 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import AddressBlock from '../../components/AddressBlock.astro';
-import { SITE_URL, breadcrumbList, webPage } from '../../lib/schema';
+import { pageBreadcrumb, pageUrl, webPage } from '../../lib/schema';
 import {
   OPERATOR_ADDRESS_LINES_DE,
   OPERATOR_ADDRESS_LINES_EN,
   OPERATOR_EMAIL,
 } from '../../lib/operator';
 
-const url = `${SITE_URL}/impressum/`;
+const url = pageUrl('impressum');
 const title = 'Impressum & Contact — Runlog';
 const description =
   'Mandatory disclosure under DDG §5 and MStV §18 for runlog.org — operator name, postal address, editorial responsibility, and dispute-resolution notice.';
 
 const graph = [
-  breadcrumbList([
-    { name: 'Runlog', url: `${SITE_URL}/` },
-    { name: 'Impressum', url },
-  ]),
+  pageBreadcrumb({ name: 'Impressum', url }),
   webPage({ url, name: 'Impressum & Contact' }),
 ];
 ---

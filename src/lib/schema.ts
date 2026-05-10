@@ -48,6 +48,33 @@ export function breadcrumbList(items: BreadcrumbItem[]) {
   };
 }
 
+/** Build an absolute page URL for a site-relative path. Always trailing-slashed
+ *  (matches Astro's `trailingSlash: 'ignore'` + `output: 'static'` rendering)
+ *  except for the root, which renders as `${SITE_URL}/` either way.
+ *  Centralised so the `${SITE_URL}/<segment>/` template doesn't drift across
+ *  the ~10 pages that build their own canonical / breadcrumb URLs. */
+export function pageUrl(path: string): string {
+  if (path === '' || path === '/') return `${SITE_URL}/`;
+  const stripped = path.replace(/^\/+/, '').replace(/\/+$/, '');
+  return `${SITE_URL}/${stripped}/`;
+}
+
+/** Build a two-level breadcrumb list rooted at the Runlog homepage.
+ *  Every secondary page does the same `[{ name: 'Runlog', url: SITE_URL/ }, …]`
+ *  prepend, so this helper owns it. For deeper trails (e.g. `/blog/<slug>/`)
+ *  pass extra items as the second argument; they are appended after the
+ *  current page entry. */
+export function pageBreadcrumb(
+  current: BreadcrumbItem,
+  extra: BreadcrumbItem[] = [],
+) {
+  return breadcrumbList([
+    { name: SITE_NAME, url: `${SITE_URL}/` },
+    current,
+    ...extra,
+  ]);
+}
+
 export function webPage(opts: {
   url: string;
   name: string;

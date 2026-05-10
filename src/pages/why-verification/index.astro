@@ -2,9 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import V01StatusCallout from '../../components/V01StatusCallout.astro';
-import { SITE_URL, breadcrumbList } from '../../lib/schema';
+import { SITE_URL, pageBreadcrumb, pageUrl } from '../../lib/schema';
 
-const url = `${SITE_URL}/why-verification/`;
+const url = pageUrl('why-verification');
 const title = 'Why local verification is the whole product — Runlog';
 const description =
   "Runlog's differentiator is cryptographic verification that runs on the submitter's machine, drives the submitter's own runtime, and is designed for agents to author — not humans. The why, the how, and what it costs.";
@@ -12,10 +12,7 @@ const ogDescription =
   "Cryptographic verification that runs on the submitter's machine, drives the submitter's own runtime, and is designed for agents to author — not humans.";
 
 const graph = [
-  breadcrumbList([
-    { name: 'Runlog', url: `${SITE_URL}/` },
-    { name: 'Why verification', url },
-  ]),
+  pageBreadcrumb({ name: 'Why verification', url }),
   {
     '@type': 'TechArticle',
     '@id': `${url}#article`,

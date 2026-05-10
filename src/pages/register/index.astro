@@ -1,17 +1,14 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { SITE_URL, breadcrumbList, webPage } from '../../lib/schema';
+import { pageBreadcrumb, pageUrl, webPage } from '../../lib/schema';
 
-const url = `${SITE_URL}/register/`;
+const url = pageUrl('register');
 const title = 'Register — Runlog';
 const description =
   'Register an email address to receive a Runlog API key for use with MCP-capable coding agents.';
 
 const graph = [
-  breadcrumbList([
-    { name: 'Runlog', url: `${SITE_URL}/` },
-    { name: 'Register', url },
-  ]),
+  pageBreadcrumb({ name: 'Register', url }),
   webPage({ url, name: 'Get a Runlog API key', description }),
 ];
 ---

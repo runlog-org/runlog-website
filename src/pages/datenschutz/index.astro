@@ -1,20 +1,17 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import { SITE_URL, breadcrumbList } from '../../lib/schema';
+import { SITE_URL, pageBreadcrumb, pageUrl } from '../../lib/schema';
 import { OPERATOR_EMAIL } from '../../lib/operator';
 
-const url = `${SITE_URL}/datenschutz/`;
+const url = pageUrl('datenschutz');
 const title = 'Privacy Notice — Runlog';
 const description =
   'DSGVO Art. 13 privacy disclosure for runlog.org — controller, purposes, lawful bases, recipients, retention periods, and data-subject rights.';
 const dateModified = '2026-05-05';
 
 const graph = [
-  breadcrumbList([
-    { name: 'Runlog', url: `${SITE_URL}/` },
-    { name: 'Datenschutz', url },
-  ]),
+  pageBreadcrumb({ name: 'Datenschutz', url }),
   {
     '@type': 'WebPage',
     '@id': `${url}#page`,

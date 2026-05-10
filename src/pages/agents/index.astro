@@ -2,19 +2,16 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import AddMcpHostKeyNote from '../../components/AddMcpHostKeyNote.astro';
-import { SITE_URL, breadcrumbList } from '../../lib/schema';
+import { SITE_URL, pageBreadcrumb, pageUrl } from '../../lib/schema';
 import { agents } from '../../lib/agents';
 
-const url = `${SITE_URL}/agents/`;
+const url = pageUrl('agents');
 const title = 'Agents that work with Runlog — Runlog';
 const description =
   'Maintained client skills for 9 coding agents that speak MCP — Claude Code, Cursor, Cline, Continue, Windsurf, Aider, VS Code Copilot, JetBrains AI, Zed. Each adapter ships read + author + harvest skills implementing the four-point client contract.';
 
 const graph = [
-  breadcrumbList([
-    { name: 'Runlog', url: `${SITE_URL}/` },
-    { name: 'Agents', url },
-  ]),
+  pageBreadcrumb({ name: 'Agents', url }),
   {
     '@type': 'TechArticle',
     '@id': `${url}#article`,

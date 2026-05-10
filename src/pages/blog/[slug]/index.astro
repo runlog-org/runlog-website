@@ -1,7 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import Crumbs from '../../../components/Crumbs.astro';
-import { SITE_URL, breadcrumbList, blogPosting, isoDate } from '../../../lib/schema';
+import { pageBreadcrumb, pageUrl, blogPosting, isoDate } from '../../../lib/schema';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -16,16 +16,15 @@ type Props = { post: CollectionEntry<'blog'> };
 const { post } = Astro.props as Props;
 const { Content } = await render(post);
 
-const url = `${SITE_URL}/blog/${post.id}/`;
+const url = pageUrl(`blog/${post.id}`);
 const headline = post.data.headline ?? post.data.title;
 const datePublished = isoDate(post.data.pubDate);
 
 const graph = [
-  breadcrumbList([
-    { name: 'Runlog', url: `${SITE_URL}/` },
-    { name: 'Blog', url: `${SITE_URL}/blog/` },
-    { name: headline, url },
-  ]),
+  pageBreadcrumb(
+    { name: 'Blog', url: pageUrl('blog') },
+    [{ name: headline, url }],
+  ),
   blogPosting({
     url,
     headline,

@@ -1,18 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import { SITE_URL, breadcrumbList, webPage } from '../../lib/schema';
+import { pageBreadcrumb, pageUrl, webPage } from '../../lib/schema';
 
-const url = `${SITE_URL}/stats/`;
+const url = pageUrl('stats');
 const title = 'Stats — Runlog';
 const description =
   "How many entries Runlog covers, broken down by vocabulary category, plus the registered-user count. Refreshed daily.";
 
 const graph = [
-  breadcrumbList([
-    { name: 'Runlog', url: `${SITE_URL}/` },
-    { name: 'Stats', url },
-  ]),
+  pageBreadcrumb({ name: 'Stats', url }),
   webPage({ url, name: 'Stats' }),
 ];
 ---

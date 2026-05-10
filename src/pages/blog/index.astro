@@ -1,10 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import { SITE_URL, breadcrumbList, isoDate } from '../../lib/schema';
+import { SITE_URL, pageBreadcrumb, pageUrl, isoDate } from '../../lib/schema';
 import { getCollection } from 'astro:content';
 
-const url = `${SITE_URL}/blog/`;
+const url = pageUrl('blog');
 const title = 'Blog — Runlog';
 const description =
   'Notes on shared agent memory, verification, and the design decisions behind Runlog.';
@@ -34,10 +34,7 @@ const graph = [
     isPartOf: { '@id': `${SITE_URL}/#website` },
     blogPost: blogPosts,
   },
-  breadcrumbList([
-    { name: 'Runlog', url: `${SITE_URL}/` },
-    { name: 'Blog', url },
-  ]),
+  pageBreadcrumb({ name: 'Blog', url }),
 ];
 ---
 <Base

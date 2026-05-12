@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-11T07:00:02Z",
+  "generated_at": "2026-05-12T07:00:01Z",
   "entries": {
-    "total": 29,
+    "total": 31,
     "verified": 0,
-    "signed": 1,
+    "signed": 3,
     "by_category": [
       {
         "category": "cloud",
@@ -147,18 +147,18 @@
       },
       {
         "category": "database",
-        "total": 4,
+        "total": 5,
         "tags": [
           {
             "tag": "postgresql",
             "count": 2
           },
           {
-            "tag": "redis",
-            "count": 1
+            "tag": "sqlite",
+            "count": 2
           },
           {
-            "tag": "sqlite",
+            "tag": "redis",
             "count": 1
           }
         ]
@@ -195,11 +195,11 @@
       },
       {
         "category": "language",
-        "total": 12,
+        "total": 14,
         "tags": [
           {
             "tag": "python",
-            "count": 5
+            "count": 7
           },
           {
             "tag": "gdscript",

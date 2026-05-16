@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import AddMcpHostKeyNote from '../../components/AddMcpHostKeyNote.astro';
-import { SITE_URL, pageBreadcrumb, pageUrl } from '../../lib/schema';
+import { ORG_REF, SITE_REF, pageBreadcrumb, pageUrl } from '../../lib/schema';
 
 const url = pageUrl('quickstart');
 const title = 'Quickstart — Runlog';
@@ -19,9 +19,9 @@ const graph = [
     url,
     inLanguage: 'en',
     datePublished: '2026-05-03',
-    author: { '@id': `${SITE_URL}/#organization` },
-    publisher: { '@id': `${SITE_URL}/#organization` },
-    isPartOf: { '@id': `${SITE_URL}/#website` },
+    author: ORG_REF,
+    publisher: ORG_REF,
+    isPartOf: SITE_REF,
     step: [
       { '@type': 'HowToStep', position: 1, name: 'Register and grab a key', text: 'Register an email, click the verification link, and copy the API key.' },
       { '@type': 'HowToStep', position: 2, name: 'Wire the MCP server into Claude Code', text: 'Run npx add-mcp https://api.runlog.org/mcp -a claude-code or hand-edit ~/.claude/settings.json.' },

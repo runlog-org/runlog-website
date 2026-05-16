@@ -49,6 +49,13 @@
   --color-state-warn:    #B45309;
   --color-state-error:   #B42318;
 
+  /* faux-terminal palette — fixed dark surface, so these stay constant
+     across light/dark. --term-call is the dark-mode brand indigo;
+     amber/teal are the qualitative accents from design.md §2.4. */
+  --color-term-call: #8A8AFF;
+  --color-term-str:  #FBBF24;
+  --color-term-ok:   #5EEAD4;
+
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
@@ -78,6 +85,9 @@
   --radius-md:   4px;
   --radius-lg:   6px;
   --radius-pill: 999px;
+
+  /* shared status/integration badge image height */
+  --badge-h: 20px;
 
   /* vertical rhythm — between top-level sections */
   --section-y: var(--space-10);
@@ -570,7 +580,7 @@
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
   .hero-terminal-tag {
-    color: #8A8AFF;
+    color: var(--color-term-call);
     font-weight: 600;
   }
   .hero-terminal-id {
@@ -590,11 +600,11 @@
   }
   /* token coloring — drawn from our brand + qualitative palette */
   .t-pmt  { color: rgba(255,255,255,0.32); }
-  .t-call { color: #8A8AFF; font-weight: 600; }       /* indigo (brand on dark) */
+  .t-call { color: var(--color-term-call); font-weight: 600; }  /* indigo (brand on dark) */
   .t-key  { color: rgba(255,255,255,0.55); }
-  .t-str  { color: #FBBF24; }                          /* qual amber */
+  .t-str  { color: var(--color-term-str); }                     /* qual amber */
   .t-resp { color: rgba(255,255,255,0.4); }
-  .t-ok   { color: #5EEAD4; font-weight: 600; }        /* qual teal */
+  .t-ok   { color: var(--color-term-ok); font-weight: 600; }    /* qual teal */
 
   @media (max-width: 36rem) {
     .hero-terminal { font-size: 0.75rem; padding: var(--space-4); }
@@ -819,7 +829,7 @@
     align-items: center;
     text-decoration: none;
   }
-  .status-line img { vertical-align: middle; height: 20px; }
+  .status-line img { vertical-align: middle; height: var(--badge-h); }
 
   .site-footer {
     @apply text-muted border-t border-border;
@@ -853,7 +863,7 @@
     margin-bottom: var(--space-6);
     font-size: 0.875rem;
   }
-  .site-badges img { vertical-align: middle; height: 20px; }
+  .site-badges img { vertical-align: middle; height: var(--badge-h); }
   .site-badges a { @apply text-muted; text-decoration: none; }
   .site-badges a:hover { @apply text-fg; }
   .site-badges a[aria-current] { @apply text-fg; font-weight: 600; }

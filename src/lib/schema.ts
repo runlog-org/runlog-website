@@ -17,13 +17,21 @@ export const ORGANIZATION_LD = {
   sameAs: ['https://github.com/runlog-org'],
 } as const;
 
+/** Reusable JSON-LD node references. Every page-type schema points its
+ *  `author` / `publisher` at the baseline Organization and `isPartOf`
+ *  at the baseline WebSite (both emitted once by Base.astro). Centralised
+ *  so the `${SITE_URL}/#…` `@id` strings have a single source instead of
+ *  being retyped across ~10 page front-matter blocks. */
+export const ORG_REF = { '@id': `${SITE_URL}/#organization` } as const;
+export const SITE_REF = { '@id': `${SITE_URL}/#website` } as const;
+
 export const WEBSITE_LD = {
   '@type': 'WebSite',
   '@id': `${SITE_URL}/#website`,
   url: `${SITE_URL}/`,
   name: SITE_NAME,
   description: SITE_DESCRIPTION,
-  publisher: { '@id': `${SITE_URL}/#organization` },
+  publisher: ORG_REF,
   inLanguage: 'en',
 } as const;
 
@@ -85,7 +93,7 @@ export function webPage(opts: {
     '@id': `${opts.url}#webpage`,
     name: opts.name,
     url: opts.url,
-    isPartOf: { '@id': `${SITE_URL}/#website` },
+    isPartOf: SITE_REF,
     inLanguage: 'en',
   };
   if (opts.description) item.description = opts.description;
@@ -105,9 +113,9 @@ export function blogPosting(opts: {
     description: opts.description,
     datePublished: opts.datePublished,
     url: opts.url,
-    author: { '@id': `${SITE_URL}/#organization` },
-    publisher: { '@id': `${SITE_URL}/#organization` },
-    isPartOf: { '@id': `${SITE_URL}/#website` },
+    author: ORG_REF,
+    publisher: ORG_REF,
+    isPartOf: SITE_REF,
     inLanguage: 'en',
   };
 }

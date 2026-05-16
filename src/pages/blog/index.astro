@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import { SITE_URL, pageBreadcrumb, pageUrl, isoDate } from '../../lib/schema';
+import { SITE_URL, ORG_REF, SITE_REF, pageBreadcrumb, pageUrl, isoDate } from '../../lib/schema';
 import { getCollection } from 'astro:content';
 
 const url = pageUrl('blog');
@@ -20,7 +20,7 @@ const blogPosts = posts.map((p) => ({
   description: p.data.description,
   datePublished: isoDate(p.data.pubDate),
   url: `${SITE_URL}/blog/${p.id}/`,
-  author: { '@id': `${SITE_URL}/#organization` },
+  author: ORG_REF,
 }));
 
 const graph = [
@@ -30,8 +30,8 @@ const graph = [
     url,
     name: 'Runlog Blog',
     description,
-    publisher: { '@id': `${SITE_URL}/#organization` },
-    isPartOf: { '@id': `${SITE_URL}/#website` },
+    publisher: ORG_REF,
+    isPartOf: SITE_REF,
     blogPost: blogPosts,
   },
   pageBreadcrumb({ name: 'Blog', url }),

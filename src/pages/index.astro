@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import StatusBadges from '../components/StatusBadges.astro';
-import { SITE_URL } from '../lib/schema';
+import { SITE_URL, ORG_REF } from '../lib/schema';
 import { agents } from '../lib/agents';
 
 const title = 'Runlog — the external-dependency layer for agent memory';
@@ -78,7 +78,7 @@ const graph = [
     url: `${SITE_URL}/`,
     description:
       'A cross-org registry of verified knowledge about third-party APIs, frameworks, and protocols, delivered to coding agents over MCP. Complements team-memory tools (CLAUDE.md, Cursor rules, mem0, Letta) — does not replace them.',
-    publisher: { '@id': `${SITE_URL}/#organization` },
+    publisher: ORG_REF,
     softwareHelp: { '@type': 'CreativeWork', url: `${SITE_URL}/trust/` },
   },
   {

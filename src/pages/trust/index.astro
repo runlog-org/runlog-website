@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import V01StatusCallout from '../../components/V01StatusCallout.astro';
+import FaqList from '../../components/FaqList.astro';
 import { SITE_URL, ORG_REF, SITE_REF, pageBreadcrumb, pageUrl, faqPage } from '../../lib/schema';
 
 const url = pageUrl('trust');
@@ -160,12 +161,7 @@ const graph = [
 
   <section aria-labelledby="faq-title" class="prose faq">
     <h2 id="faq-title">FAQ</h2>
-    {faqs.map((f) => (
-      <>
-        <h3>{f.q}</h3>
-        <p set:html={f.html} />
-      </>
-    ))}
+    <FaqList faqs={faqs} />
   </section>
 
   <section aria-labelledby="contribute-title" class="prose">

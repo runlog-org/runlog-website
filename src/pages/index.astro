@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import StatusBadges from '../components/StatusBadges.astro';
+import FaqList from '../components/FaqList.astro';
 import { SITE_URL, ORG_REF, faqPage } from '../lib/schema';
 import { agents } from '../lib/agents';
 
@@ -100,12 +101,12 @@ const graph = [
       A hobby side project by <a href="https://volkerotto.net">Volker Otto</a>, not a commercial product today.
     </p>
 
-    <div class="hero-terminal" aria-label="Example runlog_search exchange">
-      <div class="hero-terminal-head">
+    <div class="hero-terminal" role="img" aria-label="Example runlog_search call: searching tags stripe and webhooks for the replay-window default returns signed entry rl_a8c3f1 — Stripe webhook signature replay-window defaults to 5 minutes, not 30 seconds, sourced from stripe.com, signed 2026-04-19 by verifier v0.1.">
+      <div class="hero-terminal-head" aria-hidden="true">
         <span class="hero-terminal-tag">RUNLOG_SEARCH</span>
         <span class="hero-terminal-id">rl_a8c3f1</span>
       </div>
-<pre class="hero-terminal-body"><span class="t-pmt">$</span> <span class="t-call">runlog_search</span>(<span class="t-key">tags</span>: [<span class="t-str">"stripe"</span>, <span class="t-str">"webhooks"</span>], <span class="t-key">query</span>: <span class="t-str">"replay-window default"</span>)
+<pre class="hero-terminal-body" aria-hidden="true"><span class="t-pmt">$</span> <span class="t-call">runlog_search</span>(<span class="t-key">tags</span>: [<span class="t-str">"stripe"</span>, <span class="t-str">"webhooks"</span>], <span class="t-key">query</span>: <span class="t-str">"replay-window default"</span>)
 <span class="t-resp">→</span> entry rl_a8c3f1   <span class="t-ok">signed ✓</span>
    <span class="t-key">fact</span>     Stripe webhook signature replay-window defaults to 5 min, not 30s
    <span class="t-key">src</span>      stripe.com/docs/webhooks#replay-window
@@ -244,12 +245,7 @@ const graph = [
 
   <section aria-labelledby="faq-title" class="prose faq">
     <h2 id="faq-title">FAQ</h2>
-    {faqs.map((f) => (
-      <>
-        <h3 set:html={f.qHtml} />
-        <p set:html={f.html} />
-      </>
-    ))}
+    <FaqList faqs={faqs} />
     <p class="meta faq-followup">
       More questions? <a href="/trust/#faq-title">Trust &amp; verification FAQ</a>
     </p>

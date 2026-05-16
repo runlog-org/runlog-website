@@ -1,0 +1,31 @@
+---
+// FaqList — the visible FAQ rendering shared by the homepage and /trust/.
+// Both pages keep a single `faqs` array that also feeds the FAQPage
+// JSON-LD via faqPage() in lib/schema; this component owns only the
+// `.faq`-section markup (numbered Q01/Q02 questions + answers) so the
+// `{faqs.map(...)}` block doesn't drift between the two consumers.
+//
+// Each item needs a question and an answer. The question may carry inline
+// markup (e.g. <code>CLAUDE.md</code>) — pass it as `qHtml`; otherwise the
+// plain `q` is rendered as text. The answer is always HTML (`html`).
+
+interface FaqEntry {
+  q: string;
+  /** Optional HTML form of the question (code/links). Falls back to `q`. */
+  qHtml?: string;
+  /** Answer markup. */
+  html: string;
+}
+
+interface Props {
+  faqs: readonly FaqEntry[];
+}
+
+const { faqs } = Astro.props;
+---
+{faqs.map((f) => (
+  <>
+    {f.qHtml ? <h3 set:html={f.qHtml} /> : <h3>{f.q}</h3>}
+    <p set:html={f.html} />
+  </>
+))}

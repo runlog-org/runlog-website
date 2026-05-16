@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import V01StatusCallout from '../../components/V01StatusCallout.astro';
-import { SITE_URL, ORG_REF, SITE_REF, pageBreadcrumb, pageUrl } from '../../lib/schema';
+import { SITE_URL, ORG_REF, SITE_REF, pageBreadcrumb, pageUrl, faqPage } from '../../lib/schema';
 
 const url = pageUrl('trust');
 const title = 'How trust works — Runlog';
@@ -49,15 +49,7 @@ const graph = [
     inLanguage: 'en',
     about: { '@id': `${SITE_URL}/#software` },
   },
-  {
-    '@type': 'FAQPage',
-    '@id': `${url}#faq`,
-    mainEntity: faqs.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
-    })),
-  },
+  faqPage(url, faqs),
 ];
 ---
 <Base

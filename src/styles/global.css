@@ -41,6 +41,7 @@
   --color-brand: #5B5BD6;
   --color-accent: #2D63E2;
   --color-tint: #EDEBFE;
+  --color-card: #FFFFFF;
   --color-code-bg: #F6F7F9;
   --color-on-brand: #FFFFFF;
   --color-ink: #0E1116;
@@ -55,6 +56,15 @@
   --color-term-call: #8A8AFF;
   --color-term-str:  #FBBF24;
   --color-term-ok:   #5EEAD4;
+
+  /* on-dark text ramp for the faux terminal — fixed white-alpha steps
+     so the prompt/key/response tokens stay one source instead of being
+     retyped as rgba(255,255,255,0.X) across six rules. */
+  --term-fg:   rgba(255, 255, 255, 0.85);
+  --term-key:  rgba(255, 255, 255, 0.55);
+  --term-resp: rgba(255, 255, 255, 0.4);
+  --term-pmt:  rgba(255, 255, 255, 0.32);
+  --term-rule: rgba(255, 255, 255, 0.08);
 
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -113,6 +123,7 @@
     --color-brand: #8A8AFF;
     --color-accent: #6CA0FF;
     --color-tint: #1E1B3A;
+    --color-card: #13161D;
     --color-code-bg: #0F1218;
     --color-ink: #F4F5F7;
 
@@ -450,7 +461,8 @@
   @media (min-width: 60rem) { .steps { grid-template-columns: repeat(4, 1fr); } }
 
   .step {
-    background: var(--color-code-bg);
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-5);
     text-decoration: none;
@@ -560,7 +572,7 @@
   /* faux-terminal proof block */
   .hero-terminal {
     background: var(--color-ink);
-    color: rgba(255,255,255,0.85);
+    color: var(--term-fg);
     border-radius: var(--radius-lg);
     padding: var(--space-5);
     margin: var(--space-8) 0;
@@ -577,14 +589,14 @@
     letter-spacing: 0.14em;
     margin-bottom: var(--space-3);
     padding-bottom: var(--space-3);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid var(--term-rule);
   }
   .hero-terminal-tag {
     color: var(--color-term-call);
     font-weight: 600;
   }
   .hero-terminal-id {
-    color: rgba(255,255,255,0.4);
+    color: var(--term-resp);
     font-feature-settings: "tnum";
   }
   .hero-terminal-body {
@@ -599,11 +611,11 @@
     overflow-x: auto;
   }
   /* token coloring — drawn from our brand + qualitative palette */
-  .t-pmt  { color: rgba(255,255,255,0.32); }
+  .t-pmt  { color: var(--term-pmt); }
   .t-call { color: var(--color-term-call); font-weight: 600; }  /* indigo (brand on dark) */
-  .t-key  { color: rgba(255,255,255,0.55); }
+  .t-key  { color: var(--term-key); }
   .t-str  { color: var(--color-term-str); }                     /* qual amber */
-  .t-resp { color: rgba(255,255,255,0.4); }
+  .t-resp { color: var(--term-resp); }
   .t-ok   { color: var(--color-term-ok); font-weight: 600; }    /* qual teal */
 
   @media (max-width: 36rem) {
@@ -622,7 +634,8 @@
   @media (min-width: 60rem) { .stats-headline { grid-template-columns: repeat(4, 1fr); } }
 
   .stat-card {
-    background: var(--color-code-bg);
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-5);
     display: flex;
@@ -762,7 +775,8 @@
     margin: var(--space-4) 0;
   }
   .grid-tease .tile {
-    @apply border border-border bg-code-bg text-fg;
+    @apply border border-border text-fg;
+    background: var(--color-card);
     display: block;
     padding: 0.6rem 0.8rem;
     border-radius: var(--radius-md);

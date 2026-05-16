@@ -100,6 +100,26 @@ export function webPage(opts: {
   return item;
 }
 
+/** Minimal FAQ shape — the visible answer markup (`html`) stays in the
+ *  page; only the plain-text `a` feeds the schema.org `Answer`. */
+export type FaqItem = { q: string; a: string };
+
+/** Build a schema.org `FAQPage` node. The homepage and /trust/ both ship
+ *  a FAQ; this owns the `@id` + `mainEntity` mapping so the two don't
+ *  drift. `anchorUrl` is the page's canonical URL — the node id is
+ *  `${anchorUrl}#faq`, matching the in-page `#faq-title` section. */
+export function faqPage(anchorUrl: string, faqs: readonly FaqItem[]) {
+  return {
+    '@type': 'FAQPage',
+    '@id': `${anchorUrl}#faq`,
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
+}
+
 export function blogPosting(opts: {
   url: string;
   headline: string;

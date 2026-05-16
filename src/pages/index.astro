@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import StatusBadges from '../components/StatusBadges.astro';
-import { SITE_URL, ORG_REF } from '../lib/schema';
+import { SITE_URL, ORG_REF, faqPage } from '../lib/schema';
 import { agents } from '../lib/agents';
 
 const title = 'Runlog — the external-dependency layer for agent memory';
@@ -81,15 +81,7 @@ const graph = [
     publisher: ORG_REF,
     softwareHelp: { '@type': 'CreativeWork', url: `${SITE_URL}/trust/` },
   },
-  {
-    '@type': 'FAQPage',
-    '@id': `${SITE_URL}/#faq`,
-    mainEntity: faqs.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
-    })),
-  },
+  faqPage(`${SITE_URL}/`, faqs),
 ];
 ---
 <Base

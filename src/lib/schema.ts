@@ -87,6 +87,7 @@ export function webPage(opts: {
   url: string;
   name: string;
   description?: string;
+  dateModified?: string;
 }) {
   const item: Record<string, unknown> = {
     '@type': 'WebPage',
@@ -97,6 +98,7 @@ export function webPage(opts: {
     inLanguage: 'en',
   };
   if (opts.description) item.description = opts.description;
+  if (opts.dateModified) item.dateModified = opts.dateModified;
   return item;
 }
 

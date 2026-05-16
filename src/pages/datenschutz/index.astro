@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
-import { SITE_URL, pageBreadcrumb, pageUrl } from '../../lib/schema';
+import { pageBreadcrumb, pageUrl, webPage } from '../../lib/schema';
 import { OPERATOR_EMAIL } from '../../lib/operator';
 
 const url = pageUrl('datenschutz');
@@ -12,15 +12,7 @@ const dateModified = '2026-05-05';
 
 const graph = [
   pageBreadcrumb({ name: 'Datenschutz', url }),
-  {
-    '@type': 'WebPage',
-    '@id': `${url}#page`,
-    name: 'Privacy Notice',
-    url,
-    isPartOf: { '@id': `${SITE_URL}/#website` },
-    inLanguage: 'en',
-    dateModified,
-  },
+  webPage({ url, name: 'Privacy Notice', description, dateModified }),
 ];
 ---
 <Base

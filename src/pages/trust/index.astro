@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import V01StatusCallout from '../../components/V01StatusCallout.astro';
 import FaqList from '../../components/FaqList.astro';
-import { SITE_URL, ORG_REF, SITE_REF, pageBreadcrumb, pageUrl, faqPage } from '../../lib/schema';
+import { pageBreadcrumb, pageUrl, faqPage, techArticle } from '../../lib/schema';
 
 const url = pageUrl('trust');
 const title = 'How trust works — Runlog';
@@ -39,17 +39,7 @@ const faqs = [
 
 const graph = [
   pageBreadcrumb({ name: 'How trust works', url }),
-  {
-    '@type': 'TechArticle',
-    '@id': `${url}#article`,
-    headline: 'How trust works',
-    description,
-    url,
-    publisher: ORG_REF,
-    isPartOf: SITE_REF,
-    inLanguage: 'en',
-    about: { '@id': `${SITE_URL}/#software` },
-  },
+  techArticle({ url, headline: 'How trust works', description, about: true }),
   faqPage(url, faqs),
 ];
 ---

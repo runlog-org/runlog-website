@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import AddMcpHostKeyNote from '../../components/AddMcpHostKeyNote.astro';
-import { ORG_REF, SITE_REF, pageBreadcrumb, pageUrl } from '../../lib/schema';
+import { pageBreadcrumb, pageUrl, howTo } from '../../lib/schema';
 
 const url = pageUrl('quickstart');
 const title = 'Quickstart — Runlog';
@@ -11,24 +11,18 @@ const description =
 
 const graph = [
   pageBreadcrumb({ name: 'Quickstart', url }),
-  {
-    '@type': 'HowTo',
-    '@id': `${url}#howto`,
+  howTo({
+    url,
     name: 'Quickstart — Set up Runlog',
     description,
-    url,
-    inLanguage: 'en',
     datePublished: '2026-05-03',
-    author: ORG_REF,
-    publisher: ORG_REF,
-    isPartOf: SITE_REF,
-    step: [
-      { '@type': 'HowToStep', position: 1, name: 'Register and grab a key', text: 'Register an email, click the verification link, and copy the API key.' },
-      { '@type': 'HowToStep', position: 2, name: 'Wire the MCP server into Claude Code', text: 'Run npx add-mcp https://api.runlog.org/mcp -a claude-code or hand-edit ~/.claude/settings.json.' },
-      { '@type': 'HowToStep', position: 3, name: 'Drop in the client skill', text: 'Copy skills/claude-code/SKILL.md into ~/.claude/skills/runlog/SKILL.md to teach Claude the four-point contract.' },
-      { '@type': 'HowToStep', position: 4, name: 'Use Claude normally', text: 'Describe the problem; Claude decides when to query Runlog automatically.' },
+    steps: [
+      { name: 'Register and grab a key', text: 'Register an email, click the verification link, and copy the API key.' },
+      { name: 'Wire the MCP server into Claude Code', text: 'Run npx add-mcp https://api.runlog.org/mcp -a claude-code or hand-edit ~/.claude/settings.json.' },
+      { name: 'Drop in the client skill', text: 'Copy skills/claude-code/SKILL.md into ~/.claude/skills/runlog/SKILL.md to teach Claude the four-point contract.' },
+      { name: 'Use Claude normally', text: 'Describe the problem; Claude decides when to query Runlog automatically.' },
     ],
-  },
+  }),
 ];
 ---
 <Base

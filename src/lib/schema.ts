@@ -139,3 +139,67 @@ export function blogPosting(opts: {
     inLanguage: 'en',
   };
 }
+
+/** Build a schema.org `TechArticle` node. Shared by /trust/,
+ *  /why-verification/, and /agents/ — each previously hand-rolled the
+ *  same `@id`/`url`/`publisher`/`isPartOf`/`inLanguage` boilerplate, the
+ *  exact drift this file exists to eliminate. The node id is
+ *  `${url}#article`, matching the in-page article anchor. `about` points
+ *  at the homepage SoftwareApplication when set; `datePublished` is
+ *  emitted only when provided (the design-rationale articles omit it). */
+export function techArticle(opts: {
+  url: string;
+  headline: string;
+  description: string;
+  about?: boolean;
+  datePublished?: string;
+}) {
+  const item: Record<string, unknown> = {
+    '@type': 'TechArticle',
+    '@id': `${opts.url}#article`,
+    headline: opts.headline,
+    description: opts.description,
+    url: opts.url,
+    author: ORG_REF,
+    publisher: ORG_REF,
+    isPartOf: SITE_REF,
+    inLanguage: 'en',
+  };
+  if (opts.datePublished) item.datePublished = opts.datePublished;
+  if (opts.about) item.about = { '@id': `${SITE_URL}/#software` };
+  return item;
+}
+
+export type HowToStep = { name: string; text: string };
+
+/** Build a schema.org `HowTo` node. Used by /quickstart/; owns the same
+ *  `@id`/`url`/`publisher`/`isPartOf`/`inLanguage` baseline as the other
+ *  page-type helpers so the quickstart front-matter stops re-typing it.
+ *  `steps` are mapped to positioned `HowToStep` children. */
+export function howTo(opts: {
+  url: string;
+  name: string;
+  description: string;
+  datePublished?: string;
+  steps: readonly HowToStep[];
+}) {
+  const item: Record<string, unknown> = {
+    '@type': 'HowTo',
+    '@id': `${opts.url}#howto`,
+    name: opts.name,
+    description: opts.description,
+    url: opts.url,
+    author: ORG_REF,
+    publisher: ORG_REF,
+    isPartOf: SITE_REF,
+    inLanguage: 'en',
+    step: opts.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
+  };
+  if (opts.datePublished) item.datePublished = opts.datePublished;
+  return item;
+}

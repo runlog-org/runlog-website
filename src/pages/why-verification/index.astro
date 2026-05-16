@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import V01StatusCallout from '../../components/V01StatusCallout.astro';
-import { SITE_URL, ORG_REF, SITE_REF, pageBreadcrumb, pageUrl } from '../../lib/schema';
+import { pageBreadcrumb, pageUrl, techArticle } from '../../lib/schema';
 
 const url = pageUrl('why-verification');
 const title = 'Why local verification is the whole product — Runlog';
@@ -13,17 +13,12 @@ const ogDescription =
 
 const graph = [
   pageBreadcrumb({ name: 'Why verification', url }),
-  {
-    '@type': 'TechArticle',
-    '@id': `${url}#article`,
+  techArticle({
+    url,
     headline: 'Why local verification is the whole product',
     description,
-    url,
-    publisher: ORG_REF,
-    isPartOf: SITE_REF,
-    inLanguage: 'en',
-    about: { '@id': `${SITE_URL}/#software` },
-  },
+    about: true,
+  }),
 ];
 ---
 <Base

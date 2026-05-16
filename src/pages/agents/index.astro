@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Crumbs from '../../components/Crumbs.astro';
 import AddMcpHostKeyNote from '../../components/AddMcpHostKeyNote.astro';
-import { ORG_REF, SITE_REF, pageBreadcrumb, pageUrl } from '../../lib/schema';
+import { pageBreadcrumb, pageUrl, techArticle } from '../../lib/schema';
 import { agents } from '../../lib/agents';
 
 const url = pageUrl('agents');
@@ -12,19 +12,12 @@ const description =
 
 const graph = [
   pageBreadcrumb({ name: 'Agents', url }),
-  {
-    '@type': 'TechArticle',
-    '@id': `${url}#article`,
-    name: 'Agents that work with Runlog',
+  techArticle({
+    url,
     headline: 'Agents that work with Runlog',
     description,
-    url,
-    inLanguage: 'en',
     datePublished: '2026-05-03',
-    author: ORG_REF,
-    publisher: ORG_REF,
-    isPartOf: SITE_REF,
-  },
+  }),
 ];
 ---
 <Base

@@ -1,0 +1,67 @@
+---
+import Base from '../../layouts/Base.astro';
+import { pageBreadcrumb, pageUrl, webPage } from '../../lib/schema';
+
+const url = pageUrl('login');
+const title = 'Sign in — Runlog';
+const description =
+  'Sign in to your Runlog account with a passwordless email link. No password required — we send a one-time link valid for about an hour.';
+
+const graph = [
+  pageBreadcrumb({ name: 'Sign in', url }),
+  webPage({ url, name: 'Sign in to Runlog', description }),
+];
+---
+<Base
+  title={title}
+  description={description}
+  canonical={url}
+  dataNoNumber
+  graph={graph}
+>
+  <h1>Sign in to Runlog</h1>
+  <p>
+    No password needed. Enter your email address and we'll send you a one-time
+    sign-in link. The link is valid for about an hour.
+  </p>
+  <form id="login-form" data-api-base="https://api.runlog.org">
+    <label class="form-label" for="email">Email address</label>
+    <input
+      class="form-input"
+      type="email"
+      id="email"
+      name="email"
+      required
+      autocomplete="email"
+      placeholder="you@example.com"
+    >
+    <div
+      class="cf-turnstile"
+      data-sitekey="0x4AAAAAADJpmHztG77rDJ0F"
+      data-callback="onTurnstileSuccess"
+      data-error-callback="onTurnstileError"
+      data-expired-callback="onTurnstileExpired"
+    ></div>
+    <button class="form-button" type="submit" disabled>Send sign-in link</button>
+  </form>
+  <div id="status" role="status" aria-live="polite"></div>
+
+  <p lang="en">
+    Submitting your email is processed by the data controller (see
+    <a href="/impressum/">Impressum</a>) for the sole purpose of sending you a
+    one-time sign-in link. No use beyond authentication, no third-party sharing
+    beyond the email-delivery service and Cloudflare's bot-detection challenge.
+    Full disclosure: <a href="/datenschutz/">Privacy Notice</a>.
+  </p>
+  <p lang="de">
+    Mit dem Absenden wird Deine E-Mail-Adresse vom Verantwortlichen (siehe
+    <a href="/impressum/">Impressum</a>) ausschließlich zum Versand eines
+    Einmal-Anmeldelinks verarbeitet. Keine darüber hinausgehende Nutzung,
+    keine Weitergabe außer an den E-Mail-Dienstleister und Cloudflares
+    Bot-Abwehrdienst. Vollständige Auskunft:
+    <a href="/datenschutz/">Datenschutzerklärung</a>.
+  </p>
+
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script is:inline src="/assets/js/account-app.js" defer></script>
+</Base>

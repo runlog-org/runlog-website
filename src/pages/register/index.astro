@@ -3,13 +3,13 @@ import Base from '../../layouts/Base.astro';
 import { pageBreadcrumb, pageUrl, webPage } from '../../lib/schema';
 
 const url = pageUrl('register');
-const title = 'Register — Runlog';
+const title = 'Sign in — Runlog';
 const description =
-  'Register an email address to receive a Runlog API key for use with MCP-capable coding agents.';
+  'Runlog uses passwordless email-link sign-in. There is no separate registration step — sign in with your email to access your account and API keys.';
 
 const graph = [
   pageBreadcrumb({ name: 'Register', url }),
-  webPage({ url, name: 'Get a Runlog API key', description }),
+  webPage({ url, name: 'Sign in to Runlog', description }),
 ];
 ---
 <Base
@@ -19,55 +19,32 @@ const graph = [
   dataNoNumber
   graph={graph}
 >
-  <h1>Get a Runlog API key</h1>
+  <h1>Registration is now sign-in</h1>
   <p>
-    Runlog is the external-dependency knowledge layer for your agent — a cross-org
-    registry of verified knowledge about public APIs, frameworks, and protocols.
-    Registering gives you an API key you'll paste into your MCP client's config.
+    Runlog moved to passwordless email-link sign-in. There is no separate registration
+    step — enter your email on the sign-in page and you'll receive a one-time link.
+    Once signed in, you can manage your API keys from your account dashboard.
   </p>
-  <form id="register-form" data-api-base="https://api.runlog.org">
-    <label class="form-label" for="email">Email address</label>
-    <input
-      class="form-input"
-      type="email"
-      id="email"
-      name="email"
-      required
-      autocomplete="email"
-      placeholder="you@example.com"
-    >
-    <div
-      class="cf-turnstile"
-      data-sitekey="0x4AAAAAADJpmHztG77rDJ0F"
-      data-callback="onTurnstileSuccess"
-      data-error-callback="onTurnstileError"
-      data-expired-callback="onTurnstileExpired"
-    ></div>
-    <button class="form-button" type="submit" disabled>Send verification link</button>
-  </form>
-  <div id="status" role="status" aria-live="polite"></div>
+  <p><a class="form-button" href="/login/">Sign in</a></p>
 
   <p lang="en">
-    Submitting your email is processed by the data controller (see
-    <a href="/impressum/">Impressum</a>) for the sole purpose of issuing your API key
-    and binding it to your account. No use beyond issuance, no third-party sharing
-    beyond the email-delivery service and Cloudflare's bot-detection challenge. Full disclosure: <a href="/datenschutz/">Privacy Notice</a>.
+    When you sign in, your email address is processed by the data controller (see
+    <a href="/impressum/">Impressum</a>) for the sole purpose of authenticating your
+    account. No use beyond authentication, no third-party sharing beyond the
+    email-delivery service. Full disclosure: <a href="/datenschutz/">Privacy Notice</a>.
   </p>
   <p lang="de">
-    Mit dem Absenden wird Deine E-Mail-Adresse vom Verantwortlichen (siehe
-    <a href="/impressum/">Impressum</a>) ausschließlich zur Ausstellung Deines API-Keys
-    und zur Bindung an Dein Konto verarbeitet. Keine darüber hinausgehende Nutzung,
-    keine Weitergabe außer an den E-Mail-Dienstleister und Cloudflares Bot-Abwehrdienst.
+    Bei der Anmeldung wird Deine E-Mail-Adresse vom Verantwortlichen (siehe
+    <a href="/impressum/">Impressum</a>) ausschließlich zur Authentifizierung Deines
+    Kontos verarbeitet. Keine darüber hinausgehende Nutzung, keine Weitergabe außer
+    an den E-Mail-Dienstleister.
     Vollständige Auskunft: <a href="/datenschutz/">Datenschutzerklärung</a>.
   </p>
 
   <p>
     Once you have a key, head to <a href="/quickstart/">Quickstart</a> for the 4-step setup
-    (register &rarr; wire MCP &rarr; drop in the skill &rarr; use Claude normally) or browse
+    (sign in &rarr; wire MCP &rarr; drop in the skill &rarr; use Claude normally) or browse
     <a href="/agents/">Agents</a> for the per-vendor install paths covering Claude Code,
     Cursor, Cline, Continue, Windsurf, Aider, VS Code Copilot, JetBrains AI, and Zed.
   </p>
-
-  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  <script is:inline src="/assets/js/register-app.js" defer></script>
 </Base>

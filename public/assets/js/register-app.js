@@ -11,9 +11,7 @@
 
   const path = location.pathname.replace(/\/$/, '');
 
-  if (path.endsWith('/register')) {
-    initIndex();
-  } else if (path.endsWith('/register/verify')) {
+  if (path.endsWith('/register/verify')) {
     document.addEventListener('DOMContentLoaded', initVerify);
   }
 

@@ -1,6 +1,6 @@
 // account-app.js — account flow for runlog.org (login, verify, dashboard)
 // Vanilla JS, ES2020, no framework, no build step.
-// Dispatches on location.pathname: /login → login flow.
+// Dispatches on location.pathname: /login → login flow, /login/verify → verify flow.
 
 (function () {
   'use strict';
@@ -9,6 +9,10 @@
 
   if (path.endsWith('/login')) {
     initLogin();
+  }
+
+  if (path.endsWith('/login/verify')) {
+    document.addEventListener('DOMContentLoaded', initLoginVerify);
   }
 
   // ── API base validation ────────────────────────────────────────────────
@@ -147,6 +151,115 @@
         submitBtn.disabled = false;
       }
     });
+  }
+
+  // ── Login verify page (/login/verify) ────────────────────────────────────
+
+  function initLoginVerify() {
+    const btn = document.getElementById('confirm-btn');
+    const status = document.getElementById('status');
+    const host = document.querySelector('[data-api-base]');
+    const apiBase = resolveApiBase(host && host.dataset.apiBase);
+
+    const params = new URLSearchParams(location.search);
+    const token = params.get('token');
+
+    if (!token) {
+      showStatus(buildInfoBox('error', [
+        'No sign-in token found. Please check the link in your email or ',
+        { href: '/login/', text: 'request a new sign-in link' },
+        '.',
+      ]));
+      if (btn) btn.disabled = true;
+      return;
+    }
+
+    if (!apiBase) {
+      showStatus(buildInfoBox('error', [
+        'Configuration error. Please try ',
+        { href: '/login/', text: 'signing in again' },
+        '.',
+      ]));
+      if (btn) btn.disabled = true;
+      return;
+    }
+
+    if (!btn) return;
+
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+
+      let resp;
+      try {
+        resp = await fetch(`${apiBase}/auth/login/verify`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token }),
+        });
+      } catch (err) {
+        console.warn('runlog login/verify fetch error:', err);
+        showStatus(buildInfoBox('error', [
+          'Could not reach the server. Please try ',
+          { href: '/login/', text: 'signing in again' },
+          '.',
+        ]));
+        btn.disabled = false;
+        return;
+      }
+
+      if (resp.ok) {
+        showStatus(buildInfoBox('success', [
+          'You\'re signed in. Taking you to your account…',
+        ]));
+        window.location.assign('/account/');
+        return;
+      }
+
+      let errType = '';
+      try {
+        const body = await resp.json();
+        errType = (body && body.error && body.error.type) || '';
+      } catch {
+        // ignore parse failure; fall through to status-based messages
+      }
+
+      switch (resp.status) {
+        case 404:
+          showStatus(buildInfoBox('error', [
+            'This sign-in link is not recognised. Please try ',
+            { href: '/login/', text: 'requesting a new one' },
+            '.',
+          ]));
+          break;
+        case 410:
+          showStatus(buildInfoBox('error', [
+            'This link has already been used or has expired. Each sign-in link can only be used once. Please ',
+            { href: '/login/', text: 'request a new sign-in link' },
+            '.',
+          ]));
+          break;
+        case 429:
+          showStatus(buildInfoBox('warn', [
+            'Too many requests. Please wait a moment and try again.',
+          ]));
+          btn.disabled = false;
+          break;
+        default:
+          showStatus(buildInfoBox('error', [
+            'Something went wrong. Please try ',
+            { href: '/login/', text: 'signing in again' },
+            '.',
+          ]));
+      }
+
+      void errType; // consumed for future fine-grained messages
+    });
+
+    function showStatus(node) {
+      while (status.firstChild) status.removeChild(status.firstChild);
+      status.appendChild(node);
+    }
   }
 
   function appendParts(parent, parts) {

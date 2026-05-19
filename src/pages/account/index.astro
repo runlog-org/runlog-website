@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import { pageBreadcrumb, pageUrl, webPage } from '../../lib/schema';
+
+const url = pageUrl('account');
+const title = 'Your account — Runlog';
+const description = 'Manage your Runlog API keys, view submission stats, and control your account.';
+
+const graph = [
+  pageBreadcrumb({ name: 'Your account', url }),
+  webPage({ url, name: 'Your Runlog account', description }),
+];
+---
+<Base
+  title={title}
+  description={description}
+  canonical={url}
+  noindex
+  dataNoNumber
+  graph={graph}
+>
+  <div data-api-base="https://api.runlog.org">
+    <h1>Your account</h1>
+
+    <div id="status" role="status" aria-live="polite"></div>
+
+    <section id="keys-section">
+      <h2>API keys</h2>
+      <div id="keys-list"></div>
+      <button id="create-key-btn" class="form-button" type="button">Create key</button>
+      <div id="keys-status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="stats-section">
+      <h2>Submission stats</h2>
+      <div id="stats-panel"></div>
+    </section>
+
+    <section id="session-section">
+      <h2>Session</h2>
+      <button id="logout-btn" class="form-button" type="button">Sign out</button>
+    </section>
+
+    <section id="delete-section">
+      <h2>Delete account</h2>
+      <p>
+        Deleting your account is permanent and immediate. Your API keys will be
+        revoked and your email address unlinked. Submitted findings are retained
+        under an anonymous identifier (see our
+        <a href="/datenschutz/">Privacy Notice</a>).
+      </p>
+      <label class="form-label" for="delete-email-input">
+        Confirm your email address to continue
+      </label>
+      <input
+        class="form-input"
+        type="email"
+        id="delete-email-input"
+        name="delete-email"
+        autocomplete="email"
+        placeholder="your@email.com"
+      >
+      <button id="delete-account-btn" class="form-button" type="button" disabled>
+        Delete my account
+      </button>
+      <div id="delete-status" role="status" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <script is:inline src="/assets/js/account-app.js" defer></script>
+</Base>
